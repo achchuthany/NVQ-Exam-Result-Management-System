@@ -8,14 +8,10 @@
     </head>
     <body class="d-flex flex-column h-100">
     @include('includes.menu')
-    <div class="container">
+    <div class="container mb-5">
        @yield('content')
     </div>
-    <footer class="footer mt-auto py-3">
-        <div class="container">
-          <span class="text-muted">Place sticky footer content here.</span>
-        </div>
-      </footer>
+    @include('includes.footer')
         <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
     </body>
 </html>
