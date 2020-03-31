@@ -9,6 +9,8 @@
     <body class="d-flex flex-column h-100">
     @include('includes.menu')
     <div class="container mb-5">
+       @include('includes.message')
+       @include('includes.errors')
        @yield('content')
     </div>
     @include('includes.footer')

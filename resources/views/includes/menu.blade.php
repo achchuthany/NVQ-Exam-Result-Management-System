@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm  mb-2">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm  mb-2">
     <div class="container">
         <a class="navbar-brand" href="#">ERMS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,10 +15,10 @@
                 Academic
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Departments</a>
-                <a class="dropdown-item" href="#">Courses</a>
+                <a class="dropdown-item" href="{{route('nvqs')}}">NVQ Levels</a>
+                <a class="dropdown-item" href="{{route('departments')}}">Departments</a>
+                <a class="dropdown-item" href="{{route('courses')}}">Courses</a>
                 <a class="dropdown-item" href="#">Modules</a>
-                <a class="dropdown-item" href="#">NVQ Levels</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Academic Years</a>
               </div>
