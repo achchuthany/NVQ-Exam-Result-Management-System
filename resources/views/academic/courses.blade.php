@@ -122,7 +122,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="department_save" type="button" class="btn btn-primary">Save</button>
+          <button id="course_save" type="button" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@
   
   <script>
     var token = '{{ Session::token() }}';
-    var urlEdit = '{{ route('departments.edit') }}';
+    var urlEdit = '{{ route('courses.edit') }}';
     
   </script>
 @endsection

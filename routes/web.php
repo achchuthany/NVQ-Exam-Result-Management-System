@@ -74,3 +74,7 @@ Route::post('/courses/create',[
     'uses' => 'CourseController@postCourseCreate',
     'as' => 'courses.create'
 ]);
+Route::post('/courses/edit',[
+    'uses' => 'CourseController@postEditCourse',
+    'as' => 'courses.edit'
+]);

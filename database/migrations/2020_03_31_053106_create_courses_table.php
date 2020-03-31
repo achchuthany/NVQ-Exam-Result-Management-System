@@ -14,14 +14,17 @@ class CreateCoursesTable extends Migration
     public function up()
     {
         Schema::create('courses', function (Blueprint $table) {
+            $table->bigInteger('department_id')->unsigned();
+            $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade');
+            $table->bigInteger('nvq_id')->unsigned();
+            $table->foreign('nvq_id')->references('id')->on('nvqs')->onUpdate('cascade');
             $table->id();
-            $table->integer('department_id');
-            $table->integer('nvq_id');
             $table->string('name');
             $table->integer('duration');
             $table->integer('ojt_duration'); 
             $table->tinyInteger('status')->default(1);   
             $table->timestamps();
+            
         });
     }
 

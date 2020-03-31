@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Nvq;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class NvqController extends Controller
 {
@@ -40,7 +41,12 @@ class NvqController extends Controller
     }
     public function getDeletenvq($n_id){
         $nvq = Nvq::where('id',$n_id)->first();
-        $nvq->delete();
-        return redirect()->route('nvqs')->with(['message'=>'Successfully deleted!']);
+        try {
+            $nvq->delete();
+            $message = "NVQ Level Successfully Deleted!";
+        } catch (QueryException  $e) {       
+            $message = "NVQ Level was not Deleted, Try Again!";
+        } 
+        return redirect()->route('nvqs')->with(['message'=>$message]);
     }
 }

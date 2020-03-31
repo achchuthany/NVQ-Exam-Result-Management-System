@@ -50,4 +50,38 @@ class CourseController extends Controller
         }
         return redirect()->route('courses')->with(['message'=>$message]);
     }
+
+    public function postEditCourse(Request $request){
+        $this->validate($request,[
+            'name'=>'required|max:255',
+            'department_id' => 'required',
+            'nvq_id'=>'required',
+            'duration'=>'required|numeric',
+            'ojt_duration'=>'required|numeric'
+
+            ]);
+        $department = Department::find($request['department_id']);
+        if(!$department){
+            return null;
+        }
+        $nvq = Nvq::find($request['nvq_id']);
+        if(!$nvq){
+          return null;
+        }
+        $course = Course::find($request['course_id']);
+        $course->name = $request['name'];
+        $course->department_id = $request['department_id'];
+        $course->nvq_id = $request['nvq_id'];
+        $course->duration = $request['duration'];
+        $course->ojt_duration = $request['ojt_duration'];
+        $course->update();
+        return response()->json([
+            'course_id' => $course->id,
+            'name' => $course->name,
+            'department' => $course->department->name,
+            'nvq' => $course->nvq->name,
+            'duration' => $course->duration,
+            'ojt_duration' => $course->ojt_duration,
+        ], 200);
+    }
 }

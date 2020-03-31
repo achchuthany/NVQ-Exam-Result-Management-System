@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Department;
-use Illuminate\Support\Facades\DB;
-class DepartmentController extends Controller
+use Illuminate\Database\QueryException;
+class DepartmentController extends Controller 
 {
     public function getDerpartments(){
 
@@ -37,7 +37,13 @@ class DepartmentController extends Controller
     }
     public function getDeleteDepartment($d_id){
         $post = Department::where('id',$d_id)->first();
-        $post->delete();
-        return redirect()->route('departments')->with(['message'=>'Successfully deleted!']);
+        try {
+            $result = $post->delete();
+            $message = "Department Successfully Deleted!";
+        } catch (QueryException  $e) {       
+            $message = "Department was not Deleted, Try Again!";
+        }
+
+        return redirect()->route('departments')->with(['message'=>$message]);
     }
 }
