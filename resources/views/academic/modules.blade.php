@@ -18,7 +18,8 @@
         <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Module Name</th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
                 <th scope="col">Course Name</th>
                 <th scope="col">Learning Hours</th>
                 <th scope="col">Exam Type</th>
@@ -31,7 +32,8 @@
             <tbody>
               @foreach( $modules as $module)
               <tr>
-              <th>{{$module->name}}</th>        
+                <th>{{$module->code}}</th>        
+                <td>{{$module->name}}</td>        
                 <td>{{$module->course->name}}</td>
                 <td>{{$module->learning_hours}}</td>
                 <td>{{$exams["$module->exam_type"]}}</td>

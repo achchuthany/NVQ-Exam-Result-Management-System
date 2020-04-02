@@ -23,6 +23,7 @@ class ModuleController extends Controller
     public function postModuleCreate(Request $request){
         $this->validate($request,[
             'modulename'=>'required|max:255',
+            'code'=>'required|max:20',
             'coursename' => 'required|max:255',
             'notionalhours'=>'required|numeric',
             'lecturehours'=>'required|numeric',
@@ -38,6 +39,7 @@ class ModuleController extends Controller
         $module = new Module();
         $module->name = $request['modulename'];
         $module->course_id = $request['coursename'];
+        $module->code = $request['code'];
         $module->aim = $request['aim'];
         $module->learning_hours = $request['notionalhours'];
         $module->resources = $request['resources'];

@@ -15,11 +15,15 @@ Create a Modle
 </div>
 <form method="post" action="{{route('modules.create')}}">
   <div class="row">
+    <div class="col-md-2 mb-3">
+        <label for="code">Module Code</label>
+        <input type="text" class="form-control" id="code" name="code" maxlength="20" required>
+    </div>
       <div class="col-md-6 mb-3">
           <label for="modulename">Module Name</label>
           <input type="text" class="form-control" id="modulename" name="modulename" required>
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-4 mb-3">
           <label for="coursename">Course Name</label>
           <select class="custom-select d-block w-100" id="coursename" name="coursename" required>
           <option disabled selected >Select Course Name...</option>  
