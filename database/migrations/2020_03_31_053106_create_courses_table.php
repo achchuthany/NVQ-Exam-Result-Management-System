@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->bigInteger('nvq_id')->unsigned();
             $table->foreign('nvq_id')->references('id')->on('nvqs')->onUpdate('cascade');
             $table->id();
+            $table->string('code')->unique();
             $table->string('name');
             $table->integer('duration');
             $table->integer('ojt_duration'); 

@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('title')
-    Courses
+    Modules
 @endsection
 @section('content')
 <div class="row align-items-center">
     <div class="col-8">
-        <h4 class="pt-2"> Courses</h4>
+        <h4 class="pt-2"> Modules</h4>
     </div>
     <div class="col-4">
         <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <a type="button" class="btn btn-sm btn-primary" href="{{route('courses.create')}}">New</a>
+            <a type="button" class="btn btn-sm btn-primary" href="{{route('modules.create')}}">New</a>
         </div>
     </div>
 </div>
@@ -18,31 +18,29 @@
         <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">#ID</th>
+                <th scope="col">Module Name</th>
                 <th scope="col">Course Name</th>
-                <th scope="col">Department Name</th>
-                <th scope="col">NVQ</th>
-                <th scope="col">Duration</th>
-                <th scope="col">OJT Duration</th>
+                <th scope="col">Learning Hours</th>
+                <th scope="col">Exam Type</th>
+                <th scope="col">Semester</th>
                 <th scope="col">
                     Actions
                 </th>
               </tr>
             </thead>
             <tbody>
-              @foreach( $courses as $course)
+              @foreach( $modules as $module)
               <tr>
-              <th scope="row">{{$course->id}}</th>
-                <td>{{$course->name}}</td>
-                <td>{{$course->department->name}}</td>
-                <td>{{$course->nvq->name}}</td>
-                <td>{{$course->duration}}</td>
-                <td>{{$course->ojt_duration}}</td>
+              <th>{{$module->name}}</th>        
+                <td>{{$module->course->name}}</td>
+                <td>{{$module->learning_hours}}</td>
+                <td>{{$exams["$module->exam_type"]}}</td>
+                <td>{{$semesters["$module->semester_id"]}}</td>
                 <td>                    
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-sm btn-warning course-edit">Edit</button>
-                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('courses.delete',['id'=>$course->id]) }}">Delete</a>
-                    </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-sm btn-warning course-edit">Edit</button>
+                    <a type="button" class="btn btn-sm btn-danger" href="{{ route('modules.delete',['id'=>$module->id]) }}">Delete</a>
+                </div>
                 </td>
               </tr>
               @endforeach
@@ -53,11 +51,11 @@
             <ul class="pagination pagination-sm justify-content-end">
               <li class="page-item">
                 <span class="page-link">
-                Showing {{$courses->firstItem()}} to {{$courses->lastItem()}} of  {{$courses->total()}} entries
+                Showing {{$modules->firstItem()}} to {{$modules->lastItem()}} of  {{$modules->total()}} entries
                 </span>
               </li>
               <p>
-              {{ $courses->links() }}
+              {{ $modules->links() }}
               </p>
             </ul>
           </nav>
@@ -88,9 +86,7 @@
                             <label for="department_id">Department </label>
                             <select id="department_id" class="custom-select" name="department_id">
                                 <option value="null" disabled selected>--Select Department--</option>
-                                @foreach ($departments as $department)
-                                    <option value="{{$department->id}}">{{$department->name}}</option>
-                                @endforeach     
+                                   
                             </select>
                         </div>
                     </div>
@@ -99,9 +95,7 @@
                             <label for="nvq_id">NVQ Level</label>
                             <select id="nvq_id" class="custom-select" name="nvq_id">
                                 <option value="null" disabled selected>--Select NVQ Level--</option>
-                                @foreach ($nvqs as $nvq)
-                                    <option value="{{$nvq->id}}">{{$nvq->name}}</option>
-                                @endforeach      
+                                   
                             </select>
                         </div>
                     </div>

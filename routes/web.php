@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login',[
+    'uses' => 'UserController@getLoginIndex',
+    'as' => 'login'
+]);
+
 Route::get('/departments/create', function () {
     return view('academic.department');
 });
@@ -77,4 +82,26 @@ Route::post('/courses/create',[
 Route::post('/courses/edit',[
     'uses' => 'CourseController@postEditCourse',
     'as' => 'courses.edit'
+]);
+Route::get('/courses/{id}/delete',[
+    'uses'=>'CourseController@getDeleteCourse',
+    'as'=>'courses.delete'
+]);
+
+Route::get('/modules',[
+    'uses' => 'ModuleController@getModules',
+    'as' => 'modules'
+]);
+Route::get('/modules/create',[
+    'uses' => 'ModuleController@getModuleCreate',
+    'as' => 'modules.create'
+]);
+Route::post('/modules/create',[
+    'uses' => 'ModuleController@postModuleCreate',
+    'as' => 'modules.create'
+]);
+
+Route::get('/modules/{id}/delete',[
+    'uses'=>'ModuleController@getDeleteModule',
+    'as'=>'modules.delete'
 ]);

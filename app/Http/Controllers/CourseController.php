@@ -6,6 +6,7 @@ use App\Course;
 use App\Department;
 use App\Nvq;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class CourseController extends Controller
 {
@@ -83,5 +84,15 @@ class CourseController extends Controller
             'duration' => $course->duration,
             'ojt_duration' => $course->ojt_duration,
         ], 200);
+    }
+    public function getDeleteCourse($id){
+        $post = Course::where('id',$id)->first();
+        try {
+            $result = $post->delete();
+            $message = "Course Successfully Deleted!";
+        } catch (QueryException  $e) {       
+            $message = "Course was not Deleted, Try Again!";
+        }
+        return redirect()->route('courses')->with(['message'=>$message]);
     }
 }

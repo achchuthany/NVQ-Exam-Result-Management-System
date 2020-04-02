@@ -18,7 +18,7 @@
         <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">#ID</th>
+                <th scope="col">Code</th>
                 <th scope="col">Department Name</th>
                 <th scope="col">
                     Actions
@@ -27,8 +27,8 @@
             </thead>
             <tbody>
               @foreach( $departments as $department)
-              <tr>
-              <th scope="row">{{$department->id}}</th>
+            <tr data-did="{{$department->id}}">
+              <th scope="row">{{$department->code}}</th>
                 <td>{{$department->name}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
@@ -70,9 +70,13 @@
           <div class="row">
               <div class="col">
                   <form method="post" action="">
+                    <div class="form-group">
+                      <label for="code">Department Code</label>
+                      <input id="code" class="form-control" type="text" name="code" maxlength="3">
+                      </div>
                       <div class="form-group">
                           <label for="d_name">Department Name</label>
-                          <input id="d_name" class="form-control" type="text" name="d_name">
+                          <input id="d_name" class="form-control" type="text" name="d_name" maxlength="255">
                       </div>
 
                   </form>

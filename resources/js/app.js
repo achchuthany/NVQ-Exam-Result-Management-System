@@ -19,6 +19,7 @@ $('.department-edit').on('click', function(event) {
     postBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[3];
     var department_name = postBodyElement.textContent;
     $('#d_name').val(department_name);
+    $('#code').val(department_name);
     $('#departmentEditModal').modal('show');
 });
 

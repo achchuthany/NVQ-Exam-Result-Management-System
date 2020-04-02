@@ -12,15 +12,15 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Academic
+                Site Administration
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{route('nvqs')}}">NVQ Levels</a>
                 <a class="dropdown-item" href="{{route('departments')}}">Departments</a>
                 <a class="dropdown-item" href="{{route('courses')}}">Courses</a>
-                <a class="dropdown-item" href="#">Modules</a>
+                <a class="dropdown-item" href="{{route('modules')}}">Modules</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Academic Years</a>
+                <a class="dropdown-item" href="#">Users</a>
               </div>
             </li>
             <li class="nav-item dropdown">
