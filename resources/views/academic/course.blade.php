@@ -15,13 +15,20 @@ Create a Course
 </div>
 <form method="post" action="{{route('courses.create')}}">
 <div class="row align-items-center mt-2">
+    <div class="col-md-2 col-sm-12">
+        <div class="form-group">
+            <label for="code">Course Code</label>
+            <input id="code" class="form-control" type="text" name="code" maxlength="20">
+        </div>
+    </div>
+
     <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="name">Course Name</label>
                 <input id="name" class="form-control" type="text" name="name">
             </div>
     </div>
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="department_id">Department </label>
             <select id="department_id" class="custom-select" name="department_id">

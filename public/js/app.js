@@ -37425,6 +37425,7 @@
                 data: {
                     course_id: course_id,
                     name: $('#name').val(),
+                    code: $('#code').val(),
                     department_id: $('#department_id').val(),
                     nvq_id: $('#nvq_id').val(),
                     duration: $('#duration').val(),
@@ -37432,7 +37433,7 @@
                     _token: token
                 }
             }).done(function(msg) {
-                $(postBodyElement.childNodes[1]).text(msg['course_id']);
+                $(postBodyElement.childNodes[1]).text(msg['code']);
                 $(postBodyElement.childNodes[3]).text(msg['name']);
                 $(postBodyElement.childNodes[5]).text(msg['department']);
                 $(postBodyElement.childNodes[7]).text(msg['nvq']);
@@ -37443,14 +37444,16 @@
         });
         $('.course-edit').on('click', function(event) {
             event.preventDefault();
-            course_id = event.target.parentNode.parentNode.parentNode.childNodes[1].textContent;
+            course_id = event.target.parentNode.parentNode.parentNode.dataset['cid'];
             postBodyElement = event.target.parentNode.parentNode.parentNode;
+            var course_code = postBodyElement.childNodes[1].textContent;
             var course_name = postBodyElement.childNodes[3].textContent;
             var department_id = postBodyElement.childNodes[5].textContent;
             var nvq_id = postBodyElement.childNodes[7].textContent;
             var duration = postBodyElement.childNodes[9].textContent;
             var ojt_duration = postBodyElement.childNodes[11].textContent;
             $('#name').val(course_name);
+            $('#code').val(course_code);
             $('#duration').val(duration);
             $('#ojt_duration').val(ojt_duration);
             $('#department_id option:contains("' + department_id + '")').attr('selected', true);

@@ -25,6 +25,7 @@ class CourseController extends Controller
     public function postCourseCreate(Request $request){
         $this->validate($request,[
             'name'=>'required|max:255',
+            'code'=>'required|max:20',
             'department_id' => 'required',
             'nvq_id'=>'required',
             'duration'=>'required|numeric',
@@ -41,6 +42,7 @@ class CourseController extends Controller
         }
         $course = new Course();
         $course->name = $request['name'];
+        $course->code = $request['code'];
         $course->department_id = $request['department_id'];
         $course->nvq_id = $request['nvq_id'];
         $course->duration = $request['duration'];
@@ -55,6 +57,7 @@ class CourseController extends Controller
     public function postEditCourse(Request $request){
         $this->validate($request,[
             'name'=>'required|max:255',
+            'code'=>'required|max:20',
             'department_id' => 'required',
             'nvq_id'=>'required',
             'duration'=>'required|numeric',
@@ -71,6 +74,7 @@ class CourseController extends Controller
         }
         $course = Course::find($request['course_id']);
         $course->name = $request['name'];
+        $course->code = $request['code'];
         $course->department_id = $request['department_id'];
         $course->nvq_id = $request['nvq_id'];
         $course->duration = $request['duration'];
@@ -79,6 +83,7 @@ class CourseController extends Controller
         return response()->json([
             'course_id' => $course->id,
             'name' => $course->name,
+            'code' => $course->code,
             'department' => $course->department->name,
             'nvq' => $course->nvq->name,
             'duration' => $course->duration,

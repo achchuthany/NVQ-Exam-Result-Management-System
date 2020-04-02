@@ -18,8 +18,8 @@
         <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">#ID</th>
-                <th scope="col">Course Name</th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
                 <th scope="col">Department Name</th>
                 <th scope="col">NVQ</th>
                 <th scope="col">Duration</th>
@@ -31,8 +31,8 @@
             </thead>
             <tbody>
               @foreach( $courses as $course)
-              <tr>
-              <th scope="row">{{$course->id}}</th>
+              <tr data-cid="{{$course->id}}">
+              <th scope="row">{{$course->code}}</th>
                 <td>{{$course->name}}</td>
                 <td>{{$course->department->name}}</td>
                 <td>{{$course->nvq->name}}</td>
@@ -77,13 +77,19 @@
         <div class="modal-body">
             <form >
                 <div class="row align-items-center mt-2">
-                    <div class="col-md-6 col-sm-12">
+                  <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label for="code">Course Code</label>
+                        <input id="code" class="form-control" type="text" name="code" maxlength="20">
+                    </div>
+                  </div>
+                    <div class="col-md-8 col-sm-12">
                             <div class="form-group">
                                 <label for="name">Course Name</label>
                                 <input id="name" class="form-control" type="text" name="name">
                             </div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12">
                         <div class="form-group">
                             <label for="department_id">Department </label>
                             <select id="department_id" class="custom-select" name="department_id">
