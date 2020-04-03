@@ -21,6 +21,7 @@
                 <a class="dropdown-item" href="{{route('modules')}}">Modules</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{route('academics')}}">Academic Years</a>
+                <a class="dropdown-item" href="{{route('batches')}}">Batches</a>
               </div>
             </li>
             <li class="nav-item dropdown">

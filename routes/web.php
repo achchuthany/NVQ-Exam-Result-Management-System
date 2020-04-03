@@ -136,3 +136,24 @@ Route::get('/academics/{id}/delete',[
     'uses'=>'AcademicYearController@getDeleteAcademicYear',
     'as'=>'academics.delete'
 ]);
+
+Route::get('/batches',[
+    'uses' => 'BatchController@getBatches',
+    'as' => 'batches'
+]);
+Route::get('/batches/create',[
+    'uses' => 'BatchController@getBatchCreate',
+    'as' => 'batches.create'
+]);
+Route::post('/batches/create',[
+    'uses' => 'BatchController@postCreateBatch',
+    'as' => 'batches.create'
+]);
+Route::post('/batches/edit',[
+    'uses' => 'BatchController@postEditBatch',
+    'as' => 'batches.edit'
+]);
+Route::get('/batches/{id}/delete',[
+    'uses'=>'BatchController@getDeleteBatch',
+    'as'=>'batches.delete'
+]);

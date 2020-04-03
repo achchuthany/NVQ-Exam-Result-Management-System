@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Department;
 use App\Nvq;
 use App\Module;
-
+use App\Batch;
 class Course extends Model
 {
     public function department(){
@@ -17,5 +17,8 @@ class Course extends Model
     }  
     public function modules(){
         return $this->hasMany('App\Module');
-    }       
+    } 
+    public function batches(){
+        return $this->hasMany('App\Batch');
+    }      
 }
