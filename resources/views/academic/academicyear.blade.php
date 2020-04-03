@@ -22,7 +22,12 @@ Create a Academic Year
             </div>
             <div class="form-group col-md-6">
                 <label for="status">Status</label>
-                <input id="status" class="form-control" type="text" name="status" required>
+                <select class="custom-select d-block w-100" id="status" name="status" required>
+                    <option disabled selected >Select Status</option>
+                    @foreach($status as $id => $name) 
+                    <option value ="{{$name}}" >{{$name}}</option> 
+                    @endforeach
+                  </select>
             </div>
             <div class="form-group col-md-6">
                 <label for="start">Start Date</label>
