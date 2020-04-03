@@ -114,7 +114,10 @@ Route::get('/students/create',[
     'uses' => 'StudentController@getStudentCreate',
     'as' => 'students.create'
 ]);
-
+Route::post('/students/create',[
+    'uses' => 'StudentController@postCreateStudent',
+    'as' => 'students.create'
+]);
 
 Route::get('/academics',[
     'uses' => 'AcademicYearController@getAcademicYears',

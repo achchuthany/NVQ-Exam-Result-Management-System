@@ -28,18 +28,20 @@
               </tr>
             </thead>
             <tbody>
-              {{-- @foreach( $departments as $department)
-            <tr data-did="{{$department->id}}">
-              <th scope="row">{{$department->code}}</th>
-                <td>{{$department->name}}</td>
+              @foreach( $students as $student)
+            <tr data-did="{{$student->id}}">
+              <th scope="row">{{$student->reg_no}}</th>
+                <td>{{$student->fullname}}</td>
+                <td>{{$student->student_enroll->course->name}}</td>
+                <td>{{$student->phone}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-sm btn-warning department-edit">Edit</button>
-                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('departments.delete',['d_id'=>$department->id]) }}">Delete</a>
+                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('departments.delete',['d_id'=>$student->id]) }}">Delete</a>
                     </div>
                 </td>
               </tr>
-              @endforeach --}}
+              @endforeach
               
             </tbody>
           </table>
