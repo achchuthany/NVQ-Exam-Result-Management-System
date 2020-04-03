@@ -114,3 +114,25 @@ Route::get('/students/create',[
     'uses' => 'StudentController@getStudentCreate',
     'as' => 'students.create'
 ]);
+
+
+Route::get('/academics',[
+    'uses' => 'AcademicYearController@getAcademicYears',
+    'as' => 'academics'
+]);
+Route::get('/academics/create',[
+    'uses' => 'AcademicYearController@getAcademicYearCreate',
+    'as' => 'academics.create'
+]);
+Route::post('/academics/create',[
+    'uses' => 'AcademicYearController@postCreateAcademicYear',
+    'as' => 'academics.create'
+]);
+Route::post('/academics/edit',[
+    'uses' => 'AcademicYearController@postEditAcademicYear',
+    'as' => 'academics.edit'
+]);
+Route::get('/academics/{id}/delete',[
+    'uses'=>'AcademicYearController@getDeleteAcademicYear',
+    'as'=>'academics.delete'
+]);
