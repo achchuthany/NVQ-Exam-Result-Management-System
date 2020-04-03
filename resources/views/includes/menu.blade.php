@@ -28,7 +28,7 @@
                   Students
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Academic Years</a>
+                  <a class="dropdown-item" href="{{route('students')}}">Students</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

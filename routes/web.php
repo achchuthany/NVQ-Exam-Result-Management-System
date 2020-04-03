@@ -105,3 +105,12 @@ Route::get('/modules/{id}/delete',[
     'uses'=>'ModuleController@getDeleteModule',
     'as'=>'modules.delete'
 ]);
+
+Route::get('/students',[
+    'uses' => 'StudentController@getStudents',
+    'as' => 'students'
+]);
+Route::get('/students/create',[
+    'uses' => 'StudentController@getStudentCreate',
+    'as' => 'students.create'
+]);
