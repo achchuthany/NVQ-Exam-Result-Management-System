@@ -110,6 +110,19 @@ Route::get('/students',[
     'uses' => 'StudentController@getStudents',
     'as' => 'students'
 ]);
+Route::get('/students/batch/{id}',[
+    'uses' => 'StudentController@getStudentsbyBatch',
+    'as' => 'students.batch'
+]);
+Route::get('/students/course/{id}',[
+    'uses' => 'StudentController@getStudentsbyCourse',
+    'as' => 'students.course'
+]);
+Route::get('/students/academic/{id}',[
+    'uses' => 'StudentController@getStudentsbyAcademicYear',
+    'as' => 'students.academic'
+]);
+
 Route::get('/students/create',[
     'uses' => 'StudentController@getStudentCreate',
     'as' => 'students.create'

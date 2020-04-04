@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\AcademicYear;
+use App\Batch;
 use App\Course;
 use App\Student;
 use App\StudentEnroll;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -15,9 +17,33 @@ class StudentController extends Controller
     private $modes = array('Full Time', 'Part Time','Short Time');
     private $provinces = array('Central','Eastern','North Central','North Western','Northern','Sabaragamuwa','Southern','Uva','Western');
     public function getStudents(){
-        $students = Student::orderBy('reg_no','asc')->paginate(20);
+        $students = Student::orderBy('reg_no','asc')->paginate(30);
         return view('student.students',['students'=>$students]);
     }
+    public function getStudentsbyBatch($id){
+        $batch = Batch::where('id',$id)->first();
+        $students = Student::leftJoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
+                    ->select('student_id as id',"reg_no","title","fullname","shortname","gender","civil_status","email","nic","date_birth","phone","address","zip","district","divisional","province","blood","emergency_name","emergency_address","emergency_phone","emergency_relationship")
+                    ->where([['course_id',$batch->course_id],['academic_year_id',$batch->academic_year_id]])
+                    ->paginate(30);
+        return view('student.students',['students'=>$students]);
+    }
+    public function getStudentsbyCourse($id){
+        $students = Student::leftJoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
+                    ->select('student_id as id',"reg_no","title","fullname","shortname","gender","civil_status","email","nic","date_birth","phone","address","zip","district","divisional","province","blood","emergency_name","emergency_address","emergency_phone","emergency_relationship")
+                    ->where('course_id',$id)
+                    ->paginate(30);
+        return view('student.students',['students'=>$students]);
+    }
+    public function getStudentsbyAcademicYear($id){
+        $batch = Batch::where('id',$id)->first();
+        $students = Student::leftJoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
+                    ->select('student_id as id',"reg_no","title","fullname","shortname","gender","civil_status","email","nic","date_birth","phone","address","zip","district","divisional","province","blood","emergency_name","emergency_address","emergency_phone","emergency_relationship")
+                    ->where('academic_year_id',$id)
+                    ->paginate(30);
+        return view('student.students',['students'=>$students]);
+    }
+
     public function getStudentCreate(){
         $courses = Course::orderBy('name','asc')->get();
         $academicyears = AcademicYear::orderBy('name','desc')->get();
@@ -27,12 +53,12 @@ class StudentController extends Controller
 
     public function postCreateStudent(Request $request){
         $this->validate($request,[
-            'reg_no'=>'required',
+            'reg_no'=>'required|unique:students',
             'fullname'=>'required',
             'shortname'=>'required',
             'gender'=>'required',
-            'email'=>'required',
-            'nic'=>'required',
+            'email'=>'required|unique:students',
+            'nic'=>'required|unique:students',
             'date_birth'=>'required',
             'phone'=>'required',
             'academic_year_id'=>'required',

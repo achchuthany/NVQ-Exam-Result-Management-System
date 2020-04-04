@@ -4,12 +4,28 @@
 @endsection
 @section('content')
 <div class="row align-items-center">
-    <div class="col-8">
-        <h4 class="pt-2"> Students</h4>
+    <div class="col-md-4 col-xs-12">
+    <h4 class="pt-2"> Students
+      @if(Request::is('students/batch/*'))
+      <span class="badge badge-pill badge-light"> Batch View </span>
+      @endif
+      @if(Request::is('students/course/*'))
+      <span class="badge badge-pill badge-light"> Course View </span>
+      @endif
+      @if(Request::is('students/academic/*'))
+      <span class="badge badge-pill badge-light"> Academic Year View </span>
+      @endif
+      @if(Request::is('students'))
+      <span class="badge badge-pill badge-light"> All </span>
+      @endif
     </div>
-    <div class="col-4">
-        <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <a type="button" class="btn btn-sm btn-primary" href="{{route('students.create')}}">New</a>
+    <div class="col-md-8 col-xs-12">
+      <div class="btn-group float-right" role="group" aria-label="Basic example">
+        <a type="button" class="btn btn-sm btn-primary" href="{{route('students.create')}}">New</a>
+      </div>
+        <div class="btn-group float-right mx-2" role="group">
+          <input type="text" class="form-control form-control-sm" placeholder="Registration No.">
+        <button type="button" class="btn btn-sm btn-primary">Search</button>
         </div>
     </div>
 </div>
@@ -21,6 +37,7 @@
                 <th scope="col">Student ID</th>
                 <th scope="col">Student Name</th>
                 <th scope="col">Enrolled Course</th>
+                <th scope="col">Batch</th>
                 <th scope="col">Contact Number</th>
                 <th scope="col">
                     Actions
@@ -28,11 +45,13 @@
               </tr>
             </thead>
             <tbody>
+              
               @foreach( $students as $student)
             <tr data-did="{{$student->id}}">
-              <th scope="row">{{$student->reg_no}}</th>
+                <th scope="row">{{$student->reg_no}}</th>
                 <td>{{$student->fullname}}</td>
                 <td>{{$student->student_enroll->course->name}}</td>
+                <td>{{App\Batch:: where([['academic_year_id','=' ,$student->student_enroll->academic_year_id],['course_id','=' ,$student->student_enroll->course_id]])->first()->name}}</td>
                 <td>{{$student->phone}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
@@ -45,18 +64,18 @@
               
             </tbody>
           </table>
-          {{-- <nav>
+          <nav>
             <ul class="pagination pagination-sm justify-content-end">
               <li class="page-item">
                 <span class="page-link">
-                Showing {{$departments->firstItem()}} to {{$departments->lastItem()}} of  {{$departments->total()}} entries
+                Showing {{$students->firstItem()}} to {{$students->lastItem()}} of  {{$students->total()}} entries
                 </span>
               </li>
               <p>
-              {{ $departments->links() }}
+              {{ $students->links() }}
               </p>
             </ul>
-          </nav> --}}
+          </nav>
     </div>
 </div>
  

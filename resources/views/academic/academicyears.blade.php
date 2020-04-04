@@ -38,6 +38,7 @@
                 <td>{{$academicyear->status}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
+                      <a type="button" class="btn btn-sm btn-secondary" href="{{ route('students.academic',['id'=>$academicyear->id]) }}">Students</a>
                         <button type="button" class="btn btn-sm btn-warning nvq-edit">Edit</button>
                         <a type="button" class="btn btn-sm btn-danger" href="{{ route('academics.delete',['id'=>$academicyear->id]) }}">Delete</a>
                     </div>
