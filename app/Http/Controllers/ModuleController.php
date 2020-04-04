@@ -13,7 +13,14 @@ class ModuleController extends Controller
     private $exams = array('1'=>'Theory','2'=>'Practical','3'=>'Theory and Practical');
     public function getModules(){
 
-        $modules = Module::orderBy('id','asc')->paginate(10);
+        $modules = Module::orderBy('id','asc')->paginate(20);
+        return view('academic.modules',['modules' =>$modules,'semesters'=>$this->semesters,'exams'=>$this->exams]);
+    }
+    public function getModulesbyCourse($id){
+
+        $modules = Module::where('course_id',$id)
+                            ->orderBy('id','asc')
+                            ->paginate(20);
         return view('academic.modules',['modules' =>$modules,'semesters'=>$this->semesters,'exams'=>$this->exams]);
     }
     public function getModuleCreate(){

@@ -92,6 +92,11 @@ Route::get('/modules',[
     'uses' => 'ModuleController@getModules',
     'as' => 'modules'
 ]);
+Route::get('/modules/course/{id}',[
+    'uses' => 'ModuleController@getModulesbyCourse',
+    'as' => 'modules.course'
+]);
+
 Route::get('/modules/create',[
     'uses' => 'ModuleController@getModuleCreate',
     'as' => 'modules.create'

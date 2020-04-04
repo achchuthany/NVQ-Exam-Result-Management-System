@@ -40,7 +40,8 @@
                 <td>{{$course->ojt_duration}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
-                      <a type="button" class="btn btn-sm btn-secondary" href="{{ route('students.course',['id'=>$course->id]) }}">Students</a>
+                        <a type="button" class="btn btn-sm btn-secondary" href="{{ route('students.course',['id'=>$course->id]) }}">Students</a>
+                        <a type="button" class="btn btn-sm btn-secondary" href="{{ route('modules.course',['id'=>$course->id]) }}">Modules</a>
                         <button type="button" class="btn btn-sm btn-warning course-edit">Edit</button>
                         <a type="button" class="btn btn-sm btn-danger" href="{{ route('courses.delete',['id'=>$course->id]) }}">Delete</a>
                     </div>
