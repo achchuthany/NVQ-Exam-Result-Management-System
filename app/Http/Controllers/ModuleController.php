@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ModuleController extends Controller
 {
     private $semesters = array('1'=>'Semester 1','2'=>'Semester 2');
-    private $exams = array('1'=>'Theory','2'=>'Practical','3'=>'Theory and Practical');
+    private $exams = array('T'=>'Theory','P'=>'Practical','B'=>'Theory and Practical');
     public function getModules(){
 
         $modules = Module::orderBy('id','asc')->paginate(20);

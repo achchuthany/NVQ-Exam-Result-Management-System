@@ -37461,6 +37461,23 @@
             $('#courseEditModal').modal('show');
         });
 
+        $('#course_id').change(function(event) {
+            var course_id = this.value;
+            $.ajax({
+                method: 'POST',
+                url: urlModuleByCourse,
+                data: {
+                    id: course_id,
+                    _token: token
+                }
+            }).done(function(msg) {
+                $("#modules").empty();
+                $.each(msg['modules'], function() {
+                    $("#modules").append(new Option(this.name, this.id));
+                });
+            });
+        });
+
         /***/
     }),
 

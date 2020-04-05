@@ -196,3 +196,27 @@ Route::post('/employees/search',[
     'uses' => 'EmployeeController@postSearchEmployee',
     'as' => 'employees.search'
 ]);
+
+Route::get('/tvec/exams',[
+    'uses' => 'TvecExamController@getTvecExams',
+    'as' => 'tvec.exams'
+]);
+
+Route::get('/tvec/exams/create',[
+    'uses' => 'TvecExamController@getTvecExamCreate',
+    'as' => 'tvec.exams.create'
+]);
+Route::post('/tvec/exams/create',[
+    'uses' => 'TvecExamController@postTvecExamCreate',
+    'as' => 'tvec.exams.create'
+]);
+Route::get('/tvec/exams/{id}/delete',[
+    'uses'=>'TvecExamController@getDeleteTvecExam',
+    'as'=>'tvec.exams.delete'
+]);
+
+
+Route::post('/ajax/modules',[
+    'uses' => 'AjaxRequestController@postGetModulesbyCourse',
+    'as' => 'ajax.modules'
+]);
