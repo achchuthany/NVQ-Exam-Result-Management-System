@@ -136,6 +136,10 @@ Route::post('/students/create',[
     'uses' => 'StudentController@postCreateStudent',
     'as' => 'students.create'
 ]);
+Route::get('/students/{id}/delete',[
+    'uses'=>'StudentController@getDeleteStudent',
+    'as'=>'students.delete'
+]);
 
 Route::get('/academics',[
     'uses' => 'AcademicYearController@getAcademicYears',

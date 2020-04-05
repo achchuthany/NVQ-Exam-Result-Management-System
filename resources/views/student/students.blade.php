@@ -56,7 +56,7 @@
                 <td>                    
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-sm btn-warning department-edit">Edit</button>
-                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('departments.delete',['d_id'=>$student->id]) }}">Delete</a>
+                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('students.delete',['id'=>$student->id]) }}">Delete</a>
                     </div>
                 </td>
               </tr>

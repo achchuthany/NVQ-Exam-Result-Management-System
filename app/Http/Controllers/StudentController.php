@@ -8,7 +8,7 @@ use App\Course;
 use App\Student;
 use App\StudentEnroll;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class StudentController extends Controller
 {
@@ -95,6 +95,18 @@ class StudentController extends Controller
             $enroll->student_id = $student->id;
             $enroll->save();
            $message = 'Student  successfully created';
+        }
+        return redirect()->route('students')->with(['message'=>$message]);
+    }
+    public function getDeleteStudent($id){
+        $post1 = StudentEnroll::where('student_id',$id)->first();
+        $post2 = Student::where('id',$id)->first();
+        try {
+            $result = $post1->delete();
+            $result = $post2->delete();
+            $message = "Student ($id) Successfully Deleted!";
+        } catch (QueryException  $e) {       
+            $message = "Student $id was not Deleted, Try Again!";
         }
         return redirect()->route('students')->with(['message'=>$message]);
     }
