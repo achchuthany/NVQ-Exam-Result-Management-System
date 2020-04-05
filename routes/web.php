@@ -178,3 +178,21 @@ Route::get('/batches/{id}/delete',[
     'uses'=>'BatchController@getDeleteBatch',
     'as'=>'batches.delete'
 ]);
+
+Route::get('/employees',[
+    'uses' => 'EmployeeController@getEmployees',
+    'as' => 'employees'
+]);
+
+Route::get('/employees/create',[
+    'uses' => 'EmployeeController@getEmployeeCreate',
+    'as' => 'employees.create'
+]);
+Route::post('/employees/create',[
+    'uses' => 'EmployeeController@postCreateEmployee',
+    'as' => 'employees.create'
+]);
+Route::post('/employees/search',[
+    'uses' => 'EmployeeController@postSearchEmployee',
+    'as' => 'employees.search'
+]);
