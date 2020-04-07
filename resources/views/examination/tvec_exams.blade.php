@@ -21,7 +21,8 @@
                 <th scope="col">ID</th>
                 <th scope="col">Module</th>
                 <th scope="col">Academic Year</th>
-                <th scope="col">Exam Type</th>
+                <th scope="col">Students</th>
+                <th scope="col">Pass Rate</th>
                 <th scope="col">Date</th>
                 <th scope="col">
                     Actions
@@ -32,9 +33,16 @@
               @foreach( $tvecexams as $tvecexam)
             <tr data-did="{{$tvecexam->id}}">
               <th>{{$tvecexam->id}}</th>
-                <td>{{$tvecexam->module->name}}</td>
+                <td>{{$tvecexam->module->name}} <span class="badge badge-secondary">{{$exams[$tvecexam->exam_type]}}</span> </td>
                 <td>{{$tvecexam->academic_year->name}}</td>
-                <td>{{$exams[$tvecexam->exam_type]}}</td>
+                <td>{{$tvecexam->number_pass}} Pass  of {{$tvecexam->number_students}} 
+                
+                  <span class="badge badge-secondary"> {{round(($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100)}}%</span>
+                </td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100}}%" aria-valuenow="{{($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100}}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>                </td>
                 <td>{{$tvecexam->exam_date}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
