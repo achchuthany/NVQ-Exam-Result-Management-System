@@ -13,4 +13,7 @@ class TvecExam extends Model
     public function module(){
         return $this->belongsTo('App\Module');
     } 
+    public function tvec_exam_results(){
+        return $this->hasMany('App\TvecExamResult');
+    }
 }

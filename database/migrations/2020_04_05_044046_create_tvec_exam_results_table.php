@@ -14,7 +14,13 @@ class CreateTvecExamResultsTable extends Migration
     public function up()
     {
         Schema::create('tvec_exam_results', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id')->autoIncrement();
+            $table->bigInteger('tvec_exam_id')->unsigned();
+            $table->foreign('tvec_exam_id')->references('id')->on('tvec_exams')->onUpdate('cascade');
+            $table->bigInteger('student_id')->unsigned();
+            $table->foreign('student_id')->references('id')->on('students')->onUpdate('cascade');
+            $table->tinyInteger('attempt');
+            $table->char('result',10);
             $table->timestamps();
         });
     }

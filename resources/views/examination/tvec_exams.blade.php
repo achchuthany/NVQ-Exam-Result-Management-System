@@ -15,9 +15,9 @@
 </div>
 <div class="row align-items-center mt-2">
     <div class="col-12 table-responsive">
-        <table class="table table-hover">
+        <table class="table table-hover table-borderless">
             <thead>
-              <tr>
+              <tr class="thead-light">
                 <th scope="col">ID</th>
                 <th scope="col">Module</th>
                 <th scope="col">Academic Year</th>
@@ -38,6 +38,7 @@
                 <td>{{$tvecexam->exam_date}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-secondary" href="{{ route('tvec.exams.results',['id'=>$tvecexam->id]) }}">Results</a>
                         <button type="button" class="btn btn-sm btn-warning department-edit">Edit</button>
                         <a type="button" class="btn btn-sm btn-danger" href="{{ route('tvec.exams.delete',['id'=>$tvecexam->id]) }}">Delete</a>
                     </div>

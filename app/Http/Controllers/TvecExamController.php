@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\AcademicYear;
+use App\Batch;
 use App\Course;
 use App\Module;
+use App\Student;
+use App\StudentEnroll;
 use App\TvecExam;
+use App\TvecExamResult;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 
@@ -16,8 +20,20 @@ class TvecExamController extends Controller
   
     public function getTvecExams(){
 
-        $tvecexams = TvecExam::orderBy('id','asc')->paginate(20);
+        $tvecexams = TvecExam::orderBy('id','desc')->paginate(20);
         return view('examination.tvec_exams',['tvecexams' =>$tvecexams,'semesters'=>$this->semesters,'exams'=>$this->exams]);
+    }
+    public function getTvecExamsResults($id){
+        $tvecexam = TvecExam::where('id',$id)->first();
+        $batch = Batch::where('id',$tvecexam->academic_year->batches[0]->id)->first();
+        $students = TvecExamResult::leftJoin('students', 'students.id', '=', 'tvec_exam_results.student_id')
+                    ->select('student_id as id',"reg_no","shortname","attempt","result")
+                    ->distinct(['student_id','attempt'])
+                    ->where([['tvec_exam_id',$id]])
+                    ->orderBy('student_id','asc')
+                    ->orderBy('attempt','desc')
+                    ->get();
+        return view('examination.tvec_exam_results',['students'=>$students,'tvecexam' =>$tvecexam,'semesters'=>$this->semesters,'exams'=>$this->exams]);
     }
     public function getTvecExamCreate(){
         $courses = Course::orderBy('name','asc')->get();

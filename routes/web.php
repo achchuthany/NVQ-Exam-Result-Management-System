@@ -205,7 +205,6 @@ Route::get('/tvec/exams',[
     'uses' => 'TvecExamController@getTvecExams',
     'as' => 'tvec.exams'
 ]);
-
 Route::get('/tvec/exams/create',[
     'uses' => 'TvecExamController@getTvecExamCreate',
     'as' => 'tvec.exams.create'
@@ -214,13 +213,28 @@ Route::post('/tvec/exams/create',[
     'uses' => 'TvecExamController@postTvecExamCreate',
     'as' => 'tvec.exams.create'
 ]);
-Route::get('/tvec/exams/{id}/delete',[
+Route::get('/tvec/exam/{id}/delete',[
     'uses'=>'TvecExamController@getDeleteTvecExam',
     'as'=>'tvec.exams.delete'
 ]);
-
+Route::get('/tvec/exam/{id}/results',[
+    'uses' => 'TvecExamController@getTvecExamsResults',
+    'as' => 'tvec.exams.results'
+]);
+Route::post('/tvec/exam/results/create',[
+    'uses' => 'TvecExamResultController@postTvecExamsResultsCreate',
+    'as' => 'tvec.exams.results.create'
+]);
 
 Route::post('/ajax/modules',[
     'uses' => 'AjaxRequestController@postGetModulesbyCourse',
     'as' => 'ajax.modules'
+]);
+Route::post('/ajax/students/batch',[
+    'uses' => 'AjaxRequestController@postGetStudentsbyBatch',
+    'as' => 'ajax.students.batch'
+]);
+Route::post('/ajax/students/reg',[
+    'uses' => 'AjaxRequestController@postGetStudentbyReg',
+    'as' => 'ajax.students.reg'
 ]);

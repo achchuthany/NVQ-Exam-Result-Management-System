@@ -37477,6 +37477,79 @@
                 });
             });
         });
+        $('#tvec_exam_results_add_batch').on('click', function(event) {
+            event.preventDefault();
+            var batch_id = event.target.dataset['batch'];
+            $.ajax({
+                method: 'POST',
+                url: urlStudentsByBatch,
+                data: {
+                    id: batch_id,
+                    _token: token
+                }
+            }).done(function(msg) {
+                $.each(msg['students'], function() {
+                    $("#tvec_exam_results").append('<tr>\
+                    <td>' + this.reg_no + '</td>\
+                    <td>' + this.shortname + '</td>\
+                    <td>\
+                        <select class="custom-select custom-select-sm" name="results[' + this.id + ']" required>\
+                            <option value="" selected>Select</option>\
+                            <option value="P">Pass</option>\
+                            <option value="F">Fail</option>\
+                            <option value="AB">Absent</option>\
+                        </select>\
+                    </td>\
+                    <td> \
+                        <select class="custom-select custom-select-sm" name="attempts[' + this.id + ']" required>\
+                            <option value="1" selected>Attempt 1</option>\
+                            <option value="2">Attempt 2</option>\
+                            <option value="3">Attempt 3</option>\
+                        </select>\
+                    </td>\
+                    </tr>');
+                });
+                $('#tvec_exam_results_add_batch').hide();
+            });
+
+            // var newElement = '<tr class="table-info"><td><input type="text" value="" name="id[]" placeholder="4.."/></td><td><input type="text" value="" name="purpose[]" placeholder="Why do you buy this car?"/></td><td><input type="number" value="" name="amount[]" placeholder="0"/></td><<td><input type="text" value="" name="currency[]" placeholder="EUR"/></td></tr>';
+            // $("#tvec_exam_results").append($(newElement));
+        });
+
+        $('#tvec_exam_results_add_repeat').on('click', function(event) {
+            var student_reg = $('#tvec_exam_results_name_repeat').val();
+            $.ajax({
+                method: 'POST',
+                url: urlStudentByReg,
+                data: {
+                    id: student_reg,
+                    _token: token
+                }
+            }).done(function(msg) {
+                $.each(msg['students'], function() {
+                    $("#tvec_exam_results").append('<tr class="table-info">\
+                    <td>' + this.reg_no + '</td>\
+                    <td>' + this.shortname + '</td>\
+                    <td>\
+                        <select class="custom-select custom-select-sm" name="results[' + this.id + ']" required>\
+                            <option value="" selected>Select</option>\
+                            <option value="P">Pass</option>\
+                            <option value="F">Fail</option>\
+                            <option value="AB">Absent</option>\
+                        </select>\
+                    </td>\
+                    <td> \
+                        <select class="custom-select custom-select-sm" name="attempts[' + this.id + ']" required>\
+                            <option value="1" selected>Attempt 1</option>\
+                            <option value="2">Attempt 2</option>\
+                            <option value="3">Attempt 3</option>\
+                        </select>\
+                    </td>\
+                    </tr>');
+                });
+            });
+        });
+
 
         /***/
     }),
