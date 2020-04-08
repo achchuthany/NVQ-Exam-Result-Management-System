@@ -33,11 +33,11 @@
               @foreach( $tvecexams as $tvecexam)
             <tr data-did="{{$tvecexam->id}}">
               <th>{{$tvecexam->id}}</th>
-                <td>{{$tvecexam->module->name}} <span class="badge badge-secondary">{{$exams[$tvecexam->exam_type]}}</span> </td>
+                <td>{{$tvecexam->module->name}} <span class="badge badge-pill badge-secondary">{{$exams[$tvecexam->exam_type]}}</span> </td>
                 <td>{{$tvecexam->academic_year->name}}</td>
                 <td>{{$tvecexam->number_pass}} Pass  of {{$tvecexam->number_students}} 
                 
-                  <span class="badge badge-secondary"> {{round(($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100)}}%</span>
+                  <span class="badge badge-pill  badge-secondary"> {{round(($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100)}}%</span>
                 </td>
                 <td>
                   <div class="progress">

@@ -36,6 +36,7 @@
                 <td>{{$batch->academic_year->name}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
+                      <a type="button" class="btn btn-sm btn-secondary" href="{{ route('tvec.exams.results.batch',['id'=>$batch->id]) }}">TVEC Results</a>
                       <a type="button" class="btn btn-sm btn-secondary" href="{{ route('students.batch',['id'=>$batch->id]) }}">Students</a>
                         <button type="button" class="btn btn-sm btn-warning nvq-edit">Edit</button>
                         <a type="button" class="btn btn-sm btn-danger" href="{{ route('academics.delete',['id'=>$batch->id]) }}">Delete</a>

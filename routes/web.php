@@ -226,6 +226,15 @@ Route::post('/tvec/exam/results/create',[
     'as' => 'tvec.exams.results.create'
 ]);
 
+Route::get('/tvec/exam/batch/{id}',[
+    'uses' => 'TvecExamResultController@getTvecExamsResultsbyBatch',
+    'as' => 'tvec.exams.results.batch'
+]);
+Route::get('/tvec/result/batch/{bid}/student/{id}',[
+    'uses' => 'TvecExamResultController@getTvecExamsResultsbyStudentId',
+    'as' => 'tvec.results.student'
+]);
+
 Route::post('/ajax/modules',[
     'uses' => 'AjaxRequestController@postGetModulesbyCourse',
     'as' => 'ajax.modules'

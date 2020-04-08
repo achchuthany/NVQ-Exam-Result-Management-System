@@ -55,6 +55,8 @@
                 <td>{{$student->phone}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
+                      <a type="button" class="btn btn-sm btn-secondary" href="{{ route('tvec.results.student',['bid'=>App\Batch:: where([['academic_year_id','=' ,$student->student_enroll->academic_year_id],['course_id','=' ,$student->student_enroll->course_id]])->first()->id,'id'=>$student->id]) }}">TVEC Transcript</a>
+
                         <button type="button" class="btn btn-sm btn-warning department-edit">Edit</button>
                         <a type="button" class="btn btn-sm btn-danger" href="{{ route('students.delete',['id'=>$student->id]) }}">Delete</a>
                     </div>
