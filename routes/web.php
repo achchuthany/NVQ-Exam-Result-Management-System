@@ -226,7 +226,7 @@ Route::post('/tvec/exam/results/create',[
     'as' => 'tvec.exams.results.create'
 ]);
 
-Route::get('/tvec/exam/batch/{id}',[
+Route::get('/tvec/result/batch/{id}',[
     'uses' => 'TvecExamResultController@getTvecExamsResultsbyBatch',
     'as' => 'tvec.exams.results.batch'
 ]);
@@ -246,4 +246,9 @@ Route::post('/ajax/students/batch',[
 Route::post('/ajax/students/reg',[
     'uses' => 'AjaxRequestController@postGetStudentbyReg',
     'as' => 'ajax.students.reg'
+]);
+
+Route::get('/pdf',[
+    'uses' => 'PdfController@generatePDF',
+    'as' => 'pdf.test'
 ]);
