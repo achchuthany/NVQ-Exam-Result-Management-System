@@ -22,7 +22,7 @@
             <div class="card shadow-sm mr-3">
                 <div class="card-body">
                   <h5 class="card-title">Teachers</h5>
-                  <p class="card-text display-4">25</p>
+                  <p class="card-text display-4">25 </p>
                 </div>
             </div>
             <div class="card shadow-sm mr-3">
