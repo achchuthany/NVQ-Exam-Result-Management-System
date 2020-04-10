@@ -4,13 +4,27 @@
 @endsection
 @section('content')
 <div class="row align-items-center">
-    <div class="col-8">
-        <h4 class="pt-2"> TVEC Exams</h4>
+    <div class="col-6">
+        <h4 class="pt-2"> TVEC Exams Summary</h4>
     </div>
-    <div class="col-4">
-        <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <a type="button" class="btn btn-sm btn-primary" href="{{route('tvec.exams.create')}}">New</a>
-        </div>
+    <div class="col-5">
+    <form class="form-inline my-2 my-lg-0" action="{{route('tvec.exams.batch')}}" method="POST">
+        <select class="custom-select custom-select-sm  col-5" name="batch_couese_id" id="batch_couese_id" required>
+          <option value="" selected>Select Course</option>
+            @foreach ($courses as $course)
+              <option value="{{$course->id}}">{{$course->name}}</option>
+             @endforeach
+        </select>
+        <select class="custom-select custom-select-sm my-2 my-sm-0 col-5" name="batch_id" id="batch_id">
+          <option value="" selected>Select Batch</option>
+        </select>
+        <button type="submit" class="btn btn-sm btn-primary my-2 my-sm-0 col-2"><i class="fas fa-search"></i></button>
+        <input type="hidden" name="_token" value="{{Session::token()}}">
+
+      </form>
+    </div>
+    <div class="col-1">
+      <a type="button" class="btn btn-sm btn-primary " href="{{route('tvec.exams.create')}}"><i class="fas fa-plus-circle"></i> New</a>
     </div>
 </div>
 <div class="row align-items-center mt-2">
@@ -18,7 +32,7 @@
         <table class="table table-hover table-borderless">
             <thead>
               <tr class="thead-light">
-                <th scope="col">ID</th>
+                <th scope="col" hidden>ID</th>
                 <th scope="col">Module</th>
                 <th scope="col">Academic Year</th>
                 <th scope="col">Students</th>
@@ -32,7 +46,7 @@
             <tbody>
               @foreach( $tvecexams as $tvecexam)
             <tr data-did="{{$tvecexam->id}}">
-              <th>{{$tvecexam->id}}</th>
+              <th hidden>{{$tvecexam->id}}</th>
                 <td>{{$tvecexam->module->name}} <span class="badge badge-pill badge-secondary">{{$exams[$tvecexam->exam_type]}}</span> </td>
                 <td>{{$tvecexam->academic_year->name}}</td>
                 <td>{{$tvecexam->number_pass}} Pass  of {{$tvecexam->number_students}} 
@@ -46,9 +60,9 @@
                 <td>{{$tvecexam->exam_date}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
-                        <a class="btn btn-sm btn-secondary" href="{{ route('tvec.exams.results',['id'=>$tvecexam->id]) }}">Results</a>
-                        <button type="button" class="btn btn-sm btn-warning department-edit">Edit</button>
-                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('tvec.exams.delete',['id'=>$tvecexam->id]) }}">Delete</a>
+                        <a class="btn btn-sm btn-secondary" href="{{ route('tvec.exams.results',['id'=>$tvecexam->id]) }}"><i class="fas fa-chart-area"></i> Results</a>
+                        <button type="button" class="btn btn-sm btn-warning department-edit"><i class="fas fa-edit"></i></button>
+                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('tvec.exams.delete',['id'=>$tvecexam->id]) }}"><i class="fas fa-trash"></i></a>
                     </div>
                 </td>
               </tr>
@@ -110,7 +124,7 @@
   
   <script>
     var token = '{{ Session::token() }}';
-    var urlEdit = '{{ route('departments.edit') }}';
+    var urlBatchesByCourse = '{{ route('ajax.batches') }}';
     
   </script>
 @endsection

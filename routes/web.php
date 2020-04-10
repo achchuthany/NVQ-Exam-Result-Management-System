@@ -201,6 +201,10 @@ Route::post('/employees/search',[
     'as' => 'employees.search'
 ]);
 
+Route::post('/tvec/exams/batch',[
+    'uses' => 'TvecExamController@getTvecExamsByCourseBatch',
+    'as' => 'tvec.exams.batch'
+]);
 Route::get('/tvec/exams',[
     'uses' => 'TvecExamController@getTvecExams',
     'as' => 'tvec.exams'
@@ -235,17 +239,21 @@ Route::get('/tvec/result/batch/{bid}/student/{id}',[
     'as' => 'tvec.results.student'
 ]);
 
-Route::post('/ajax/modules',[
+Route::post('/ajax/course/modules',[
     'uses' => 'AjaxRequestController@postGetModulesbyCourse',
     'as' => 'ajax.modules'
 ]);
-Route::post('/ajax/students/batch',[
+Route::post('/ajax/batch/students',[
     'uses' => 'AjaxRequestController@postGetStudentsbyBatch',
     'as' => 'ajax.students.batch'
 ]);
-Route::post('/ajax/students/reg',[
+Route::post('/ajax/student/reg',[
     'uses' => 'AjaxRequestController@postGetStudentbyReg',
     'as' => 'ajax.students.reg'
+]);
+Route::post('/ajax/course/batches',[
+    'uses' => 'AjaxRequestController@postGetBatchesbyCourse',
+    'as' => 'ajax.batches'
 ]);
 
 Route::get('/pdf',[

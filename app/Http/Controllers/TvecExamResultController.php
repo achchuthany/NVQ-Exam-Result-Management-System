@@ -23,6 +23,7 @@ class TvecExamResultController extends Controller
         $number_of_students_pass = 0;
 
         foreach($request['results'] as $key => $value){
+            
             $isUpdate = false;
             $exams = TvecExamResult::where([['student_id',$key],['attempt',$request['attempts'][$key]],['tvec_exam_id',$request['tvec_exam_id']]])->count();
             if($exams == 1){
@@ -32,17 +33,32 @@ class TvecExamResultController extends Controller
             }else{
                 $result = new TvecExamResult();
             }
+
             if($request['results'][$key] == 'P' && $result->result != 'P'){
                 $number_of_students_pass++;
             }
+
+            //Update Student Enroll
+            $student_enroll = StudentEnroll::where([['student_id',$key],['academic_year_id',$tvec_exam->academic_year_id]])->first();
+            $count = TvecExamResult::where([['student_id',$key],['tvec_exam_id',$request['tvec_exam_id']]])->count();
+            if($count==0){
+                $student_enroll->tvec_exam_modules +=1;
+            }
+            if($request['results'][$key] == 'P' && $result->result != 'P')
+                    $student_enroll->tvec_exam_pass +=1;
+            $student_enroll->update();
+            
+           
+
             $result->student_id = $key;
             $result->attempt = $request['attempts'][$key];
             $result->result = $request['results'][$key];
             $result->tvec_exam_id = $request['tvec_exam_id'];
             if(!$isUpdate){
                 $count = TvecExamResult::where([['student_id',$key],['tvec_exam_id',$request['tvec_exam_id']]])->count();
-                if($count<1)
+                if($count<1){
                     $number_of_students++;
+                }
                 $result->save();
                 $message = "Exam Results Successfully Created";
             }else{
@@ -55,7 +71,7 @@ class TvecExamResultController extends Controller
         $tvec_exam->number_students += $number_of_students;
         $tvec_exam->number_pass += $number_of_students_pass;
         $tvec_exam->update();
-        
+        //return response()->json(['result'=>$tvec_exam,'exams'=>$exams,],200);
         return redirect()->back()->with(['message'=>$message]);
     }
 
@@ -64,6 +80,9 @@ class TvecExamResultController extends Controller
         if(!$batch){
             return redirect()->route('batches');
         }
+        $students = StudentEnroll::where([['academic_year_id',$batch->academic_year_id],['course_id',$batch->course_id]])
+                                    ->orderBy('student_id','asc')
+                                    ->get();
         $results = TvecExamResult::leftJoin('tvec_exams','tvec_exams.id','=','tvec_exam_results.tvec_exam_id')
                                     ->select('student_id','tvec_exam_results.id','modules.code as module_code','modules.name as module_name',
                                     'tvec_exams.academic_year_id as academic_year_id','tvec_exams.exam_type as exam_type',
@@ -85,8 +104,8 @@ class TvecExamResultController extends Controller
                                     ->orderBy('module_id','asc')
                                     ->orderBy('exam_type','desc')
                                     ->get();
-       // return response()->json(['results'=>$results,'exams'=>$exams,],200);
-        return view('examination.tvec_batch_results',['exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass]);
+        //return response()->json(['students'=>$students,'results'=>$results,'exams'=>$exams,],200);
+        return view('examination.tvec_batch_results',['students'=>$students,'exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass]);
 
 
         }

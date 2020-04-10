@@ -9,7 +9,7 @@ Create a  TVEC Exams
     </div>
     <div class="col-4">
         <div class="btn-group float-right" role="group" aria-label="Basic example">
-        <a type="button" class="btn btn-sm btn-dark" href="{{route('tvec.exams')}}">Back</a>
+        <a type="button" class="btn btn-sm btn-dark" href="{{route('tvec.exams')}}"><i class="fas fa-chevron-circle-left"></i> Back</a>
         </div>
     </div>
 </div>
@@ -72,7 +72,7 @@ Create a  TVEC Exams
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <button type="submit" class="btn btn-sm btn-primary float-right" >Save</button>
+                <button type="submit" class="btn btn-sm btn-primary float-right" ><i class="fas fa-save"></i> Save</button>
                 <input type="hidden" name="_token" value="{{Session::token()}}">
             </div>
         </div>

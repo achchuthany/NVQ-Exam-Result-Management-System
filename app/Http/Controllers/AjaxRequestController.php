@@ -32,4 +32,10 @@ class AjaxRequestController extends Controller
         return response()->json(['students' => $students], 200);
 
     }
+
+    public function postGetBatchesbyCourse(Request $request){
+        $this->validate($request,['id'=>'required']);
+        $batches = Batch::where('course_id',$request['id'])->orderBy('name','desc')->get();
+        return response()->json(['batches' => $batches], 200);
+    }
 }

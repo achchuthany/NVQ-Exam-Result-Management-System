@@ -191,3 +191,20 @@ $('#tvec_exam_results_add_repeat').on('click', function(event) {
 $(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
+
+$('#batch_couese_id').change(function(event) {
+    var course_id = this.value;
+    $.ajax({
+        method: 'POST',
+        url: urlBatchesByCourse,
+        data: {
+            id: course_id,
+            _token: token
+        }
+    }).done(function(msg) {
+        $("#batch_id").empty();
+        $.each(msg['batches'], function() {
+            $("#batch_id").append(new Option(this.name, this.academic_year_id));
+        });
+    });
+});

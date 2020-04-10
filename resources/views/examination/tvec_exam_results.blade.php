@@ -9,7 +9,7 @@ TVEC Exam Results
     </div>
     <div class="col-4">
         <div class="btn-group float-right" role="group" aria-label="Basic example">
-        <a type="button" class="btn btn-sm btn-dark" href="{{route('tvec.exams')}}">Back</a>
+        <a type="button" class="btn btn-sm btn-dark" href="{{route('tvec.exams')}}"><i class="fas fa-chevron-circle-left"></i> Back</a>
         </div>
     </div>
 </div>
@@ -48,12 +48,12 @@ TVEC Exam Results
             <div class="form-inline">        
                 <div class="col-md-2 offset-md-7">
                     @if(!count($students)>0)
-                    <button type="button" class="btn btn-sm btn-primary"  id="tvec_exam_results_add_batch" data-batch="{{$tvecexam->academic_year->batches[0]->id}}">Add {{$tvecexam->academic_year->batches[0]->name}} Students</button>
+                    <button type="button" class="btn btn-sm btn-primary"  id="tvec_exam_results_add_batch" data-batch="{{$tvecexam->academic_year->batches[0]->id}}"><i class="fas fa-plus-circle"></i> Add {{$tvecexam->academic_year->batches[0]->name}} Students</button>
                     @endif
                 </div>         
                 <div class="col-md-3 btn-group">
                     <input type="text" placeholder="2020/ICT/5IT01" class="form-control form-control-sm"  id="tvec_exam_results_name_repeat">
-                    <button type="button" class="btn btn-sm btn-primary btn-block"  id="tvec_exam_results_add_repeat">Add</button>        
+                    <button type="button" class="btn btn-sm btn-primary"  id="tvec_exam_results_add_repeat"><i class="fas fa-plus-circle"></i> Add</button>        
                 </div>
             </div>
         </div>
@@ -101,7 +101,7 @@ TVEC Exam Results
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <button type="submit" class="btn btn-sm btn-primary float-right" >Save</button>
+                <button type="submit" class="btn btn-sm btn-primary float-right" ><i class="fas fa-save"></i> Save</button>
                 <input type="hidden" name="_token" value="{{Session::token()}}">
             </div>
         </div>
