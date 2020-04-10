@@ -1,4 +1,6 @@
 require('./bootstrap');
+
+//Department Model
 var department_id = 0;
 var postBodyElement = null;
 $('#department_save').on('click', function() {
@@ -24,7 +26,7 @@ $('.department-edit').on('click', function(event) {
 });
 
 
-// NVQ Modal
+// NVQ Modal Model
 var nvq_id = 0;
 var postBodyElement = null;
 $('#nvq_save').on('click', function() {
@@ -48,7 +50,7 @@ $('.nvq-edit').on('click', function(event) {
     $('#nvqEditModal').modal('show');
 });
 
-//Course Modal
+//Course Model
 var course_id = 0;
 var postBodyElement = null;
 $('#course_save').on('click', function() {
@@ -92,4 +94,100 @@ $('.course-edit').on('click', function(event) {
     $('#department_id option:contains("' + department_id + '")').attr('selected', true);
     $('#nvq_id option:contains("' + nvq_id + '")').attr('selected', true);
     $('#courseEditModal').modal('show');
+});
+
+//
+
+//Course Dropdown
+$('#course_id').change(function(event) {
+    var course_id = this.value;
+    $.ajax({
+        method: 'POST',
+        url: urlModuleByCourse,
+        data: {
+            id: course_id,
+            _token: token
+        }
+    }).done(function(msg) {
+        $("#modules").empty();
+        $.each(msg['modules'], function() {
+            $("#modules").append(new Option(this.name, this.id));
+        });
+    });
+});
+
+//TVEC EXAM Results 
+$('#tvec_exam_results_add_batch').on('click', function(event) {
+    event.preventDefault();
+    var batch_id = event.target.dataset['batch'];
+    $.ajax({
+        method: 'POST',
+        url: urlStudentsByBatch,
+        data: {
+            id: batch_id,
+            _token: token
+        }
+    }).done(function(msg) {
+        $.each(msg['students'], function() {
+            $("#tvec_exam_results").append('<tr>\
+            <td>' + this.reg_no + '</td>\
+            <td>' + this.shortname + '</td>\
+            <td>\
+                <select class="custom-select custom-select-sm" name="results[' + this.id + ']" required>\
+                    <option value="" selected>Select</option>\
+                    <option value="P">Pass</option>\
+                    <option value="F">Fail</option>\
+                    <option value="AB">Absent</option>\
+                </select>\
+            </td>\
+            <td> \
+                <select class="custom-select custom-select-sm" name="attempts[' + this.id + ']" required>\
+                    <option value="1" selected>Attempt 1</option>\
+                    <option value="2">Attempt 2</option>\
+                    <option value="3">Attempt 3</option>\
+                </select>\
+            </td>\
+            </tr>');
+        });
+        $('#tvec_exam_results_add_batch').hide();
+    });
+});
+
+$('#tvec_exam_results_add_repeat').on('click', function(event) {
+    var student_reg = $('#tvec_exam_results_name_repeat').val();
+    $.ajax({
+        method: 'POST',
+        url: urlStudentByReg,
+        data: {
+            id: student_reg,
+            _token: token
+        }
+    }).done(function(msg) {
+        $.each(msg['students'], function() {
+            $("#tvec_exam_results").append('<tr class="table-info">\
+            <td>' + this.reg_no + '</td>\
+            <td>' + this.shortname + '</td>\
+            <td>\
+                <select class="custom-select custom-select-sm" name="results[' + this.id + ']" required>\
+                    <option value="" selected>Select</option>\
+                    <option value="P">Pass</option>\
+                    <option value="F">Fail</option>\
+                    <option value="AB">Absent</option>\
+                </select>\
+            </td>\
+            <td> \
+                <select class="custom-select custom-select-sm" name="attempts[' + this.id + ']" required>\
+                    <option value="1" selected>Attempt 1</option>\
+                    <option value="2">Attempt 2</option>\
+                    <option value="3">Attempt 3</option>\
+                </select>\
+            </td>\
+            </tr>');
+        });
+    });
+});
+
+//Tooltip
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
 });
