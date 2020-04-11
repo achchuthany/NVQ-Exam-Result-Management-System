@@ -29,12 +29,12 @@ class TvecExamController extends Controller
     public function getTvecExamsByCourseBatch(Request $request){
         $courses = Course::orderBy('code','asc')->get();
         $this->validate($request,['batch_couese_id'=>'required',]);
-
+        $batch = Batch::where('id',$request['batch_id'])->first();
         $tvecexams = TvecExam::orderBy('academic_year_id','desc')
         ->select('tvec_exams.id as id','tvec_exams.module_id as module_id','tvec_exams.academic_year_id as academic_year_id',
         'tvec_exams.number_pass as number_pass','tvec_exams.number_students as number_students',
         'tvec_exams.exam_type as exam_type','tvec_exams.exam_date as exam_date','modules.course_id as course_id')
-        ->where([['course_id',$request['batch_couese_id']],['academic_year_id',$request['batch_id']]])
+        ->where([['course_id',$request['batch_couese_id']],['academic_year_id',$batch->academic_year_id]])
         ->leftJoin('modules','modules.id','=','tvec_exams.module_id')
                                
                                 ->orderBy('module_id','asc')

@@ -229,10 +229,21 @@ Route::post('/tvec/exam/results/create',[
     'uses' => 'TvecExamResultController@postTvecExamsResultsCreate',
     'as' => 'tvec.exams.results.create'
 ]);
-
+Route::get('/tvec/results',[
+    'uses' => 'TvecExamResultController@getTvecResults',
+    'as' => 'tvec.results'
+]);
 Route::get('/tvec/result/batch/{id}',[
     'uses' => 'TvecExamResultController@getTvecExamsResultsbyBatch',
     'as' => 'tvec.exams.results.batch'
+]);
+Route::post('/tvec/result/batch',[
+    'uses' => 'TvecExamResultController@postTvecExamsResultsbyBatch',
+    'as' => 'tvec.results.batch'
+]);
+Route::get('/tvec/result/batch/{id}/pdf',[
+    'uses' => 'TvecExamResultController@getTvecExamsResultsbyBatchPDF',
+    'as' => 'tvec.exams.results.batch.pdf'
 ]);
 Route::get('/tvec/result/batch/{bid}/student/{id}',[
     'uses' => 'TvecExamResultController@getTvecExamsResultsbyStudentId',
@@ -254,9 +265,4 @@ Route::post('/ajax/student/reg',[
 Route::post('/ajax/course/batches',[
     'uses' => 'AjaxRequestController@postGetBatchesbyCourse',
     'as' => 'ajax.batches'
-]);
-
-Route::get('/pdf',[
-    'uses' => 'PdfController@generatePDF',
-    'as' => 'pdf.test'
 ]);

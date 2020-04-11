@@ -46,7 +46,7 @@ TVEC Exam Results
        
         <div class="col-md-12 mb-2">
             <div class="form-inline">        
-                <div class="col-md-2 offset-md-7">
+                <div class="col-md-3 offset-md-6">
                     @if(!count($students)>0)
                     <button type="button" class="btn btn-sm btn-primary"  id="tvec_exam_results_add_batch" data-batch="{{$tvecexam->academic_year->batches[0]->id}}"><i class="fas fa-plus-circle"></i> Add {{$tvecexam->academic_year->batches[0]->name}} Students</button>
                     @endif

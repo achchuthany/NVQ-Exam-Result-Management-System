@@ -204,7 +204,7 @@ $('#batch_couese_id').change(function(event) {
     }).done(function(msg) {
         $("#batch_id").empty();
         $.each(msg['batches'], function() {
-            $("#batch_id").append(new Option(this.name, this.academic_year_id));
+            $("#batch_id").append(new Option(this.name, this.id));
         });
     });
 });

@@ -9,7 +9,8 @@ TVEC Exam Batch Results
     </div>
     <div class="col-4">
         <div class="btn-group float-right" role="group" aria-label="Basic example">
-        <a type="button" class="btn btn-sm btn-dark" href="{{route('tvec.exams')}}"><i class="fas fa-chevron-circle-left"></i> Back</a>
+            <a type="button" class="btn btn-sm btn-light mx-1" href="{{route('tvec.exams.results.batch.pdf',['id'=>$batch->id])}}"><i class="fas fa-print"></i></a>
+            <a type="button" class="btn btn-sm btn-dark" href="{{route('tvec.exams')}}"><i class="fas fa-chevron-circle-left"></i> Back</a>
         </div>
     </div>
 </div>

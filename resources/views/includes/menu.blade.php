@@ -46,7 +46,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{{route('tvec.exams')}}">TVEC Examinations</a>
-                  <a class="dropdown-item" href="#">TVEC Results</a>
+                  <a class="dropdown-item" href="{{route('tvec.results')}}">TVEC Results</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

@@ -1,5 +1,6 @@
 <html>
     <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <style>
             /** 
                 Set the margins of the page to 0, so the footer and the header
@@ -24,12 +25,8 @@
                 left: 0cm;
                 right: 0cm;
                 height: 1cm;
-
-                /** Extra personal styles **/
-                background-color: #03a9f4;
-                color: white;
-                text-align: center;
-                line-height: 1.5cm;
+                /* text-align: center; */
+                /* line-height: 1cm; */
             }
 
             /** Define the footer rules **/
@@ -38,29 +35,23 @@
                 bottom: 0cm; 
                 left: 0cm; 
                 right: 0cm;
-                height: 1cm;
-
-                /** Extra personal styles **/
-                background-color: #03a9f4;
-                color: white;
+                height: 3cm;
                 text-align: center;
-                line-height: 1.5cm;
+                /* line-height: 1cm; */
             }
         </style>
     </head>
     <body>
         <!-- Define header and footer blocks before your content -->
         <header>
-            Our Code World
+            @yield('header')
         </header>
-
         <footer>
-            Copyright &copy; {{date("Y")}}
+            @yield('footer')
         </footer>
-
         <!-- Wrap the content of your PDF inside a main tag -->
         <main>
-            <h1>Hello World</h1>
+            @yield('content')
         </main>
     </body>
 </html>

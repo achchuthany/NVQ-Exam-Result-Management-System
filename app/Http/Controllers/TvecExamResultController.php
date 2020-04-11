@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Batch;
+use App\Course;
 use App\Module;
 use App\Student;
 use App\StudentEnroll;
@@ -10,7 +11,7 @@ use App\TvecExam;
 use App\TvecExamResult;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
+use PDF;
 class TvecExamResultController extends Controller
 {
     private $exam_types = array('T'=>'Theory','P'=>'Practical','B'=>'Theory and Practical');
@@ -38,7 +39,7 @@ class TvecExamResultController extends Controller
                 $number_of_students_pass++;
             }
 
-            //Update Student Enroll
+            //Update Student Enroll Results
             $student_enroll = StudentEnroll::where([['student_id',$key],['academic_year_id',$tvec_exam->academic_year_id]])->first();
             $count = TvecExamResult::where([['student_id',$key],['tvec_exam_id',$request['tvec_exam_id']]])->count();
             if($count==0){
@@ -108,8 +109,42 @@ class TvecExamResultController extends Controller
         return view('examination.tvec_batch_results',['students'=>$students,'exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass]);
 
 
+    }
+    public function getTvecExamsResultsbyBatchPDF($id){
+        $batch = Batch::where('id',$id)->first();
+        if(!$batch){
+            return redirect()->route('batches');
         }
-
+        $students = StudentEnroll::where([['academic_year_id',$batch->academic_year_id],['course_id',$batch->course_id]])
+                                    ->orderBy('student_id','asc')
+                                    ->get();
+        $results = TvecExamResult::leftJoin('tvec_exams','tvec_exams.id','=','tvec_exam_results.tvec_exam_id')
+                                    ->select('student_id','tvec_exam_results.id','modules.code as module_code','modules.name as module_name',
+                                    'tvec_exams.academic_year_id as academic_year_id','tvec_exams.exam_type as exam_type',
+                                    'tvec_exam_results.attempt as attempt','tvec_exam_results.result as result','courses.code as course_code','tvec_exams.exam_date as exam_date')
+                                    ->leftJoin('modules','modules.id','=','tvec_exams.module_id')
+                                    ->leftJoin('courses','courses.id','=','modules.course_id')
+                                    ->where([['academic_year_id',$batch->academic_year_id],['course_id',$batch->course_id]])
+                                    ->orderBy('student_id','asc')
+                                    ->orderBy('module_id','asc')
+                                    ->orderBy('exam_type','desc')
+                                    ->orderBy('attempt','desc')
+                                    ->get();
+        $exams = TvecExam::select('modules.code as module_code','modules.name as module_name',
+                                    'tvec_exams.academic_year_id as academic_year_id','tvec_exams.exam_type as exam_type',
+                                    'courses.code as course_code','tvec_exams.exam_date as exam_date')
+                                    ->leftJoin('modules','modules.id','=','tvec_exams.module_id')
+                                    ->leftJoin('courses','courses.id','=','modules.course_id')
+                                    ->where([['academic_year_id',$batch->academic_year_id],['course_id',$batch->course_id]])
+                                    ->orderBy('module_id','asc')
+                                    ->orderBy('exam_type','desc')
+                                    ->get();
+        $data = ['title' => 'Academic Transcript'.$batch->name];
+        $pdf = PDF::loadView('examination.tvec_batch_results_pdf',['students'=>$students,'exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass])->setPaper('a4', 'landscape');
+        return $pdf->download($batch->name.'.pdf');
+       //return view('examination.tvec_batch_results_pdf',['students'=>$students,'exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass]);
+      
+    }
     public function getTvecExamsResultsbyStudentId($bid,$id){
         $batch = Batch::where('id',$bid)->first();
         $student = Student::where('id',$id)->first();
@@ -133,4 +168,14 @@ class TvecExamResultController extends Controller
         //return response()->json(['results'=>$results,'student'=>$student],200);
         return view('examination.tvec_student_results',['results'=>$results,'exam_types'=>$this->exam_types,'student'=>$student,'batch'=>$batch,'exam_pass'=>$this->exam_pass]);
     }
+    public function getTvecResults(){
+        $courses = Course::orderBy('name','asc')->get();
+        return view('examination.tvec_results',['courses'=>$courses]);
+    }
+    public function postTvecExamsResultsbyBatch(Request $request){
+        $this->validate($request,['batch_id'=>'required']);
+        $id = $request['batch_id'];
+        return redirect()->route('tvec.exams.results.batch',['id'=>$id]);
+    }
+    
 }

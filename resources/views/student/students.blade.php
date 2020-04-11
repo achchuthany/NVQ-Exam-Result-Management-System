@@ -31,7 +31,7 @@
 </div>
 <div class="row align-items-center mt-2">
     <div class="col-12 table-responsive">
-        <table class="table table-hover">
+        <table class="table table-sm table-hover table-borderless">
             <thead>
               <tr>
                 <th scope="col">Student ID</th>
