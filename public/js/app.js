@@ -37565,8 +37565,8 @@
                 });
             });
         });
-
-        /***/
+        $('.custom-control-input').prop('indeterminate', true);
+            /***/
     }),
 
     /***/

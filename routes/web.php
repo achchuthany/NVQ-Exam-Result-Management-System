@@ -15,11 +15,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/login',[
     'uses' => 'UserController@getLoginIndex',
     'as' => 'login'
+]);
+Route::post('/signin', [
+    'uses' => 'UserController@postSignIn',
+    'as' => 'signin'
+]);
+
+Route::get('/logout', [
+    'uses' => 'UserController@getLogout',
+    'as' => 'logout'
 ]);
 
 Route::get('/departments/create', function () {
@@ -28,7 +37,9 @@ Route::get('/departments/create', function () {
 
 Route::get('/departments',[
     'uses' => 'DepartmentController@getDerpartments',
-    'as' => 'departments'
+    'as' => 'departments',
+    'middleware' => 'roles',
+    'roles' => ['Admin']
 ]);
 
 Route::post('/departments/create',[
@@ -265,4 +276,9 @@ Route::post('/ajax/student/reg',[
 Route::post('/ajax/course/batches',[
     'uses' => 'AjaxRequestController@postGetBatchesbyCourse',
     'as' => 'ajax.batches'
+]);
+
+Route::get('/users',[
+    'uses' => 'UserController@getAllUsers',
+    'as' => 'users'
 ]);

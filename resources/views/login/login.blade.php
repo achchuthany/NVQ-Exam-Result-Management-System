@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
         <style>
 #cover {
-    background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat;
+    /* background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat; */
     background-size: cover;
     height: 100%;
     display: flex;
@@ -45,10 +45,10 @@ form:before {
                 <div class="row text-light">
                     <div class="form offset-md-7 col-md-5 offset-lg-8 col-lg-4  col-sm-12 px-5">
                         <h1 class="display-4 py-2">Sign In</h1>
-                        <form method="POST" action="">
+                    <form method="POST" action="{{ route('signin') }}">
                             <div class="form-group">
-                              <label for="username">Username</label>
-                              <input type="text" class="form-control rounded-pill shadow-sm " id="username" name="username">
+                              <label for="email">Email</label>
+                              <input type="email" class="form-control rounded-pill shadow-sm " id="email" name="email">
                             </div>
                             <div class="form-group">
                               <label for="password ">Password</label>
@@ -60,6 +60,7 @@ form:before {
                               </div>
                             <div class="form-group align-items-center">
                             <a href="#" class="btn btn-link text-white">Forgot Password?</a>
+                            {{ csrf_field() }}
                             <button type="submit" class="btn btn-primary rounded-pill shadow-sm  float-right">Sign In</button>
                             </div>
                           </form>
