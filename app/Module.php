@@ -13,4 +13,7 @@ class Module extends Model
     public function tvec_exams(){
         return $this->hasMany('App\TvecExam');
     }
+    public function employees(){
+        return $this->belongsToMany('App\Employee', 'employee_module', 'module_id', 'employee_id');
+    }
 }
