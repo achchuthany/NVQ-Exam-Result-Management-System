@@ -41,7 +41,7 @@ Employees
               @foreach( $employees as $employee)
             <tr data-did="{{$employee->id}}">
                 <th scope="row">{{$employee->epf}}</th>
-                <td>{{$employee->shortname}}</td>
+                <td>{{$employee->fullname}}</td>
                 <td>{{$employee->position}}</td>
                 <td>{{$employee->department->name}}</td>
                 <td>{{$employee->status}}</td>
