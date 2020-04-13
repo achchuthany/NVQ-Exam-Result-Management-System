@@ -7,7 +7,8 @@
         <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
         <style>
 #cover {
-    /* background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat; */
+    background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat;
+    /* background: #222; */
     background-size: cover;
     height: 100%;
     display: flex;
@@ -29,7 +30,7 @@ form:before {
     position: absolute;
     top: 0;
     width: 100%;
-    background-color: rgba(100,100,100,0.5);
+    background-color: rgba(255,255,255,0.9);
     z-index: -1;
     border-radius: 10px;
 }
@@ -37,29 +38,29 @@ form:before {
     </head>
     <body>
     <div>
-       @include('includes.message')
-       @include('includes.errors')
        <section id="cover" class="min-vh-100">
         <div id="cover-caption">
             <div class="container">
-                <div class="row text-light">
-                    <div class="form offset-md-7 col-md-5 offset-lg-8 col-lg-4  col-sm-12 px-5">
-                        <h1 class="display-4 py-2">Sign In</h1>
-                    <form method="POST" action="{{ route('signin') }}">
+                <div class="row text-dark">
+                    <div class="form offset-md-7 col-md-5 offset-lg-8 col-lg-4  col-sm-12 p-5">
+                        @include('includes.message')
+                        @include('includes.errors')
+                        <h1 class="h2 py-2">Sign In</h1>
+                        <form method="POST" action="{{ route('signin') }}">
                             <div class="form-group">
                               <label for="email">Email</label>
-                              <input type="email" class="form-control rounded-pill shadow-sm " id="email" name="email">
+                              <input type="email" class="form-control rounded-pill shadow-sm " id="email" name="email" required>
                             </div>
                             <div class="form-group">
                               <label for="password ">Password</label>
-                              <input type="password" class="form-control rounded-pill shadow-sm " id="password" name="password">
+                              <input type="password" class="form-control rounded-pill shadow-sm " id="password" name="password" required>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="rememberme">
+                                <input type="checkbox" class="custom-control-input" id="rememberme" checked>
                                 <label class="custom-control-label" for="rememberme">Remember Me</label>
                               </div>
                             <div class="form-group align-items-center">
-                            <a href="#" class="btn btn-link text-white">Forgot Password?</a>
+                            <a href="#" class="btn btn-link text-dark">Forgot Password?</a>
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-primary rounded-pill shadow-sm  float-right">Sign In</button>
                             </div>
