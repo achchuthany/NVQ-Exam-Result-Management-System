@@ -7,11 +7,13 @@
     <div class="col-8">
         <h4 class="pt-2"> Departments</h4>
     </div>
+    @if(Auth::user()->hasAnyRole(['Admin']))
     <div class="col-4">
         <div class="btn-group float-right" role="group" aria-label="Basic example">
             <a type="button" class="btn btn-sm btn-primary" href="{{route('departments.create')}}">New</a>
         </div>
     </div>
+    @endif
 </div>
 <div class="row align-items-center mt-2">
     <div class="col-12 table-responsive">
@@ -20,9 +22,11 @@
               <tr>
                 <th scope="col">Code</th>
                 <th scope="col">Department Name</th>
+                @if(Auth::user()->hasAnyRole(['Admin']))
                 <th scope="col">
                     Actions
                 </th>
+                @endif
               </tr>
             </thead>
             <tbody>
@@ -30,12 +34,14 @@
             <tr data-did="{{$department->id}}">
               <th scope="row">{{$department->code}}</th>
                 <td>{{$department->name}}</td>
+                @if(Auth::user()->hasAnyRole(['Admin']))
                 <td>                    
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-sm btn-warning department-edit">Edit</button>
-                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('departments.delete',['d_id'=>$department->id]) }}">Delete</a>
-                    </div>
+                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('departments.delete',['d_id'=>$department->id]) }}">Delete</a>       
+                      </div>
                 </td>
+                @endif
               </tr>
               @endforeach
               
