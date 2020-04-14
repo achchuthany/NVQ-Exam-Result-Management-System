@@ -284,4 +284,21 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'UserController@getAllUsers',
         'as' => 'users'
     ]);
+    Route::get('/employees/enroll',[
+        'uses' => 'EmployeeModuleController@getEnrollIndex',
+        'as' => 'employees.enroll'
+    ]);
+    Route::get('/employees/enroll/create',[
+        'uses' => 'EmployeeModuleController@getEnrollCreateIndex',
+        'as' => 'employees.enroll.create'
+    ]);
+    Route::get('/e/{id}',[
+        'uses' => 'EmployeeModuleController@getProfileIndex',
+        'as' => 'employee.profile'
+    ]);
+    Route::post('/employees/enroll/create',[
+        'uses' => 'EmployeeModuleController@postEnrollCreate',
+        'as' => 'employees.enroll.create'
+    ]);
+
 });

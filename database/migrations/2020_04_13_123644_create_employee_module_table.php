@@ -17,6 +17,7 @@ class CreateEmployeeModuleTable extends Migration
             $table->id();
             $table->bigInteger('employee_id');
             $table->bigInteger('module_id');
+            $table->bigInteger('academic_year_id');
             $table->timestamps();
         });
     }

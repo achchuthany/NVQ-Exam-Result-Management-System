@@ -38,6 +38,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{{route('employees')}}">Employees</a>
+                  <a class="dropdown-item" href="{{route('employees.enroll')}}">Enrolled Modules</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

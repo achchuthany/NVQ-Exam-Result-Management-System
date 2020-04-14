@@ -37546,9 +37546,6 @@
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
-
-        /////////////
-
         $('#batch_couese_id').change(function(event) {
             var course_id = this.value;
             $.ajax({
@@ -37565,8 +37562,8 @@
                 });
             });
         });
-        $('.custom-control-input').prop('indeterminate', true);
-            /***/
+        $('.toast').toast('show');
+        /***/
     }),
 
     /***/

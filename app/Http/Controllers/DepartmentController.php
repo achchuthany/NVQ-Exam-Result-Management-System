@@ -18,14 +18,16 @@ class DepartmentController extends Controller
             'd_name'=>'required|max:255',
             'code'=>'required|max:3'
         ]);
+        $message=$warning=null;
         $department = new Department();
         $department->name = $request['d_name'];
-        $department->code = strtoupper($request['code']);
-        $message = 'There was an error';
+        $department->code = strtoupper($request['code']);      
         if($department->save()){
-           $message = 'Department successfully created';
+           $message = $department->name.' successfully created';
+        }else{
+            $warning = 'There was an error';
         }
-        return redirect()->route('departments')->with(['message'=>$message]);
+        return redirect()->route('departments')->with(['message'=>$message,'warning'=>$warning]);
     }
 
     public function postEditDepartment(Request $request){
@@ -40,13 +42,18 @@ class DepartmentController extends Controller
             return response()->json(['new_name' => $department->name,'new_code'=>$department->code], 200);
     }
     public function getDeleteDepartment($d_id){
+        $message=$warning=null;
         $post = Department::where('id',$d_id)->first();
+        if(!$post){
+            $warning = " Department was not listed, Try Again!";
+            return redirect()->route('departments')->with(['message'=>$message,'warning'=>$warning]);
+        }
         try {
             $result = $post->delete();
-            $message = "Department Successfully Deleted!";
+            $message = $post->name." Successfully Deleted!";
         } catch (QueryException  $e) {       
-            $message = "Department was not Deleted, Try Again!";
+            $warning = $post->name." was not Deleted, Try Again!";
         }
-        return redirect()->route('departments')->with(['message'=>$message]);
+        return redirect()->route('departments')->with(['message'=>$message,'warning'=>$warning]);
     }
 }
