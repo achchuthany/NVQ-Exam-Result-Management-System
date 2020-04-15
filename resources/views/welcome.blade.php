@@ -3,38 +3,68 @@
     Dashboard
 @endsection
 @section('content')
-<nav aria-label="breadcrumb">
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Library</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Data</li>
-</ol>
-</nav>
-<div class="row align-items-center">
+
+<div class="row mt-3">
     <div class="col-md-12">
         <div class="card-group">
-            <div class="card shadow-sm mr-3" >
-                <div class="card-body">
-                  <h5 class="card-title">Students</h5>
-                  <p class="card-text display-4">1522</p>
+            <div class="card shadow-sm rounded-lg mx-md-3 text-light">
+                <div class="card-body bg-gradient-info">
+                    <div class="row">     
+                        <div class="col-7">
+                            <h5 class="card-title text-uppercase">Students</h5>
+                            <p class="card-text h2">1522</p>
+                        </div>
+                        <div class="col-5">
+                            <p class="display-4">
+                            <i class="fas fa-user-graduate" ></i>
+                            </p>
+                        </div>
+                    </div>     
                 </div>
             </div>
-            <div class="card shadow-sm mr-3">
-                <div class="card-body">
-                  <h5 class="card-title">Teachers</h5>
-                  <p class="card-text display-4">25 </p>
+            <div class="card shadow-sm rounded-lg mx-md-3 text-light">
+                <div class="card-body bg-gradient-info">
+                    <div class="row">     
+                        <div class="col-7">
+                            <h5 class="card-title text-uppercase">Staffs</h5>
+                            <p class="card-text h2">1522</p>
+                        </div>
+                        <div class="col-5">
+                            <p class="display-4">
+                            <i class="fas fa-user-graduate" ></i>
+                            </p>
+                        </div>
+                    </div>     
                 </div>
             </div>
-            <div class="card shadow-sm mr-3">
-                <div class="card-body">
-                  <h5 class="card-title">Courses</h5>
-                  <p class="card-text display-4">30</p>
+            <div class="card shadow-sm rounded-lg mx-md-3 text-light">
+                <div class="card-body bg-gradient-info">
+                    <div class="row">     
+                        <div class="col-7">
+                            <h5 class="card-title text-uppercase">Courses</h5>
+                            <p class="card-text h2">1522</p>
+                        </div>
+                        <div class="col-5">
+                            <p class="display-4">
+                            <i class="fas fa-user-graduate" ></i>
+                            </p>
+                        </div>
+                    </div>     
                 </div>
             </div>
-            <div class="card shadow-sm">
-                <div class="card-body">
-                  <h5 class="card-title">Staff</h5>
-                  <p class="card-text display-4">36</p>
+            <div class="card shadow-sm rounded-lg mx-md-3 text-light">
+                <div class="card-body bg-gradient-info">
+                    <div class="row">     
+                        <div class="col-7">
+                            <h5 class="card-title text-uppercase">Exams</h5>
+                            <p class="card-text h2">1522</p>
+                        </div>
+                        <div class="col-5">
+                            <p class="display-4">
+                            <i class="fas fa-user-graduate" ></i>
+                            </p>
+                        </div>
+                    </div>     
                 </div>
             </div>
         </div>   

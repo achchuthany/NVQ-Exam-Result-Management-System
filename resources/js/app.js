@@ -208,3 +208,5 @@ $('#batch_couese_id').change(function(event) {
         });
     });
 });
+
+$('.toast').toast('show');
