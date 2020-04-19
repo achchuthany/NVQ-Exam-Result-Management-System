@@ -1,13 +1,18 @@
 require('./bootstrap');
 
-//Department Model
+//START department edit modal
 var department_id = 0;
 var postBodyElement = null;
 $('#department_save').on('click', function() {
     $.ajax({
             method: 'POST',
             url: urlEdit,
-            data: { d_id: department_id, d_name: $('#d_name').val(), _token: token }
+            data: {
+                d_id: department_id,
+                code: $('#code').val(),
+                d_name: $('#d_name').val(),
+                _token: token
+            }
         })
         .done(function(msg) {
             $(postBodyElement).text(msg['new_name']);
@@ -17,14 +22,15 @@ $('#department_save').on('click', function() {
 
 $('.department-edit').on('click', function(event) {
     event.preventDefault();
-    department_id = event.target.parentNode.parentNode.parentNode.childNodes[1].textContent;
-    postBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[3];
-    var department_name = postBodyElement.textContent;
+    department_id = event.target.parentNode.parentNode.parentNode.dataset['did'];
+    postBodyElement = event.target.parentNode.parentNode.parentNode;
+    var department_code = postBodyElement.childNodes[1].textContent;
+    var department_name = postBodyElement.childNodes[3].textContent;
     $('#d_name').val(department_name);
-    $('#code').val(department_name);
+    $('#code').val(department_code);
     $('#departmentEditModal').modal('show');
 });
-
+//END department edit modal
 
 // NVQ Modal Model
 var nvq_id = 0;
@@ -36,7 +42,8 @@ $('#nvq_save').on('click', function() {
             data: { n_id: nvq_id, n_name: $('#n_name').val(), _token: token }
         })
         .done(function(msg) {
-            $(postBodyElement).text(msg['new_name']);
+            $(postBodyElement.childNodes[1]).text(msg['new_code']);
+            $(postBodyElement.childNodes[3]).text(msg['new_name']);
             $('#nvqEditModal').modal('hide');
         });
 });

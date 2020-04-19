@@ -37372,20 +37372,23 @@
                 data: {
                     d_id: department_id,
                     d_name: $('#d_name').val(),
+                    code: $('#code').val(),
                     _token: token
                 }
             }).done(function(msg) {
-                $(postBodyElement).text(msg['new_name']);
+                $(postBodyElement.childNodes[1]).text(msg['new_code']);
+                $(postBodyElement.childNodes[3]).text(msg['new_name']);
                 $('#departmentEditModal').modal('hide');
             });
         });
         $('.department-edit').on('click', function(event) {
             event.preventDefault();
-            department_id = event.target.parentNode.parentNode.parentNode.childNodes[1].textContent;
-            postBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[3];
-            var department_name = postBodyElement.textContent;
+            department_id = event.target.parentNode.parentNode.parentNode.dataset['did'];
+            postBodyElement = event.target.parentNode.parentNode.parentNode;
+            var department_code = postBodyElement.childNodes[1].textContent;
+            var department_name = postBodyElement.childNodes[3].textContent;
             $('#d_name').val(department_name);
-            $('#code').val(department_name);
+            $('#code').val(department_code);
             $('#departmentEditModal').modal('show');
         }); // NVQ Modal Model
 
@@ -37546,45 +37549,23 @@
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
-        $(document).ready(function() {
-            $('#batch_couese_id').change(function(event) {
-                var course_id = this.value;
-                $.ajax({
-                    method: 'POST',
-                    url: urlBatchesByCourse,
-                    data: {
-                        id: course_id,
-                        _token: token
-                    }
-                }).done(function(msg) {
-                    $("#batch_id").empty();
-                    $.each(msg['batches'], function() {
-                        $("#batch_id").append(new Option(this.name, this.id));
-                    });
+        $('#batch_couese_id').change(function(event) {
+            var course_id = this.value;
+            $.ajax({
+                method: 'POST',
+                url: urlBatchesByCourse,
+                data: {
+                    id: course_id,
+                    _token: token
+                }
+            }).done(function(msg) {
+                $("#batch_id").empty();
+                $.each(msg['batches'], function() {
+                    $("#batch_id").append(new Option(this.name, this.id));
                 });
             });
         });
         $('.toast').toast('show');
-
-        $('.employee_enroll_edit').on('click', function(event) {
-            event.preventDefault();
-            department_id = event.target.parentNode.parentNode.parentNode.childNodes[1].textContent;
-            postBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[3];
-            var department_name = postBodyElement.textContent;
-            $('#d_name').val(department_name);
-            $('#code').val(department_name);
-            $('#employee_enroll_edit_modal').modal('show');
-        });
-
-        $('.employee_enroll_new').on('click', function(event) {
-            event.preventDefault();
-            department_id = event.target.parentNode.parentNode.parentNode.childNodes[1].textContent;
-            postBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[3];
-            var department_name = postBodyElement.textContent;
-            $('#d_name').val(department_name);
-            $('#code').val(department_name);
-            $('#employee_enroll_new_modal').modal('show');
-        });
 
         /***/
     }),

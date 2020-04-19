@@ -17,8 +17,8 @@
 </div>
 <div class="row align-items-center mt-2">
     <div class="col-12 table-responsive">
-        <table class="table table-hover">
-            <thead>
+        <table class="table table-striped table-borderless table-hover shadow-sm">
+            <thead class="table-primary">
               <tr>
                 <th scope="col">Code</th>
                 <th scope="col">Department Name</th>
@@ -65,10 +65,10 @@
   <!-- Modal -->
   <div class="modal fade" id="departmentEditModal" tabindex="-1" role="dialog" aria-labelledby="departmentEditModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content bg-light">
+        <div class="modal-header text-light bg-dark">
           <h5 class="modal-title" id="departmentEditModal">Department</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -89,15 +89,12 @@
               </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-footer border-0">
           <button id="department_save" type="button" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>
   </div>
-
-@include('includes.deletemodal')
   
   <script>
     var token = '{{ Session::token() }}';

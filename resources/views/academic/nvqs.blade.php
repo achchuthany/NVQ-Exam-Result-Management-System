@@ -15,8 +15,8 @@
 </div>
 <div class="row align-items-center mt-2">
     <div class="col-12 table-responsive">
-        <table class="table table-hover">
-            <thead>
+        <table class="table table-striped table-borderless table-hover shadow-sm">
+            <thead class="table-primary">
               <tr>
                 <th scope="col">#ID</th>
                 <th scope="col">NVQ Name</th>
@@ -32,8 +32,8 @@
                 <td>{{$nvq->name}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-sm btn-warning nvq-edit">Edit</button>
-                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('nvqs.delete',['n_id'=>$nvq->id]) }}">Delete</a>
+                        <a  class="btn btn-sm btn-warning nvq-edit"> Edit</a>
+                        <a  class="btn btn-sm btn-danger" href="{{ route('nvqs.delete',['n_id'=>$nvq->id]) }}"> Delete</a>
                     </div>
                 </td>
               </tr>
@@ -47,10 +47,10 @@
   <!-- Modal -->
   <div class="modal fade" id="nvqEditModal" tabindex="-1" role="dialog" aria-labelledby="nvqEditModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="nvqEditModal">NVQ Level</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-content bg-light">
+        <div class="modal-header text-light bg-dark">
+          <h5 class="modal-title" id="nvqEditModal">Edit NVQ Level</h5>
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -67,15 +67,12 @@
               </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-footer border-0">
           <button id="nvq_save" type="button" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>
   </div>
-
-@include('includes.deletemodal')
   
   <script>
     var token = '{{ Session::token() }}';
