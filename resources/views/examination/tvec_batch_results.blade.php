@@ -61,7 +61,7 @@ TVEC Exam Batch Results
                             @if($pass!=$total)
                             <span class="badge badge-danger"> <i class="fas fa-exclamation-circle"></i></span> 
                             @endif
-                    <span data-toggle="tooltip" title="{{$pass}} of {{$total}}" >{{round(($pass/$total)*100)}}%</span>
+                    <span data-toggle="tooltip" title="{{$pass}} of {{$total}}" >{{ ($total != 0 ) ? round(($pass/$total)*100): 0}}%</span>
                         </td>
                     @endif
                     @if(!($isPrint==$result->student_id.$result->module_code.$result->exam_type))
