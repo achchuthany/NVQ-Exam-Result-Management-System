@@ -15,8 +15,8 @@
 </div>
 <div class="row align-items-center mt-2">
     <div class="col-12 table-responsive">
-        <table class="table table-hover">
-            <thead>
+        <table class="table table-striped table-borderless table-hover shadow-sm">
+            <thead class="table-primary">
               <tr>
                 <th scope="col">Code</th>
                 <th scope="col">Name</th>

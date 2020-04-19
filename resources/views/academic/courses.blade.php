@@ -15,9 +15,9 @@
 </div>
 <div class="row align-items-center mt-2">
     <div class="col-12 table-responsive">
-        <table class="table table-hover">
+        <table class="table table-striped table-borderless table-hover shadow-sm">
             <thead>
-              <tr>
+              <tr class="table-primary">
                 <th scope="col">Code</th>
                 <th scope="col">Name</th>
                 <th scope="col">Department Name</th>
@@ -69,10 +69,10 @@
   <!-- Modal -->
   <div class="modal fade" id="courseEditModal" tabindex="-1" role="dialog" aria-labelledby="courseEditModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content bg-light">
+        <div class="modal-header text-light bg-dark">
           <h5 class="modal-title" id="courseEditModal">Course</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -128,16 +128,12 @@
                 </div>
                 </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-footer border-0">
           <button id="course_save" type="button" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>
   </div>
-
-@include('includes.deletemodal')
-  
   <script>
     var token = '{{ Session::token() }}';
     var urlEdit = '{{ route('courses.edit') }}';
