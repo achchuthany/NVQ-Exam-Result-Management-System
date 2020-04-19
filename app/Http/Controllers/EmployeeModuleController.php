@@ -7,15 +7,20 @@ use App\Course;
 use Illuminate\Http\Request;
 use App\Employee;
 use App\Module;
+use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Database\QueryException;
-
+use Illuminate\Support\Facades\DB;
 class EmployeeModuleController extends Controller
 {
     public function getEnrollIndex(){
         $academic_year = AcademicYear::where('status','Active')->first();
         $employees = Employee::orderBy('fullname','asc')->paginate(30);
         //return response()->json(['employees'=>$employees],200);
-        return view('employee.enrolls',['employees'=>$employees,'academic_year'=>$academic_year]);
+
+        $courses = Course::orderBy('name','asc')->get();
+        $academic_years = AcademicYear::orderBy('name','desc')->paginate(30);
+
+        return view('employee.enrolls',['employees'=>$employees,'academic_year'=>$academic_year,'courses'=>$courses,'academic_years'=>$academic_years]);
     }
     public function getEnrollCreateIndex(){
         $employees = Employee::orderBy('fullname','asc')->get();
@@ -38,13 +43,26 @@ class EmployeeModuleController extends Controller
         $module = Module::where('id',$request['modules'])->first();
         $academic = AcademicYear::where('id',$request['academic_year_id'])->first();
         $message=$warning=null;
-       
-        try{
+       if(DB::table('employee_module')->where([['employee_id', $request['employee']],['academic_year_id', $request['academic_year_id']],['module_id', $request['modules']]])->first()){
+            $warning = 'Already Created!!';
+       }
+        else{
             $module->employees()->attach($employee,['academic_year_id'=>$request['academic_year_id']]);
             $message = $employee->fullname.' successfully enrolled to '.$module->name .' in '.$academic->name;
-        }catch (QueryException  $e){
+        }
+        return redirect()->back()->with(['message'=>$message,'warning'=>$warning]);
+    }
+
+    public function getDeleteEnroll($id){
+        $message = $warning = null;
+        
+        try{
+            $enroll = DB::table('employee_module')->where('id', $id)->delete();
+            $message = 'Successfully deleted';
+        }catch(QueryException $e){
             $warning = 'There was an error';
         }
-        return redirect()->route('employees.enroll')->with(['message'=>$message,'warning'=>$warning]);
+        return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
+
     }
 }

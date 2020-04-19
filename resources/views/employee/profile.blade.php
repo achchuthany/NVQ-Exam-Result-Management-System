@@ -143,7 +143,7 @@
                                 @if($module->academic_year_status == 'Planning')
                                 <span class="badge badge-dark p-2">{{$module->academic_year_name}}</span>
                                 @endif
-                                <a type="button" class="btn btn-sm btn-danger" href="{{route('employee.profile',['id'=>$module->id])}}"><i class="fas fa-trash"></i></a>
+                                <a type="button" class="btn btn-sm btn-danger" href="{{route('employees.enroll.delete',['id'=>$module->id])}}"><i class="fas fa-trash"></i></a>
                             </div>
                         </div>
                         @endforeach

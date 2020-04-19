@@ -300,5 +300,9 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'EmployeeModuleController@postEnrollCreate',
         'as' => 'employees.enroll.create'
     ]);
+    Route::get('/employees/enroll/{id}/delete', [
+        'uses' => 'EmployeeModuleController@getDeleteEnroll',
+        'as' => 'employees.enroll.delete'
+    ]);
 
 });
