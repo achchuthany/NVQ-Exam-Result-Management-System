@@ -3,24 +3,23 @@
     Departments
 @endsection
 @section('content')
-<div class="row align-items-center">
-    <div class="col-8">
-        <h4 class="pt-2"> Departments</h4>
+<div class="card mb-3">
+  <div class="card-header bg-white">
+    <div class="align-items-center row">
+      <div class="col">
+        <h5 class="mb-0 font-weight-bolder">Departments</h5>
+      </div>
+      <div class="text-right col-auto">
+      <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('departments.create')}}">New</a>
+      </div>
     </div>
-    @if(Auth::user()->hasAnyRole(['Admin']))
-    <div class="col-4">
-        <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <a type="button" class="btn btn-sm btn-primary" href="{{route('departments.create')}}">New</a>
-        </div>
-    </div>
-    @endif
-</div>
-<div class="row align-items-center mt-2">
-    <div class="col-12 table-responsive">
-        <table class="table table-striped table-borderless table-hover shadow-sm">
-            <thead class="table-primary">
+  </div>
+  <div class="card-body p-0">
+        <div class="table-responsive">
+        <table class="table table-hover table-sm  mb-0">
+            <thead class="thead-light">
               <tr>
-                <th scope="col">Code</th>
+               <th scope="col" class="pl-4">Code</th>
                 <th scope="col">Department Name</th>
                 @if(Auth::user()->hasAnyRole(['Admin']))
                 <th scope="col">
@@ -30,38 +29,41 @@
               </tr>
             </thead>
             <tbody>
-              @foreach( $departments as $department)
+            @foreach( $departments as $department)
             <tr data-did="{{$department->id}}">
-              <th scope="row">{{$department->code}}</th>
+              <th scope="row" class="pl-4">{{$department->code}}</th>
                 <td>{{$department->name}}</td>
                 @if(Auth::user()->hasAnyRole(['Admin']))
-                <td>                    
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-sm btn-warning department-edit">Edit</button>
-                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('departments.delete',['d_id'=>$department->id]) }}">Delete</a>       
-                      </div>
+                <td> 
+                  <div class="dropdown dropleft">
+                    <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="department-edit dropdown-item" href="#">Edit</a>
+                        <a class="dropdown-item text-danger" href="{{ route('departments.delete',['d_id'=>$department->id]) }}">Delete</a>
+                    </div>
+                  </div>
                 </td>
                 @endif
               </tr>
               @endforeach
-              
             </tbody>
           </table>
-          <nav>
-            <ul class="pagination pagination-sm justify-content-end">
-              <li class="page-item">
-                <span class="page-link">
-                Showing {{$departments->firstItem()}} to {{$departments->lastItem()}} of  {{$departments->total()}} entries
-                </span>
-              </li>
-              <p>
-              {{ $departments->links() }}
-              </p>
-            </ul>
-          </nav>
     </div>
+  </div>
+  <div class="card-footer bg-white">
+  <div class="pt-1 no-gutters row">
+    <div class="col">
+     <span>{{$departments->firstItem()}} to {{$departments->lastItem()}} of  {{$departments->total()}}</span>
+    </div>
+    <div class="col-auto">
+      {{ $departments->links() }}
+    </div>
+  </div>
+  </div>
 </div>
- 
+
   <!-- Modal -->
   <div class="modal fade" id="departmentEditModal" tabindex="-1" role="dialog" aria-labelledby="departmentEditModal" aria-hidden="true">
     <div class="modal-dialog" role="document">

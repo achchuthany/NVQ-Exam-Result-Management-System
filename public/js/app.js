@@ -70836,14 +70836,15 @@ $('#department_save').on('click', function () {
       _token: token
     }
   }).done(function (msg) {
-    $(postBodyElement).text(msg['new_name']);
+    $(postBodyElement.childNodes[1]).text(msg['new_code']);
+    $(postBodyElement.childNodes[3]).text(msg['new_name']);
     $('#departmentEditModal').modal('hide');
   });
 });
 $('.department-edit').on('click', function (event) {
   event.preventDefault();
-  department_id = event.target.parentNode.parentNode.parentNode.dataset['did'];
-  postBodyElement = event.target.parentNode.parentNode.parentNode;
+  department_id = event.target.parentNode.parentNode.parentNode.parentNode.dataset['did'];
+  postBodyElement = event.target.parentNode.parentNode.parentNode.parentNode;
   var department_code = postBodyElement.childNodes[1].textContent;
   var department_name = postBodyElement.childNodes[3].textContent;
   $('#d_name').val(department_name);
