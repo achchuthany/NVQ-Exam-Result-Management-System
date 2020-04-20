@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css2?family=Poppins&display=swap);/*!
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);/*!
  * Font Awesome Free 5.13.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
@@ -4580,7 +4580,7 @@ readers do not read off random characters that represent icons */
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Poppins", sans-serif;
+  --font-family-sans-serif: "Open Sans", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -4612,7 +4612,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
@@ -10939,7 +10939,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -11064,7 +11064,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Poppins", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;

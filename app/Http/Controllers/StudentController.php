@@ -101,6 +101,9 @@ class StudentController extends Controller
     public function getDeleteStudent($id){
         $post1 = StudentEnroll::where('student_id',$id)->first();
         $post2 = Student::where('id',$id)->first();
+        if(!$post1 || $post2){
+            return back();
+        }
         try {
             $result = $post1->delete();
             $result = $post2->delete();
