@@ -10,7 +10,7 @@ class NvqController extends Controller
 {
     public function getNvqs(){
 
-        $nvqs = Nvq::orderBy('id','asc')->get();
+        $nvqs = Nvq::orderBy('id','asc')->paginate(30);
         return view('academic.nvqs',['nvqs' =>$nvqs]);
     }
     public function getNvqsCreate(){

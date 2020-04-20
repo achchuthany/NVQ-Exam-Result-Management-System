@@ -3,23 +3,25 @@
     NVQ Levels
 @endsection
 @section('content')
-<div class="row align-items-center">
-    <div class="col-8">
-        <h4 class="pt-2"> NVQ Levels</h4>
+
+<div class="card mb-3">
+  <div class="card-header bg-white">
+    <div class="align-items-center row">
+      <div class="col">
+        <h5 class="mb-0 font-weight-bolder">NVQ Levels</h5>
+      </div>
+      <div class="text-right col-auto">
+      <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('nvqs.create')}}">New</a>
+      </div>
     </div>
-    <div class="col-4">
-        <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <a type="button" class="btn btn-sm btn-primary" href="{{route('nvqs.create')}}">New</a>
-        </div>
-    </div>
-</div>
-<div class="row align-items-center mt-2">
-    <div class="col-12 table-responsive">
-        <table class="table table-striped table-borderless table-hover shadow-sm">
-            <thead class="table-primary">
+  </div>
+  <div class="card-body p-0">
+        <div class="table-responsive">
+        <table class="table table-hover table-sm  mb-0">
+            <thead class="thead-light">
               <tr>
-                <th scope="col">#ID</th>
-                <th scope="col">NVQ Name</th>
+                <th scope="col" hidden>#ID</th>
+                <th scope="col" class="pl-4">NVQ Name</th>
                 <th scope="col">
                     Actions
                 </th>
@@ -27,9 +29,9 @@
             </thead>
             <tbody>
               @foreach( $nvqs as $nvq)
-              <tr>
-              <th scope="row">{{$nvq->id}}</th>
-                <td>{{$nvq->name}}</td>
+              <tr class="btn-reveal-trigger">
+              <th scope="row" hidden>{{$nvq->id}}</th>
+                <td class="pl-4">{{$nvq->name}}</td>
                 <td>                    
                     <div class="btn-group" role="group">
                         <a  class="btn btn-sm btn-warning nvq-edit"> Edit</a>
@@ -37,12 +39,24 @@
                     </div>
                 </td>
               </tr>
-              @endforeach
-              
+              @endforeach           
             </tbody>
           </table>
     </div>
+  </div>
+  <div class="card-footer bg-white">
+  <div class="pt-1 no-gutters row">
+    <div class="col">
+     <span>{{$nvqs->firstItem()}} to {{$nvqs->lastItem()}} of  {{$nvqs->total()}}</span>
+    </div>
+    <div class="col-auto">
+      {{ $nvqs->links() }}
+    </div>
+  </div>
+  </div>
 </div>
+
+
  
   <!-- Modal -->
   <div class="modal fade" id="nvqEditModal" tabindex="-1" role="dialog" aria-labelledby="nvqEditModal" aria-hidden="true">

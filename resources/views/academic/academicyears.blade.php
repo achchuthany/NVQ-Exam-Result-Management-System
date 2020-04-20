@@ -3,22 +3,24 @@
     Academic Years
 @endsection
 @section('content')
-<div class="row align-items-center">
-    <div class="col-8">
-        <h4 class="pt-2">Academic Years </h4>
+<div class="card mb-3">
+  <div class="card-header bg-white">
+    <div class="align-items-center row">
+      <div class="col">
+        <h5 class="mb-0 font-weight-bolder">Academic Years </h5>
+      </div>
+      <div class="text-right col-auto">
+      <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('academics.create')}}">New</a>
+      </div>
     </div>
-    <div class="col-4">
-        <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <a type="button" class="btn btn-sm btn-primary" href="{{route('academics.create')}}">New</a>
-        </div>
-    </div>
-</div>
-<div class="row align-items-center mt-2">
-    <div class="col-12 table-responsive">
-        <table class="table table-hover">
-            <thead>
+  </div>
+  <div class="card-body p-0">
+        <div class="table-responsive">
+        <table class="table table-hover table-sm  mb-0">
+            <thead class="thead-light">
               <tr>
-                <th scope="col">#ID</th>
+                <tr>
+                <th scope="col" class="pl-4">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">Completion Date</th>
@@ -27,29 +29,51 @@
                     Actions
                 </th>
               </tr>
+              </tr>
             </thead>
             <tbody>
-              @foreach( $academicyears as $academicyear)
+               @foreach( $academicyears as $academicyear)
               <tr>
-              <th scope="row">{{$academicyear->id}}</th>
+              <th class="pl-4">{{$academicyear->id}}</th>
                 <td>{{$academicyear->name}}</td>
                 <td>{{$academicyear->start}}</td>
                 <td>{{$academicyear->end}}</td>
-                <td>{{$academicyear->status}}</td>
-                <td>                    
-                    <div class="btn-group" role="group">
-                      <a type="button" class="btn btn-sm btn-secondary" href="{{ route('students.academic',['id'=>$academicyear->id]) }}">Students</a>
-                        <button type="button" class="btn btn-sm btn-warning nvq-edit">Edit</button>
-                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('academics.delete',['id'=>$academicyear->id]) }}">Delete</a>
-                    </div>
+                <td>
+                <span class="rounded badge {{($academicyear->status=='Active')? 'badge-success' : (($academicyear->status=='Planning')? 'badge-primary':'badge-danger') }} p-1">{{$academicyear->status}} </span> 
+                </td>
+                <td> 
+                  <div class="dropdown dropleft">
+                  <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="{{ route('students.academic',['id'=>$academicyear->id]) }}">Students</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="nvq-edit dropdown-item" href="#">Edit</a>
+                  <a class="dropdown-item text-danger" href="{{ route('academics.delete',['id'=>$academicyear->id]) }}">Delete</a>
+                  </div>
+                  </div>                   
                 </td>
               </tr>
-              @endforeach
-              
+              @endforeach          
             </tbody>
           </table>
     </div>
+  </div>
+  <div class="card-footer bg-white">
+  <div class="pt-1 no-gutters row">
+    <div class="col">
+     <span>{{$academicyears->firstItem()}} to {{$academicyears->lastItem()}} of  {{$academicyears->total()}}</span>
+    </div>
+    <div class="col-auto">
+      {{ $academicyears->links() }}
+    </div>
+  </div>
+  </div>
 </div>
+
+
+
  
   <!-- Modal -->
   <div class="modal fade" id="nvqEditModal" tabindex="-1" role="dialog" aria-labelledby="nvqEditModal" aria-hidden="true">

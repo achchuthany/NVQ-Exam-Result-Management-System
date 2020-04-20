@@ -6,9 +6,9 @@
 
 <div class="row mt-3">
     <div class="col-md-12">
-        <div class="card-group">
-            <div class="card shadow-sm rounded-lg mx-md-3 text-light">
-                <div class="card-body bg-gradient-info">
+        <div class="card-deck">
+            <div class="card">
+                <div class="card-body">
                     <div class="row">     
                         <div class="col-7">
                             <h5 class="card-title text-uppercase">Students</h5>
@@ -22,8 +22,8 @@
                     </div>     
                 </div>
             </div>
-            <div class="card shadow-sm rounded-lg mx-md-3 text-light">
-                <div class="card-body bg-gradient-info">
+            <div class="card">
+                <div class="card-body">
                     <div class="row">     
                         <div class="col-7">
                             <h5 class="card-title text-uppercase">Staffs</h5>
@@ -37,8 +37,8 @@
                     </div>     
                 </div>
             </div>
-            <div class="card shadow-sm rounded-lg mx-md-3 text-light">
-                <div class="card-body bg-gradient-info">
+            <div class="card">
+                <div class="card-body">
                     <div class="row">     
                         <div class="col-7">
                             <h5 class="card-title text-uppercase">Courses</h5>
@@ -52,8 +52,8 @@
                     </div>     
                 </div>
             </div>
-            <div class="card shadow-sm rounded-lg mx-md-3 text-light">
-                <div class="card-body bg-gradient-info">
+            <div class="card bg-gradient">
+                <div class="card-body">
                     <div class="row">     
                         <div class="col-7">
                             <h5 class="card-title text-uppercase">Exams</h5>

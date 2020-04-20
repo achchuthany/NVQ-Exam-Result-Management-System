@@ -10,7 +10,7 @@ class AcademicYearController extends Controller
     private $status = array('1'=>'Active','2'=>'Completed','3'=>'Planning');
     public function getAcademicYears(){
 
-        $AcademicYears = AcademicYear::orderBy('id','desc')->get();
+        $AcademicYears = AcademicYear::orderBy('id','desc')->paginate(10);
         return view('academic.academicyears',['academicyears' =>$AcademicYears]);
     }
     public function getAcademicYearCreate(){
