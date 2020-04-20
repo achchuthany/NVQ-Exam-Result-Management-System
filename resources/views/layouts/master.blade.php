@@ -15,5 +15,6 @@
     </div>
     @include('includes.footer')
         <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
+        @yield('script')
     </body>
 </html>

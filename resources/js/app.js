@@ -1,5 +1,5 @@
 require('./bootstrap');
-
+require('chart.js');
 //START department edit modal
 var department_id = 0;
 var postBodyElement = null;
