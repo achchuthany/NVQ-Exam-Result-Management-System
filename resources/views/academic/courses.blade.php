@@ -48,6 +48,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="{{ route('students.course',['id'=>$course->id]) }}">Students</a>
                                 <a class="dropdown-item" href="{{ route('modules.course',['id'=>$course->id]) }}">Modules</a>
+                                  <div class="dropdown-divider"></div>
                                 <a  class="dropdown-item course-edit" href="#">Edit</a>
                                 <a class="dropdown-item text-danger" href="{{ route('courses.delete',['id'=>$course->id]) }}">Delete</a>
                             </div>
