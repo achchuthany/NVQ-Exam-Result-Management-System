@@ -69,43 +69,6 @@
   </div>
   </div>
 </div>
-
-
-
- 
-  <!-- Modal -->
-  <div class="modal fade" id="nvqEditModal" tabindex="-1" role="dialog" aria-labelledby="nvqEditModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="nvqEditModal">NVQ Level</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-              <div class="col">
-                  <form method="post" action="">
-                      <div class="form-group">
-                          <label for="n_name">NVQ Level Name</label>
-                          <input id="n_name" class="form-control" type="text" name="n_name">
-                      </div>
-
-                  </form>
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="nvq_save" type="button" class="btn btn-primary">Save</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-@include('includes.deletemodal')
-  
   <script>
     var token = '{{ Session::token() }}';
     var urlEdit = '{{ route('academics.edit') }}';
