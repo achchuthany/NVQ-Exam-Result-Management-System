@@ -19,24 +19,25 @@ Add a Academic Year
             <div class="row align-items-center mt-2">
                 <div class="form-group col-md-6">
                     <label for="name">Academic Year Name</label>
-                    <input id="name" class="form-control" type="text" name="name" placeholder="2016/2017" pattern="[0-9]{4}/[0-9]{4}" required>
+                    <input id="id" class="form-control" type="hidden" name="id" value="{{ (isset($academic))? $academic->id   : ''}}" >
+                    <input id="name" class="form-control" type="text" name="name" placeholder="2016/2017" pattern="[0-9]{4}/[0-9]{4}" value="{{(isset($academic)&&!Request::old('name'))? $academic->name   : Request::old('name')}}" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="status">Status</label>
                     <select class="custom-select d-block w-100" id="status" name="status" required>
-                        <option disabled selected >Select Status</option>
+                        <option disabled>Select Status</option>
                         @foreach($status as $id => $name) 
-                        <option value ="{{$name}}" >{{$name}}</option> 
+                        <option value ="{{$name}}" {{(isset($academic)&&!Request::old('status'))? (($academic->status == $name)? 'selected':'') : ( (Request::old('status') ==$name)? 'selected':'')}}>{{$name}}</option> 
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="start">Start Date</label>
-                    <input id="start" class="form-control" type="date" name="start" required>
+                    <input id="start" class="form-control" type="date" name="start" value="{{(isset($academic)&&!Request::old('start'))? $academic->start   : Request::old('start')}}"  required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="end">End Date</label>
-                    <input id="end" class="form-control" type="date" name="end" required>
+                    <input id="end" class="form-control" type="date" name="end" value="{{(isset($academic)&&!Request::old('end'))? $academic->end   : Request::old('end')}}"  required>
                 </div>
                 <div class="form-group col-md-12">
                 <button type="submit" class="btn btn-sm btn-primary float-right" >Save</button>

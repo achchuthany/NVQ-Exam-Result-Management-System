@@ -47,7 +47,7 @@
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="{{ route('students.academic',['id'=>$academicyear->id]) }}">Students</a>
                   <div class="dropdown-divider"></div>
-                  <a class="nvq-edit dropdown-item" href="#">Edit</a>
+                  <a class="dropdown-item" href="{{ route('academics.edit',['id'=>$academicyear->id]) }}">Edit</a>
                   <a class="dropdown-item text-danger" href="{{ route('academics.delete',['id'=>$academicyear->id]) }}">Delete</a>
                   </div>
                   </div>                   
@@ -69,8 +69,4 @@
   </div>
   </div>
 </div>
-  <script>
-    var token = '{{ Session::token() }}';
-    var urlEdit = '{{ route('academics.edit') }}';
-  </script>
 @endsection

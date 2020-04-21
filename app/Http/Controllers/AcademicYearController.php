@@ -17,39 +17,40 @@ class AcademicYearController extends Controller
         return view('academic.academicyear',['status' =>$this->status]);
     }
     public function postCreateAcademicYear(Request $request){
+        $message = $warning = null;
         $this->validate($request,[
             'name'=>'required|max:20',
             'start'=>'required|date',
             'end'=>'required|date',
             'status'=>'required'
             ]);
-        $ay = new AcademicYear();
+        $isUpdate = true;
+        $ay = null;
+        if ($request['id']) {
+            $ay = AcademicYear::where('id', $request['id'])->first();
+        }
+        if (!$ay) {
+            $ay = new AcademicYear();
+            $isUpdate = false;
+        }    
         $ay->name = $request['name'];
         $ay->start = $request['start'];
         $ay->end = $request['end'];
         $ay->status = $request['status'];
         $message = 'There was an error';
-        if($ay->save()){
-           $message = 'Academic Year successfully created';
+        if ($isUpdate && $ay->update()) {
+            $message = 'Academic Year ' . $ay->name . ' successfully updated';
+            $warning = null;
+        } else if (!$isUpdate && $ay->save()) {
+            $message = 'Academic Year ' . $ay->name . ' successfully created';
+            $warning = null;
         }
-        return redirect()->route('academics')->with(['message'=>$message]);
+        return redirect()->route('academics')->with(['message' => $message, 'warning' => $warning]);
     }
 
-    public function postEditAcademicYear(Request $request){
-        $this->validate($request,[
-            'name'=>'required|max:20',
-            'start'=>'required|date',
-            'end'=>'required|date',
-            'status'=>'required'
-            ]);
-
-            $ay = AcademicYear::find($request['id']);
-            $ay->name = $request['name'];
-            $ay->start = $request['start'];
-            $ay->end = $request['end'];
-            $ay->status = $request['status'];
-            $ay->update();
-            return response()->json(['new_name' => $ay->name], 200);
+    public function getEditAcademicYear($id){
+        $academic = AcademicYear::where('id',$id)->first();
+        return view('academic.academicyear', ['academic'=> $academic,'status' => $this->status]);
     }
     public function getDeleteAcademicYear($n_id){
         $ay = AcademicYear::where('id',$n_id)->first();

@@ -163,19 +163,19 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'AcademicYearController@getAcademicYears',
         'as' => 'academics'
     ]);
-    Route::get('/academics/create',[
+    Route::get('/academic/create',[
         'uses' => 'AcademicYearController@getAcademicYearCreate',
         'as' => 'academics.create'
     ]);
-    Route::post('/academics/create',[
+    Route::post('/academic/create',[
         'uses' => 'AcademicYearController@postCreateAcademicYear',
         'as' => 'academics.create'
     ]);
-    Route::post('/academics/edit',[
-        'uses' => 'AcademicYearController@postEditAcademicYear',
+    Route::get('/academic/{id}/edit',[
+        'uses' => 'AcademicYearController@getEditAcademicYear',
         'as' => 'academics.edit'
     ]);
-    Route::get('/academics/{id}/delete',[
+    Route::get('/academic/{id}/delete',[
         'uses'=>'AcademicYearController@getDeleteAcademicYear',
         'as'=>'academics.delete'
     ]);
