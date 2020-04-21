@@ -20,8 +20,7 @@
             <thead class="thead-light">
               <tr>
                 <tr>
-                <th scope="col" class="pl-4">ID</th>
-                <th scope="col">Name</th>
+                <th scope="col" class="pl-4">Name</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">Completion Date</th>
                 <th scope="col">Status</th>
@@ -33,13 +32,12 @@
             </thead>
             <tbody>
                @foreach( $academicyears as $academicyear)
-              <tr>
-              <th class="pl-4">{{$academicyear->id}}</th>
-                <td>{{$academicyear->name}}</td>
-                <td>{{$academicyear->start}}</td>
-                <td>{{$academicyear->end}}</td>
+              <tr data-aid="{{$academicyear->id}}">
+                <th class="pl-4">{{$academicyear->name}}</th>
+                <td>{{date('d-M-Y', strtotime($academicyear->start))}}</td>
+                <td>{{date('d-M-Y', strtotime($academicyear->end))}}</td>
                 <td>
-                <span class="rounded badge {{($academicyear->status=='Active')? 'badge-success' : (($academicyear->status=='Planning')? 'badge-primary':'badge-danger') }} p-1">{{$academicyear->status}} </span> 
+                <span class="rounded badge {{($academicyear->status=='Active')? 'badge-primary' : (($academicyear->status=='Planning')? 'badge-dark':'badge-secondary') }}"><i class="fas fa-check-circle"></i></span> {{$academicyear->status}}
                 </td>
                 <td> 
                   <div class="dropdown dropleft">
