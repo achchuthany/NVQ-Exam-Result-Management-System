@@ -42,8 +42,8 @@
                               <a  class="dropdown-item" href="{{ route('tvec.exams.results.batch',['id'=>$batch->id]) }}"><i class="fas fa-graduation-cap"></i> TVEC Results</a>
                               <a  class="dropdown-item" href="{{ route('students.batch',['id'=>$batch->id]) }}"><i class="fas fa-user-graduate"></i> Students</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item " href="#"><i class="far fa-edit"></i> Edit</a>
-                              <a class="dropdown-item text-danger" href="{{ route('academics.delete',['id'=>$batch->id]) }}"><i class="far fa-trash-alt"></i> Delete</a>
+                              <a class="dropdown-item " href="{{ route('batches.edit',['id'=>$batch->id]) }}"><i class="far fa-edit"></i> Edit</a>
+                              <a class="dropdown-item text-danger" href="{{ route('batches.delete',['id'=>$batch->id]) }}"><i class="far fa-trash-alt"></i> Delete</a>
                             </div>
                           </div>                          
                       </td>

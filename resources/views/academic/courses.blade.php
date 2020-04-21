@@ -23,7 +23,7 @@
                         <th scope="col" class="pl-4">Code</th>
                         <th scope="col">Name</th>
                         <th scope="col">Department Name</th>
-                        <th scope="col">NVQ</th>
+                        <th scope="col">NVQ Level</th>
                         <th scope="col">Duration</th>
                         <th scope="col">OJT Duration</th>
                         <th scope="col">

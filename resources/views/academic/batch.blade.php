@@ -19,14 +19,15 @@ Add a Batch
         <div class="row align-items-center mt-2">
             <div class="form-group col-md-4">
                 <label for="name">Batch Name</label>
-                <input id="name" class="form-control" type="text" name="name" placeholder="Batch 01" pattern="[Batch]{5}[\s]{1}[0-9]{2}" required>
+                <input id="id" class="form-control" type="hidden" name="id" value="{{ (isset($batch))? $batch->id   : ''}}" >
+                <input id="name" class="form-control" type="text" name="name" placeholder="Batch 01" pattern="[Batch]{5}[\s]{1}[0-9]{2}" value="{{(isset($batch)&&!Request::old('name'))? $batch->name   : Request::old('name')}}" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="course_id">Course</label>
                 <select id="course_id" class="custom-select" name="course_id" required>
                     <option value="null" disabled selected>Select Course</option>
                     @foreach ($courses as $course)
-                        <option value="{{$course->id}}">{{$course->name}}</option>
+                        <option value="{{$course->id}}" {{(isset($batch)&&!Request::old('course_id'))? (($batch->course_id == $course->id)? 'selected':'') : ( (Request::old('course_id') ==$course->id)? 'selected':'')}}>{{$course->name}}</option>
                     @endforeach     
                 </select>
             </div>
@@ -35,7 +36,7 @@ Add a Batch
                 <select id="academic_year_id" class="custom-select" name="academic_year_id" required>
                     <option value="null" disabled selected>Select Academic Year</option>
                     @foreach ($academicyears as $academicyear)
-                        <option value="{{$academicyear->id}}">{{$academicyear->name}} ({{$academicyear->status}})</option>
+                        <option value="{{$academicyear->id}}" {{(isset($batch)&&!Request::old('academic_year_id'))? (($batch->academic_year_id == $academicyear->id)? 'selected':'') : ( (Request::old('academic_year_id') == $academicyear->id)? 'selected':'')}} >{{$academicyear->name}} ({{$academicyear->status}})</option>
                     @endforeach     
                 </select>
             </div>

@@ -37,7 +37,7 @@ class AcademicYearController extends Controller
         $ay->start = $request['start'];
         $ay->end = $request['end'];
         $ay->status = $request['status'];
-        $message = 'There was an error';
+        $warning = 'There was an error';
         if ($isUpdate && $ay->update()) {
             $message = 'Academic Year ' . $ay->name . ' successfully updated';
             $warning = null;

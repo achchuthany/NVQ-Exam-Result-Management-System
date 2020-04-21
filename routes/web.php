@@ -184,19 +184,19 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'BatchController@getBatches',
         'as' => 'batches'
     ]);
-    Route::get('/batches/create',[
+    Route::get('/batch/create',[
         'uses' => 'BatchController@getBatchCreate',
         'as' => 'batches.create'
     ]);
-    Route::post('/batches/create',[
+    Route::post('/batch/create',[
         'uses' => 'BatchController@postCreateBatch',
         'as' => 'batches.create'
     ]);
-    Route::post('/batches/edit',[
-        'uses' => 'BatchController@postEditBatch',
+    Route::get('/batch/{id}/edit',[
+        'uses' => 'BatchController@getEditBatch',
         'as' => 'batches.edit'
     ]);
-    Route::get('/batches/{id}/delete',[
+    Route::get('/batch/{id}/delete',[
         'uses'=>'BatchController@getDeleteBatch',
         'as'=>'batches.delete'
     ]);

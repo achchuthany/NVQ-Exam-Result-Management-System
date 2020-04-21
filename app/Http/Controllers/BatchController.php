@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AcademicYear;
 use App\Batch;
 use App\Course;
+use App\StudentEnroll;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 
@@ -22,6 +23,7 @@ class BatchController extends Controller
     }
 
     public function postCreateBatch(Request $request){
+        $message = $warning = null;
         $this->validate($request,[
             'academic_year_id'=>'required',
             'course_id'=>'required',
@@ -35,38 +37,47 @@ class BatchController extends Controller
         if(!$AcademicYear){
             return null;
         }
-        $batch = new Batch();
+        $isUpdate = true;
+        $batch = null;
+        if ($request['id']) {
+            $batch = Batch::where('id', $request['id'])->first();
+        }
+        if (!$batch) {
+            $batch = new Batch();
+            $isUpdate = false;
+        }    
         $batch->academic_year_id = $request['academic_year_id'];
         $batch->course_id = $request['course_id'];
         $batch->name = $request['name'];
-        $message = 'There was an error';
-        if($batch->save()){
-           $message = 'Batch successfully created';
+        $warning = 'There was an error';
+        if($isUpdate && Batch::where([['course_id', $request['course_id']],['academic_year_id', $request['academic_year_id']]])->first()){
+            $warning = $batch->academic_year_id. ' record already exists';
         }
-        return redirect()->route('batches')->with(['message'=>$message]);
+        else if ($isUpdate && $batch->update()) {
+            $message = $batch->name . ' successfully updated';
+            $warning = null;
+        } else if (!$isUpdate && $batch->save()) {
+            $message = $batch->name . ' successfully created';
+            $warning = null;
+        }
+        return redirect()->route('batches')->with(['message' => $message, 'warning' => $warning]);
     }
 
-    public function postEditBatch(Request $request){
-        $this->validate($request,[
-            'academic_year_id'=>'required',
-            'course_id'=>'required',
-            'name'=>'required'
-            ]);
-            $batch = Batch::find($request['id']);
-            $batch->academic_year_id = $request['academic_year_id'];
-            $batch->course_id = $request['course_id'];
-            $batch->name = $request['name'];
-            $batch->update();
-            return response()->json(['new_name' => $batch->name], 200);
+    public function getEditBatch($id){
+        $courses = Course::orderBy('name', 'asc')->get();
+        $academicyears = AcademicYear::orderBy('name', 'desc')->get();
+        $batch = Batch::where('id',$id)->first();
+        return view('academic.batch', ['batch' => $batch, 'courses' => $courses, 'academicyears' => $academicyears]);
     }
     public function getDeleteBatch($id){
+        $message = $warning = null;
         $batch = Batch::where('id',$id)->first();
-        try {
-            $batch->delete();
-            $message = "Batch Successfully Deleted!";
-        } catch (QueryException  $e) {       
-            $message = "Batch was not Deleted, Try Again!";
-        } 
-        return redirect()->route('batches')->with(['message'=>$message]);
+        $student_enroll = StudentEnroll::where([['academic_year_id', $batch->academic_year_id],['course_id', $batch->course_id]])->first();
+        if(!$student_enroll && $batch->delete()){
+            $message = $batch->name . " Successfully Deleted!";
+        }else{
+            $warning = $batch->name . " was not Deleted, Try Again!";
+        }
+        return redirect()->route('batches')->with(['message' => $message, 'warning' => $warning]);
     }
 }
