@@ -3,6 +3,7 @@
     Modules
 @endsection
 @section('content')
+
 <div class="card mb-3">
     <div class="card-header bg-white">
         <div class="align-items-center row">
@@ -45,7 +46,7 @@
                                 <i class="fas fa-ellipsis-h"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item module-edit" href="#">Edit</a>
+                                <a class="dropdown-item module-edit" href="{{ route('modules.edit',['id'=>$module->id]) }}">Edit</a>
                                 <a class="dropdown-item text-danger" href="{{ route('modules.delete',['id'=>$module->id]) }}">Delete</a>
                             </div>
                         </div>

@@ -13,21 +13,22 @@ class ModuleController extends Controller
     private $exams = array('T'=>'Theory','P'=>'Practical','B'=>'Theory and Practical');
     public function getModules(){
 
-        $modules = Module::orderBy('id','asc')->paginate(20);
+        $modules = Module::orderBy('code','asc')->paginate(20);
         return view('academic.modules',['modules' =>$modules,'semesters'=>$this->semesters,'exams'=>$this->exams]);
     }
     public function getModulesbyCourse($id){
 
         $modules = Module::where('course_id',$id)
-                            ->orderBy('id','asc')
+                            ->orderBy('code','asc')
                             ->paginate(20);
         return view('academic.modules',['modules' =>$modules,'semesters'=>$this->semesters,'exams'=>$this->exams]);
     }
     public function getModuleCreate(){
-        $courses = Course::orderBy('name','asc')->get();
+        $courses = Course::orderBy('code','asc')->get();
         return view('academic.module',['courses' =>$courses,'semesters'=>$this->semesters,'exams'=>$this->exams]);
     }
     public function postModuleCreate(Request $request){
+        $message = $warning = null;
         $this->validate($request,[
             'modulename'=>'required|max:255',
             'code'=>'required|max:20',
@@ -43,7 +44,15 @@ class ModuleController extends Controller
         if(!$Course){
             return null;
         }
-        $module = new Module();
+        $isUpdate = true;
+        $module = null;
+        if($request['id']){
+            $module = Module::where('id',$request['id'])->first();
+        }
+        if(!$module){
+            $module = new Module();
+            $isUpdate = false;
+        }    
         $module->name = $request['modulename'];
         $module->course_id = $request['coursename'];
         $module->code = $request['code'];
@@ -58,21 +67,31 @@ class ModuleController extends Controller
         $module->lecture_hours = $request['lecturehours'];
         $module->practical_hours = $request['practicalhours'];
         $module->self_study_hours = $request['selfhours'];
-        $message = 'There was an error';
-        if($module->save()){
-           $message = 'Course successfully created';
+        $warning = 'There was an error';
+        if($isUpdate && $module->update()){
+            $message = $module->name.' successfully updated';
+            $warning= null;
         }
-        return redirect()->route('modules')->with(['message'=>$message]);
+        else if(!$isUpdate && $module->save()) {
+            $message = $module->name . ' successfully created';
+            $warning = null;
+        }
+        return redirect()->route('modules')->with(['message' => $message, 'warning' => $warning]);
     }
     public function getDeleteModule($id){
+        $message = $warning = null;
         $post = Module::where('id',$id)->first();
         try {
             $result = $post->delete();
-            $message = "Module Successfully Deleted!";
-        } catch (QueryException  $e) {       
-            $message = "Module was not Deleted, Try Again!";
+            $message = $post->name."  successfully Deleted!";
+        } catch (QueryException  $e) {
+            $warning = $post->name . " was not Deleted, Try Again!";
         }
-        return redirect()->route('modules')->with(['message'=>$message]);
+        return redirect()->route('modules')->with(['message' => $message, 'warning' => $warning]);
     }
- 
+    public function getModuleEdit($id){
+        $courses = Course::orderBy('name', 'asc')->get();
+        $module = Module::where('id',$id)->first();
+        return view('academic.module', ['module'=> $module,'courses' => $courses, 'semesters' => $this->semesters, 'exams' => $this->exams]);
+    }
 }

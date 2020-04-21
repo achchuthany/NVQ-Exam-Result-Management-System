@@ -110,19 +110,24 @@ Route::group(['middleware' => ['auth']], function () {
         'as' => 'modules.course'
     ]);
 
-    Route::get('/modules/create',[
+    Route::get('/module/create',[
         'uses' => 'ModuleController@getModuleCreate',
         'as' => 'modules.create'
     ]);
-    Route::post('/modules/create',[
+    Route::post('/module/create',[
         'uses' => 'ModuleController@postModuleCreate',
         'as' => 'modules.create'
     ]);
 
-    Route::get('/modules/{id}/delete',[
+    Route::get('/module/{id}/delete',[
         'uses'=>'ModuleController@getDeleteModule',
         'as'=>'modules.delete'
     ]);
+    Route::get('/module/{id}/edit', [
+        'uses' => 'ModuleController@getModuleEdit',
+        'as' => 'modules.edit'
+    ]);
+
 
     Route::get('/students',[
         'uses' => 'StudentController@getStudents',
