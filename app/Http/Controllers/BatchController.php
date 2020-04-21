@@ -12,7 +12,7 @@ class BatchController extends Controller
 {
     public function getBatches(){
 
-        $batches = Batch::orderBy('id','asc')->get();
+        $batches = Batch::orderBy('academic_year_id','desc')->orderBy('name', 'desc')->paginate(20);
         return view('academic.batches',['batches' =>$batches]);
     }
     public function getBatchCreate(){

@@ -3,88 +3,65 @@
     Batches
 @endsection
 @section('content')
-<div class="row align-items-center">
-    <div class="col-8">
-        <h4 class="pt-2">Batches </h4>
+<div class="card mb-3">
+    <div class="card-header bg-white">
+        <div class="align-items-center row">
+            <div class="col">
+                <h5 class="mb-0 font-weight-bolder">Batches</h5>
+            </div>
+            <div class="text-right col-auto">
+                <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('batches.create')}}">New</a>
+            </div>
+        </div>
     </div>
-    <div class="col-4">
-        <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <a type="button" class="btn btn-sm btn-primary" href="{{route('batches.create')}}">New</a>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover  mb-0">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="pl-4">Name</th>
+                        <th scope="col">Course Name</th>
+                        <th scope="col">Academic Year</th>
+                        <th scope="col">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach( $batches as $batch)
+                    <tr data-bid="{{$batch->id}}">
+                      <th class="pl-4">{{$batch->name}}</th>
+                      <td>{{$batch->course->name}}</td>
+                      <td><span data-toggle="tooltip" data-placement="top" title="{{$batch->academic_year->status}}" class="{{($batch->academic_year->status=='Active')? 'text-primary' : (($batch->academic_year->status=='Planning')? 'text-dark':'text-secondary') }}"><i class="fas fa-check-circle"></i></span> {{$batch->academic_year->name}}</td>
+                      <td>
+                          <div class="dropdown dropleft">
+                            <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a  class="dropdown-item" href="{{ route('tvec.exams.results.batch',['id'=>$batch->id]) }}"><i class="fas fa-graduation-cap"></i> TVEC Results</a>
+                              <a  class="dropdown-item" href="{{ route('students.batch',['id'=>$batch->id]) }}"><i class="fas fa-user-graduate"></i> Students</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item " href="#"><i class="far fa-edit"></i> Edit</a>
+                              <a class="dropdown-item text-danger" href="{{ route('academics.delete',['id'=>$batch->id]) }}"><i class="far fa-trash-alt"></i> Delete</a>
+                            </div>
+                          </div>                          
+                      </td>
+                    </tr>
+                    @endforeach            
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer bg-white">
+        <div class="pt-1 no-gutters row">
+            <div class="col">
+                <span>{{$batches->firstItem()}} to {{$batches->lastItem()}} of  {{$batches->total()}}</span>
+            </div>
+            <div class="col-auto">
+                {{ $batches->links() }}
+            </div>
         </div>
     </div>
 </div>
-<div class="row align-items-center mt-2">
-    <div class="col-12 table-responsive">
-        <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Course Name</th>
-                <th scope="col">Academic Year</th>
-                <th scope="col">
-                    Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach( $batches as $batch)
-              <tr>
-              <th scope="row">{{$batch->id}}</th>
-                <td>{{$batch->name}}</td>
-                <td>{{$batch->course->name}}</td>
-                <td>{{$batch->academic_year->name}}</td>
-                <td>                    
-                    <div class="btn-group" role="group">
-                      <a type="button" class="btn btn-sm btn-secondary" href="{{ route('tvec.exams.results.batch',['id'=>$batch->id]) }}">TVEC Results</a>
-                      <a type="button" class="btn btn-sm btn-secondary" href="{{ route('students.batch',['id'=>$batch->id]) }}">Students</a>
-                        <button type="button" class="btn btn-sm btn-warning nvq-edit">Edit</button>
-                        <a type="button" class="btn btn-sm btn-danger" href="{{ route('academics.delete',['id'=>$batch->id]) }}">Delete</a>
-                    </div>
-                </td>
-              </tr>
-              @endforeach
-              
-            </tbody>
-          </table>
-    </div>
-</div>
- 
-  <!-- Modal -->
-  <div class="modal fade" id="nvqEditModal" tabindex="-1" role="dialog" aria-labelledby="nvqEditModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="nvqEditModal">NVQ Level</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-              <div class="col">
-                  <form method="post" action="">
-                      <div class="form-group">
-                          <label for="n_name">NVQ Level Name</label>
-                          <input id="n_name" class="form-control" type="text" name="n_name">
-                      </div>
-
-                  </form>
-              </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="nvq_save" type="button" class="btn btn-primary">Save</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-@include('includes.deletemodal')
-  
-  <script>
-    var token = '{{ Session::token() }}';
-    var urlEdit = '{{ route('batches.edit') }}';
-  </script>
 @endsection

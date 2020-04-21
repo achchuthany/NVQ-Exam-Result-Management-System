@@ -37,7 +37,7 @@
                 <td>{{date('d-M-Y', strtotime($academicyear->start))}}</td>
                 <td>{{date('d-M-Y', strtotime($academicyear->end))}}</td>
                 <td>
-                <span class="rounded badge {{($academicyear->status=='Active')? 'badge-primary' : (($academicyear->status=='Planning')? 'badge-dark':'badge-secondary') }}"><i class="fas fa-check-circle"></i></span> {{$academicyear->status}}
+                <span class="{{($academicyear->status=='Active')? 'text-primary' : (($academicyear->status=='Planning')? 'text-dark':'text-secondary') }}"><i class="fas fa-check-circle"></i></span> {{$academicyear->status}}
                 </td>
                 <td> 
                   <div class="dropdown dropleft">
