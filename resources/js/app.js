@@ -51,9 +51,9 @@ $('#nvq_save').on('click', function() {
 
 $('.nvq-edit').on('click', function(event) {
     event.preventDefault();
-    nvq_id = event.target.parentNode.parentNode.parentNode.childNodes[1].textContent;
-    postBodyElement = event.target.parentNode.parentNode.parentNode.childNodes[3];
-    var nvq_name = postBodyElement.textContent;
+    nvq_id = event.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].textContent;
+    postBodyElement = event.target.parentNode.parentNode.parentNode.parentNode;
+    var nvq_name = postBodyElement.childNodes[3].textContent;
     $('#n_name').val(nvq_name);
     $('#nvqEditModal').modal('show');
 });
@@ -90,8 +90,8 @@ $('#course_save').on('click', function() {
 
 $('.course-edit').on('click', function(event) {
     event.preventDefault();
-    course_id = event.target.parentNode.parentNode.parentNode.dataset['cid'];
-    postBodyElement = event.target.parentNode.parentNode.parentNode;
+    course_id = event.target.parentNode.parentNode.parentNode.parentNode.dataset['cid'];
+    postBodyElement = event.target.parentNode.parentNode.parentNode.parentNode;
     var course_code = postBodyElement.childNodes[1].textContent;
     var course_name = postBodyElement.childNodes[3].textContent;
     var department_id = postBodyElement.childNodes[5].textContent;

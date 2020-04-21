@@ -17,7 +17,7 @@
   </div>
   <div class="card-body p-0">
         <div class="table-responsive">
-        <table class="table table-hover table-sm  mb-0">
+        <table class="table table-hover  mb-0">
             <thead class="thead-light">
               <tr>
                 <th scope="col" hidden>#ID</th>
@@ -32,11 +32,16 @@
               <tr class="btn-reveal-trigger">
               <th scope="row" hidden>{{$nvq->id}}</th>
                 <td class="pl-4">{{$nvq->name}}</td>
-                <td>                    
-                    <div class="btn-group" role="group">
-                        <a  class="btn btn-sm btn-warning nvq-edit"> Edit</a>
-                        <a  class="btn btn-sm btn-danger" href="{{ route('nvqs.delete',['n_id'=>$nvq->id]) }}"> Delete</a>
-                    </div>
+                <td> 
+                  <div class="dropdown dropleft">
+                      <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-h"></i>
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item nvq-edit" href="#">Edit</a>
+                          <a class="dropdown-item text-danger" href="{{ route('nvqs.delete',['n_id'=>$nvq->id]) }}">Delete</a>
+                      </div>
+                  </div>
                 </td>
               </tr>
               @endforeach           
