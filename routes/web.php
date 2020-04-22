@@ -146,17 +146,21 @@ Route::group(['middleware' => ['auth']], function () {
         'as' => 'students.academic'
     ]);
 
-    Route::get('/students/create',[
+    Route::get('/student/create',[
         'uses' => 'StudentController@getStudentCreate',
         'as' => 'students.create'
     ]);
-    Route::post('/students/create',[
+    Route::post('/student/create',[
         'uses' => 'StudentController@postCreateStudent',
         'as' => 'students.create'
     ]);
-    Route::get('/students/{id}/delete',[
+    Route::get('/student/{id}/delete',[
         'uses'=>'StudentController@getDeleteStudent',
         'as'=>'students.delete'
+    ]);
+    Route::get('/student/{id}/edit', [
+        'uses' => 'StudentController@getEditStudent',
+        'as' => 'students.edit'
     ]);
 
     Route::get('/academics',[

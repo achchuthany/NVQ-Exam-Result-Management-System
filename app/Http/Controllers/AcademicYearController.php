@@ -53,13 +53,14 @@ class AcademicYearController extends Controller
         return view('academic.academicyear', ['academic'=> $academic,'status' => $this->status]);
     }
     public function getDeleteAcademicYear($n_id){
+        $message = $warning = null;
         $ay = AcademicYear::where('id',$n_id)->first();
         try {
             $ay->delete();
-            $message = "Academic Year Successfully Deleted!";
-        } catch (QueryException  $e) {       
-            $message = "Academic Year was not Deleted, Try Again!";
+            $message = $ay->name."Academic Year Successfully Deleted!";
+        } catch (QueryException  $e) {
+            $warning = $ay->name . "Academic Year was not Deleted, Try Again!";
         } 
-        return redirect()->route('academics')->with(['message'=>$message]);
+        return redirect()->route('academics')->with(['message' => $message, 'warning' => $warning]);
     }
 }

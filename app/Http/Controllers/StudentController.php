@@ -52,21 +52,47 @@ class StudentController extends Controller
     }
 
     public function postCreateStudent(Request $request){
-        $this->validate($request,[
-            'reg_no'=>'required|unique:students',
-            'fullname'=>'required',
-            'shortname'=>'required',
-            'gender'=>'required',
-            'email'=>'required|unique:students',
-            'nic'=>'required|unique:students',
-            'date_birth'=>'required',
-            'phone'=>'required',
-            'academic_year_id'=>'required',
-            'course_id'=>'required',
-            'course_mode'=>'required',
-            'enroll_date'=>'required',
-            'status'=>'required'
+        $message = $warning = null;
+        $isUpdate = false;
+        if(!empty($request['student_id'])){
+            $this->validate($request, [
+                'reg_no' => 'required',
+                'fullname' => 'required',
+                'shortname' => 'required',
+                'gender' => 'required',
+                'email' => 'required',
+                'nic' => 'required',
+                'date_birth' => 'required',
+                'phone' => 'required',
+                'academic_year_id' => 'required',
+                'course_id' => 'required',
+                'course_mode' => 'required',
+                'enroll_date' => 'required',
+                'status' => 'required'
             ]);
+        }else{
+            $this->validate($request, [
+                'reg_no' => 'required|unique:students',
+                'fullname' => 'required',
+                'shortname' => 'required',
+                'gender' => 'required',
+                'email' => 'required|unique:students',
+                'nic' => 'required|unique:students',
+                'date_birth' => 'required',
+                'phone' => 'required',
+                'academic_year_id' => 'required',
+                'course_id' => 'required',
+                'course_mode' => 'required',
+                'enroll_date' => 'required',
+                'status' => 'required'
+            ]);
+        }
+        $student = Student::where('id', $request['student_id'])->first();
+        if($student){
+            $isUpdate = true;
+        }else{
+            $student = new Student();
+        }
         $Course = Course::find($request['course_id']);
         if(!$Course){
             return null;
@@ -75,7 +101,7 @@ class StudentController extends Controller
         if(!$AcademicYear){
             return null;
         }
-        $student = new Student();
+
         $student->fullname = $request['fullname'];
         $student->reg_no = $request['reg_no'];
         $student->shortname = $request['shortname'];
@@ -84,33 +110,68 @@ class StudentController extends Controller
         $student->nic = $request['nic'];
         $student->date_birth = $request['date_birth'];
         $student->phone = $request['phone'];
-        $message = 'There was an error';
-        if($student->save()){
-            $enroll = new StudentEnroll();
-            $enroll->academic_year_id = $request['academic_year_id'];
-            $enroll->course_id = $request['course_id'];
-            $enroll->course_mode = $request['course_mode'];
-            $enroll->enroll_date = $request['enroll_date'];
-            $enroll->status = $request['status'];
-            $enroll->student_id = $student->id;
-            $enroll->save();
-           $message = 'Student  successfully created';
+
+        $student->title = $request['title'];
+        $student->civil_status = $request['civil'];
+        $student->address = $request['address'];
+        $student->zip = $request['zip'];
+        $student->district = $request['district'];
+        $student->divisional = $request['divisional'];
+        $student->province = $request['province'];
+        $student->blood = $request['blood'];
+        $student->emergency_name = $request['emergency_name'];
+        $student->emergency_address = $request['emergency_address'];
+        $student->emergency_phone = $request['emergency_phone'];
+        $student->emergency_relationship = $request['emergency_relationship'];
+
+        if($isUpdate){
+            $message = $student->fullname . " Successfully Updated!";
+            $student->update();       
+        }else{
+            $message = $student->fullname . " Successfully Created!";
+            $student->save();
+            
         }
-        return redirect()->route('students')->with(['message'=>$message]);
+
+        foreach ($request['course_id'] as $index=>$course_id) {
+            if($isUpdate){
+                $enroll = StudentEnroll::where('id', $request['enroll_id'][$index])->first();
+            }else{
+                $enroll = new StudentEnroll();
+            }
+            $batch = Batch::where([['academic_year_id', $request['academic_year_id'][$index]],['course_id', $request['course_id'][$index]]])->first();
+            $enroll->academic_year_id = $request['academic_year_id'][$index];
+            $enroll->course_id = $request['course_id'][$index];
+            $enroll->course_mode = $request['course_mode'][$index];
+            $enroll->enroll_date = $request['enroll_date'][$index];
+            $enroll->status = $request['status'][$index];
+            $enroll->student_id = $student->id;
+            if(!$batch){
+                $warning = "Enrolled Course doesn't have batch name";
+            }
+            if($batch && $isUpdate){
+                $enroll->update();
+            }else if($batch && !$isUpdate){
+                $enroll->save();
+            }        
+        }
+        return redirect()->route('students')->with(['message' => $message, 'warning' => $warning]);
     }
     public function getDeleteStudent($id){
+        $message = $warning = null;
         $post1 = StudentEnroll::where('student_id',$id)->first();
         $post2 = Student::where('id',$id)->first();
-        if(!$post1 || $post2){
-            return back();
+        if($post1 && $post2){
+            $warning = $post2->fullname." was not Deleted, Try Again!";
         }
-        try {
-            $result = $post1->delete();
-            $result = $post2->delete();
-            $message = "Student ($id) Successfully Deleted!";
-        } catch (QueryException  $e) {       
-            $message = "Student $id was not Deleted, Try Again!";
-        }
-        return redirect()->route('students')->with(['message'=>$message]);
+        return redirect()->route('students')->with(['message' => $message, 'warning' => $warning]);
+    }
+    public function getEditStudent($id){
+        $courses = Course::orderBy('name', 'asc')->get();
+        $academicyears = AcademicYear::orderBy('name', 'desc')->get();
+        $student = Student::where('id',$id)->first();
+        $enrolls = StudentEnroll::where('student_id', $id)->get();
+        return view('student.student', ['enrolls'=> $enrolls,'student'=> $student,'provinces' => $this->provinces, 'statuses' => $this->statuses, 'modes' => $this->modes, 'districts' => $this->districts, 'courses' => $courses, 'academicyears' => $academicyears]);
+
     }
 }

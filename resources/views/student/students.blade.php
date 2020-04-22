@@ -64,12 +64,11 @@
                     <i class="fas fa-ellipsis-h"></i>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{{ route('tvec.results.student',['bid'=>App\Batch:: where([['academic_year_id','=' ,$student->student_enroll->academic_year_id],['course_id','=' ,$student->student_enroll->course_id]])->first()->id,'id'=>$student->id]) }}">TVEC Transcript</a>
-
+                    <a class="dropdown-item" href="{{ route('students.edit',['id'=>$student->id]) }}"><i class="fas fa-user-plus"></i> Enroll</a>
+                    <a class="dropdown-item" href="{{ route('tvec.results.student',['bid'=>App\Batch:: where([['academic_year_id','=' ,$student->student_enroll->academic_year_id],['course_id','=' ,$student->student_enroll->course_id]])->first()->id,'id'=>$student->id]) }}"><i class="fas fa-graduation-cap"></i> TVEC Transcript</a>
                     <div class="dropdown-divider"></div>
-                    <a class="nvq-edit dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item text-danger" href="{{ route('students.delete',['id'=>$student->id]) }}">Delete</a>
-
+                    <a class="dropdown-item" href="{{ route('students.edit',['id'=>$student->id]) }}"><i class="far fa-edit"></i> Edit</a>
+                    <a class="dropdown-item text-danger" href="{{ route('students.delete',['id'=>$student->id]) }}"><i class="far fa-trash-alt"></i> Delete</a>
                     </div>
                   </div>                              
                 </td>
