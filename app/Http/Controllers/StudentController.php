@@ -54,39 +54,22 @@ class StudentController extends Controller
     public function postCreateStudent(Request $request){
         $message = $warning = null;
         $isUpdate = false;
-        if(!empty($request['student_id'])){
-            $this->validate($request, [
-                'reg_no' => 'required',
-                'fullname' => 'required',
-                'shortname' => 'required',
-                'gender' => 'required',
-                'email' => 'required',
-                'nic' => 'required',
-                'date_birth' => 'required',
-                'phone' => 'required',
-                'academic_year_id' => 'required',
-                'course_id' => 'required',
-                'course_mode' => 'required',
-                'enroll_date' => 'required',
-                'status' => 'required'
-            ]);
-        }else{
-            $this->validate($request, [
-                'reg_no' => 'required|unique:students',
-                'fullname' => 'required',
-                'shortname' => 'required',
-                'gender' => 'required',
-                'email' => 'required|unique:students',
-                'nic' => 'required|unique:students',
-                'date_birth' => 'required',
-                'phone' => 'required',
-                'academic_year_id' => 'required',
-                'course_id' => 'required',
-                'course_mode' => 'required',
-                'enroll_date' => 'required',
-                'status' => 'required'
-            ]);
-        }
+        $this->validate($request, [
+            'reg_no' => 'required',
+            'fullname' => 'required',
+            'shortname' => 'required',
+            'gender' => 'required',
+            'email' => 'required',
+            'nic' => 'required',
+            'date_birth' => 'required',
+            'phone' => 'required',
+            'academic_year_id' => 'required',
+            'course_id' => 'required',
+            'course_mode' => 'required',
+            'enroll_date' => 'required',
+            'status' => 'required'
+        ]);
+ 
         $student = Student::where('id', $request['student_id'])->first();
         if($student){
             $isUpdate = true;

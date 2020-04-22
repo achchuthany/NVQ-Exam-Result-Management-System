@@ -11,7 +11,6 @@
                 <h5 class="mb-0 font-weight-bolder">Add a Student</h5>
             </div>
             <div class="text-right col-auto">
-                <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="">Enroll</a>
                 <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('students')}}">Back</a>
             </div>
         </div>

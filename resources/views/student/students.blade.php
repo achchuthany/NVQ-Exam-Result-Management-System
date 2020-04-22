@@ -51,13 +51,13 @@
             </thead>
             <tbody>
             @foreach( $students as $student)
-            <tr data-did="{{$student->id}}">
+            <tr data-did="{{$student->id}}" class="{{($student->student_enroll->status=='Following')? ' ': (($student->student_enroll->status=='Droupout')? 'table-danger': (($student->student_enroll->status=='Completed')?'table-secondary':'table-warning'))}}">
                 <th scope="row" class="pl-4">{{$student->reg_no}}</th>
                 <td>{{$student->fullname}}</td>
                 <td>{{$student->student_enroll->course->name}}</td>
                 <td>{{App\Batch:: where([['academic_year_id','=' ,$student->student_enroll->academic_year_id],['course_id','=' ,$student->student_enroll->course_id]])->first()->name}}</td>
                 <td>{{$student->phone}}</td>
-                <td>{{$student->student_enroll->status}}</td>
+                <td><span class="{{($student->student_enroll->status=='Following')? 'text-primary': (($student->student_enroll->status=='Droupout')? 'text-danger': (($student->student_enroll->status=='Completed')?'text-secondary':'text-warning'))}}"><i class="fas fa-check-circle"></i></span> {{$student->student_enroll->status}}</td>
                 <td> 
                 <div class="dropdown dropleft">
                     <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
