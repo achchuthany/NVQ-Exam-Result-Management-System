@@ -68,21 +68,15 @@
 
                     <div class="form-group">
                         <h6 class="card-title">Student</h6>
-                        <select class="custom-select" name="Student" id="Student">
-                    <option value="" selected>Select Batch</option>
-                    </select>
+                          <input type="text" class="form-control" placeholder="Search by Student ID E.g. 2020/ICT/5IT01" >
+                        <ul class="list-group list-group-flush mt-2">
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Cras justo odio
+                          <span class="badge badge-primary badge-pill">14</span>
+                          </li>
+                         
+                        </ul>
                     </div>
-            </div>
-            <div class="card-footer bg-white">
-                <div class="pt-1 no-gutters row">
-                    <div class="col">
-
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-sm btn-primary my-2 my-sm-0"><i class="fas fa-search"></i> View Results</button>
-                        <input type="hidden" name="_token" value="{{Session::token()}}">
-                    </div>
-                </div>
             </div>
         </div>
          </form>

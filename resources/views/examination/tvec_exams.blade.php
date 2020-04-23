@@ -55,7 +55,7 @@
                               </td>
                               <td>
                                 <div class="progress">
-                                  <div class="progress-bar bg-primary" role="progressbar" style="width: {{($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100}}%" aria-valuenow="{{($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100}}" aria-valuemin="0" aria-valuemax="100">{{round(($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100)}}%</div>
+                                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100}}%" aria-valuenow="{{($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100}}" aria-valuemin="0" aria-valuemax="100">{{round(($tvecexam->number_students == 0)? 0 : ($tvecexam->number_pass/$tvecexam->number_students)*100)}}%</div>
                                 </div>                </td>
                               <td>{{$tvecexam->exam_date}}</td>
                               <td>
