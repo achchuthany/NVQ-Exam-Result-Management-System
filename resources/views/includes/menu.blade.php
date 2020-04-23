@@ -72,13 +72,11 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{Auth::user()->first_name}}
                     @foreach(Auth::user()->roles as $role)
-                  <span class="badge badge-secondary">{{$role->name}}</span>
+                  <span class="badge badge-light">{{$role->name}}</span>
                   @endforeach
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">
-                  
-                  </a>
+                  <a class="dropdown-item" href="#"></a>
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="{{ route('logout') }}" >Signout</a>
                 </div>

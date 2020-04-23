@@ -16,4 +16,10 @@ class Module extends Model
     public function employees(){
         return $this->belongsToMany('App\Employee', 'employee_module', 'module_id', 'employee_id');
     }
+    public function getTeacher($mid,$aid)
+    {
+        return $this->employees()
+            ->where([['module_id', $mid],['academic_year_id',$aid]])
+            ->first();
+    }
 }

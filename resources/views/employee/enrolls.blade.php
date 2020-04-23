@@ -3,115 +3,68 @@
 Employees Enrolled Modules
 @endsection
 @section('content')
-<div class="row align-items-center">
-    <div class="col-md-6 col-xs-12">
-    <h4 class="pt-2"> Employees Enrolled Modules <span class="badge badge-dark">{{$academic_year->name}}</span></h4>
-    </div>
-    <div class="col-md-6 col-xs-12">
-      <div class="btn-group float-right" role="group" aria-label="Basic example">
-        <a type="button" class="btn btn-sm btn-secondary" href="{{route('employees.enroll')}}">All</a>
-        <a type="button" class="btn btn-sm btn-primary" href="{{route('employees.enroll.create')}}"><i class="fas fa-user-plus"></i> Enroll</a>
-        
-      </div>
-      <form method="post" action="{{route('employees.search')}}">
-        <div class="btn-group float-right mr-2" role="group">      
-          <input type="text" name="fullname" class="form-control form-control-sm" placeholder="Full name">
-          <button type="submit" class="btn btn-sm btn-secondary">Search</button>
-          <input type="hidden" name="_token" value="{{Session::token()}}">      
-        </div>
-      </form>
-    </div>
-</div>
-<div class="row align-items-center mt-2">
-    <div class="col-12 table-responsive">
-        <table class="table table-hover table-borderless bg-gradient-light rounded-lg shadow-sm">
-            <thead class="bg-gradient-info">
-              <tr>
-                <th scope="col">EPF No.</th>
-                <th scope="col">Name</th>
-                <th scope="col">Enrolled Modules</th>
-                <th scope="col">
-                    Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              
-              @foreach( $employees as $employee)
-            <tr data-did="{{$employee->id}}">
-                <th scope="row">{{$employee->epf}}</th>
-                <td>{{$employee->fullname}}</td>
-                <td>
-                    @foreach($employee->teachModulesActive($employee->id) as $module)
-                    <div class="btn-group btn-group-sm" role="group">
-                      <button type="button" class="btn btn-primary employee_enroll_edit">{{$module->name}}</button>
-                      <a  class="btn btn-danger " href="{{route('employees.enroll.delete',['id'=>$module->id])}}"><i class="fas fa-minus-circle" ></i></a>
-                    </div>
 
-                    {{-- <span class="badge bg-gradient-white p-2" data-toggle="tooltip" data-placement="top" title="{{$module->code}}">{{$module->name}}</span><span class="bg-gradient-danger">X</span> --}}
-                    @endforeach
-                </td>
-                <td>                    
-                    <div class="btn-group" role="group">
-                    <a type="button" class="btn btn-sm btn-dark" href="{{route('employee.profile',['id'=>$employee->id])}}"><i class="fas fa-user-circle"></i> Profile</a>
-                    </div>
-                </td>
-              </tr>
-              @endforeach
-              
-            </tbody>
-          </table>
-          <nav>
-            <ul class="pagination pagination-sm justify-content-end">
-              <li class="page-item">
-                <span class="page-link">
-                Showing {{$employees->firstItem()}} to {{$employees->lastItem()}} of  {{$employees->total()}} entries
-                </span>
-              </li>
-              <p>
-              {{ $employees->links() }}
-              </p>
-            </ul>
-          </nav>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="employee_enroll_edit_modal" tabindex="-1" role="dialog" aria-labelledby="employee_enroll_modal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content bg-gradient-light">
-      <div class="modal-header border-0">
-        <h5 class="modal-title" id="employee_enroll_modal">Enrolled Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
+<div class="card mb-3">
+    <div class="card-header bg-white">
+        <div class="align-items-center row">
             <div class="col">
-                <form method="post" action="">
-                  <div class="form-group">
-                    <label for="code">Department Code</label>
-                    <input id="code" class="form-control" type="text" name="code" maxlength="3">
-                    </div>
-                    <div class="form-group">
-                        <label for="d_name">Department Name</label>
-                        <input id="d_name" class="form-control" type="text" name="d_name" maxlength="255">
-                    </div>
-
-                </form>
+                <h5 class="mb-0 font-weight-bolder"> Enrolled Modules in {{$academic_year->name}} <span class="{{($academic_year->status=='Active')? 'text-primary' : (($academic_year->status=='Planning')? 'text-dark':'text-secondary') }}"><i class="fas fa-check-circle"></i></span></h5>
+            </div>
+            <div class="text-right col-auto">
+                <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('employees.enroll.create')}}">Enroll</a>
             </div>
         </div>
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="department_save" type="button" class="btn btn-primary">Save</button>
-      </div>
     </div>
-  </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover  mb-0">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="pl-4">EPF No.</th>
+                        <th scope="col" >Name</th>
+                        <th scope="col">Enrolled Modules</th>
+                        <th scope="col">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach( $employees as $employee)
+                      <tr data-did="{{$employee->id}}">
+                        <th class="pl-4">{{$employee->epf}}</th>
+                        <td>{{$employee->fullname}}</td>
+                        <td>
+                            @foreach($employee->teachModulesActive($employee->id) as $module)
+                              <button class="btn btn-sm btn-light">{{$module->name}}</button>
+                            @endforeach
+                        </td>
+                        <td> 
+                          <div class="dropdown dropleft">
+                              <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fas fa-ellipsis-h"></i>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="{{route('employee.profile',['id'=>$employee->id])}}"><i class="fas fa-user-tie"></i> Profile</a>
+                                  <div class="dropdown-divider"></div>
+                                  <a class="dropdown-item " href="#"><i class="far fa-edit"></i> Edit</a>
+                              </div>
+                          </div>
+                        </td>
+                      </tr>
+                      @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer bg-white">
+        <div class="pt-1 no-gutters row">
+            <div class="col">
+                <span>{{$employees->firstItem()}} to {{$employees->lastItem()}} of  {{$employees->total()}}</span>
+            </div>
+            <div class="col-auto">
+                {{ $employees->links() }}
+            </div>
+        </div>
+    </div>
 </div>
-  <script>
-    var token = '{{ Session::token() }}';
-    var urlEdit = '{{ route('employees.enroll.create') }}';
-  </script>
 @endsection

@@ -3,48 +3,90 @@
     TVEC Examination Results Summary
 @endsection
 @section('content')
-<div class="row align-items-center">
-    <div class="col-6">
-        <h4 class="pt-2"> TVEC Examination Results Summary</h4>
-    </div>
-    <div class="col-5">
 
-    </div>
-    <div class="col-1">
-      <a type="button" class="btn btn-sm btn-primary " href="{{route('tvec.exams.create')}}"><i class="fas fa-plus-circle"></i> New</a>
+<div class="card mb-3">
+    <div class="card-header bg-white">
+        <div class="align-items-center row">
+            <div class="col">
+                <h5 class="mb-0 font-weight-bolder">TVEC Examination Results Summary</h5>
+            </div>
+            <div class="text-right col-auto">
+                <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('tvec.exams.create')}}">New</a>
+            </div>
+        </div>
     </div>
 </div>
+
 <div class="row align-items-center mt-2">
     <div class="col-6">
-        <div class="card tborder-light mb-3">
-            <div class="card-header">View Results by Course</div>
-            <div class="card-body">  
-              <form class=" my-2 my-lg-0" action="{{route('tvec.results.batch')}}" method="POST">
-                <div class="form-group">
-                    <h5 class="card-title">Course</h5>
-                    <select class="custom-select" name="batch_couese_id" id="batch_couese_id" required>
+         <form class=" my-2 my-lg-0" action="{{route('tvec.results.batch')}}" method="POST">
+        <div class="card mb-3 tborder-light mb-3">
+            <div class="card-header">
+                <h5 class="mb-0 font-weight-light">View Results by Course</h5>
+            </div>
+            <div class="card-body">
+                    <div class="form-group">
+                        <h6 class="card-title">Course</h6>
+                        <select class="custom-select" name="batch_couese_id" id="batch_couese_id" required>
                       <option value="" selected>Select Course</option>
                         @foreach ($courses as $course)
                           <option value="{{$course->id}}">{{$course->name}}</option>
                          @endforeach
                     </select>
-                </div>
-                <div class="form-group">
-                    <h5 class="card-title">Batch</h5>
-                    <select class="custom-select my-2 my-sm-0" name="batch_id" id="batch_id">
+                    </div>
+                    <div class="form-group">
+                        <h6 class="card-title">Batch</h6>
+                        <select class="custom-select" name="batch_id" id="batch_id">
                     <option value="" selected>Select Batch</option>
                     </select>
-                </div>
-                <div class="form-group">            
-                    <button type="submit" class="btn btn-sm btn-primary my-2 my-sm-0"><i class="fas fa-search"></i></button>
-                    <input type="hidden" name="_token" value="{{Session::token()}}">  
-                </div>
-              </form>
+                    </div>
+                    <div class="form-group">
+
+                    </div>
             </div>
-          </div>
+            <div class="card-footer bg-white">
+                <div class="pt-1 no-gutters row">
+                    <div class="col">
+
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-sm btn-primary my-2 my-sm-0"><i class="fas fa-search"></i> View Results</button>
+                        <input type="hidden" name="_token" value="{{Session::token()}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+         </form>
     </div>
     <div class="col-6">
-        
+                 <form class=" my-2 my-lg-0" action="{{route('tvec.results.batch')}}" method="POST">
+        <div class="card mb-3 tborder-light mb-3">
+            <div class="card-header">
+                <h5 class="mb-0 font-weight-light">View Results by Student</h5>
+            </div>
+            <div class="card-body">
+
+                    <div class="form-group">
+                        <h6 class="card-title">Student</h6>
+                        <select class="custom-select" name="Student" id="Student">
+                    <option value="" selected>Select Batch</option>
+                    </select>
+                    </div>
+            </div>
+            <div class="card-footer bg-white">
+                <div class="pt-1 no-gutters row">
+                    <div class="col">
+
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-sm btn-primary my-2 my-sm-0"><i class="fas fa-search"></i> View Results</button>
+                        <input type="hidden" name="_token" value="{{Session::token()}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+         </form>
+    </div>
     </div>
 </div>
 

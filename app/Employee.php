@@ -20,12 +20,12 @@ class Employee extends Model
         ->where('employee_id',$id)
         ->orderBy('academic_year_name','desc')
         ->orderBy('code','asc')
-        ->get();
+        ->paginate(20);
     }
     public function teachModulesActive($id){
         return $this->modules()
         ->select('employee_module.id', 'modules.id as modules_id', 'modules.course_id', 'modules.code', 'modules.name', 'academic_years.name as academic_year_name', 'academic_years.status as academic_year_status')
         ->leftJoin('academic_years','academic_years.id','=','employee_module.academic_year_id')
-        ->where([['employee_id',$id],['academic_years.status','Active']])->get();
+        ->where([['employee_id',$id],['academic_years.status','Active']])->paginate(20);
     }
 }
