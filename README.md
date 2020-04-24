@@ -4,6 +4,9 @@
 ### NVQ Level Page
 ![NVQ Levels](https://1.bp.blogspot.com/-BNdN31H6PMg/XqLgRxi3ITI/AAAAAAAATho/U22qMfxYtdM8NKUeftfpf25AkKquqw5uACLcBGAsYHQ/s1600/nvq.PNG)
 
+### TVEC Exams Summary
+![TVEC Exams Summary](https://1.bp.blogspot.com/-ltqS-Stqqws/XqLg0v_DplI/AAAAAAAAThw/2Nt9nF6WJwUdL-Hnfs2xfYflNx029inSACLcBGAsYHQ/s1600/TVEC%2BExams.PNG)
+
 ## Setup a Examination Result Management System Laravel Project 
 ### Clone GitHub repo for this project locally
 
