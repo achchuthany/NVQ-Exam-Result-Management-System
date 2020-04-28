@@ -17,4 +17,8 @@ class AcademicYear extends Model
     public function tvec_exams(){
         return $this->hasMany('App\TvecExam');
     }
+    public function attendance_sessions()
+    {
+        return $this->hasMany('App\AttendanceSession');
+    }
 }

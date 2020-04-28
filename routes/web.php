@@ -314,4 +314,17 @@ Route::group(['middleware' => ['auth']], function () {
         'as' => 'employees.enroll.delete'
     ]);
 
+    Route::get('/attendance/manage/{mid}/{aid}', [
+        'uses' => 'AttendanceSessionController@getManageIndex',
+        'as' => 'attendance.manage'
+    ]);
+    Route::get('/attendance/session/{mid}/{aid}', [
+        'uses' => 'AttendanceSessionController@getSessionIndex',
+        'as' => 'attendance.session'
+    ]);
+    Route::post('/attendance/session', [
+        'uses' => 'AttendanceSessionController@postSessionCreate',
+        'as' => 'attendance.session'
+    ]);
+
 });

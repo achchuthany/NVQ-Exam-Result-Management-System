@@ -22,4 +22,8 @@ class Module extends Model
             ->where([['module_id', $mid],['academic_year_id',$aid]])
             ->first();
     }
+    public function attendance_sessions()
+    {
+        return $this->hasMany('App\AttendanceSession');
+    }
 }
