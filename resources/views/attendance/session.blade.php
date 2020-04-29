@@ -12,6 +12,7 @@
             <div class="col">             
             </div>
             <div class="text-right col-auto">
+
                 <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('attendance.manage',['mid'=>$module->id,'aid'=>$academic->id])}}">Back</a>
             </div>
         </div>

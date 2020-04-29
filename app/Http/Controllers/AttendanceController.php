@@ -8,8 +8,8 @@ use App\AttendanceSession;
 use App\Module;
 use App\Student;
 use App\Attendance;
-use DateTime;
-use Illuminate\Support\Carbon;
+use App\Employee;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
@@ -92,5 +92,27 @@ class AttendanceController extends Controller
         }
         return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
         //return response()->json(['present' => $present, 'absent' => $absent, 'request' => $request['take']], 200);
+    }
+    public function getAttendancesIndex(){
+        // $modules = DB::table('employee_module')
+        //     ->select('employees.id as employee_id', 'employees.fullname as employee_fullname','employee_module.id', 'courses.name as course_name', 'modules.id as module_id', 'modules.course_id', 'modules.code as module_code', 'modules.name as module_name', 'academic_years.id as academic_year_id', 'academic_years.name as academic_year_name', 'academic_years.status as academic_year_status')
+        //     ->leftJoin('academic_years', 'academic_years.id', '=', 'employee_module.academic_year_id')
+        //     ->leftJoin('modules', 'modules.id', '=', 'employee_module.module_id')
+        //     ->leftJoin('courses', 'courses.id', '=', 'modules.course_id')
+        //     ->leftJoin('employees', 'employees.id', '=', 'employee_module.employee_id')
+        //     ->orderBy('academic_years.name', 'desc')
+        //     ->orderBy('module_code', 'asc')
+        //     ->paginate(20);
+
+        $modules = AttendanceSession::
+                select('module_id','academic_year_id', DB::raw('count(id) as total'),DB::raw('sum(present) as present'), DB::raw('sum(absent) as absent'))
+                ->groupBy('module_id')
+                ->groupBy('academic_year_id')
+                ->orderBy('academic_year_id', 'desc')
+                ->orderBy('module_id', 'asc')
+            ->paginate(20);
+        //return response()->json(['emp' => $user_info, 'present'=> $user_info], 200);
+        return view('attendance.index',['modules'=> $modules]);
+
     }
 }

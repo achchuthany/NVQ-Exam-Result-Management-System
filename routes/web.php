@@ -339,4 +339,8 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'AttendanceController@getTakeCreate',
         'as' => 'attendance.take.create'
     ]);
+    Route::get('/attendances', [
+        'uses' => 'AttendanceController@getAttendancesIndex',
+        'as' => 'attendances'
+    ]);
 });

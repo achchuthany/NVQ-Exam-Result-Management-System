@@ -14,7 +14,7 @@ class Employee extends Model
     }
     public function teachModules($id){
         return $this->modules()
-        ->select('employee_module.id','courses.id as course_id','courses.name as course_name','modules.id as modules_id','modules.course_id','modules.code','modules.name','academic_years.name as academic_year_name','academic_years.status as academic_year_status')
+        ->select('employee_module.id','courses.id as course_id','courses.name as course_name','modules.id as modules_id','modules.course_id','modules.code','modules.name', 'academic_years.id as academic_year_id','academic_years.name as academic_year_name','academic_years.status as academic_year_status')
         ->leftJoin('academic_years','academic_years.id','=','employee_module.academic_year_id')
         ->leftJoin('courses','courses.id','=','modules.course_id')
         ->where('employee_id',$id)

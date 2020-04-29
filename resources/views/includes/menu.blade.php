@@ -52,18 +52,18 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-book"></i>    Assessment
+                  <i class="fas fa-book"></i>    Assessments
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Assessment</a>
+                  <a class="dropdown-item" href="#">Assessments</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-calendar-alt"></i>   Attendance
+                  <i class="fas fa-calendar-alt"></i>   Attendances
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Attendance</a>
+                  <a class="dropdown-item" href="{{route('attendances')}}">Attendances</a>
                 </div>
             </li>
           </ul>

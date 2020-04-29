@@ -14,6 +14,8 @@
                
             </div>
             <div class="text-right col-auto">
+                            <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('attendances')}}">Back</a>
+
                 <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('attendance.session',['mid'=>$module->id,'aid'=>$academic->id])}}">New</a>
             </div>
         </div>

@@ -45,11 +45,17 @@
                 <div class="row py-2 align-items-center">
                     <div class="col" data-toggle="tooltip" data-placement="top" title="{{$module->course->name}}">
                         <b>{{$module->code}}</b> {{$module->name}} 
-                    </div>            
+                    </div>
                     <div class="col-auto">
-                        <span data-toggle="tooltip" data-placement="top" title="{{$module->academic_year_status}}" class="{{($module->academic_year_status=='Active')? 'text-primary' : (($module->academic_year_status=='Planning')? 'text-dark':'text-secondary') }}"><i class="fas fa-check-circle"></i></span>
+                                            <span data-toggle="tooltip" data-placement="top" title="{{$module->academic_year_status}}" class="{{($module->academic_year_status=='Active')? 'text-primary' : (($module->academic_year_status=='Planning')? 'text-dark':'text-secondary') }}"><i class="fas fa-check-circle"></i></span>
                         {{$module->academic_year_name}}
-                        <a data-toggle="tooltip" data-placement="top" title="Delete"  class="text-danger p-1" href="{{route('employees.enroll.delete',['id'=>$module->id])}}"><i class="fas fa-times-circle"></i></a>
+
+                            </div>            
+                    <div class="col-auto">
+<a data-toggle="tooltip" data-placement="top" title="Attendance Sessions"  class="btn btn-sm" href="{{ route('attendance.manage',['mid'=>$module->id,'aid'=>$module->academic_year_id]) }}"><i class="fas fa-book""></i></i> Assessments</a>
+                      <a data-toggle="tooltip" data-placement="top" title="Attendance Sessions"  class="btn btn-sm" href="{{ route('attendance.manage',['mid'=>$module->id,'aid'=>$module->academic_year_id]) }}"><i class="far fa-calendar-check"></i></i> Attendance</a>
+            
+                        <a data-toggle="tooltip" data-placement="top" title="Delete"  class="text-danger btn btn-sm btn-light" href="{{route('employees.enroll.delete',['id'=>$module->id])}}"><i class="fas fa-times-circle"></i></a>
                     </div>
                 </div>
                 @endforeach
