@@ -14,8 +14,9 @@
                
             </div>
             <div class="text-right col-auto">
-                            <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('attendances')}}">Back</a>
-
+                <a type="button" class="btn btn-sm btn-outline-secondary shadow-sm" href="{{route('attendances')}}">Back</a>
+                <a type="button" class="btn btn-sm btn-outline-secondary shadow-sm" href="{{route('attendance.report',['mid'=>$module->id,'aid'=>$academic->id])}}">Report</a>
+                <a type="button" class="btn btn-sm btn-outline-secondary shadow-sm" href="{{route('attendances')}}">Export</a>
                 <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('attendance.session',['mid'=>$module->id,'aid'=>$academic->id])}}">New</a>
             </div>
         </div>

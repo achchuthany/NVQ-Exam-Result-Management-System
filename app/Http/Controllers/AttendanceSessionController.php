@@ -23,7 +23,7 @@ class AttendanceSessionController extends Controller
         $academic = AcademicYear::where('id',$aid)->first();
         if (!$module || !$academic ||  !$employees){
             $warning = "Please check you data!";
-            return redirect()->route('departments')->with(['message' => $message, 'warning' => $warning]);
+            return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
         }
         $sessions = AttendanceSession::where([['module_id',$mid],['academic_year_id',$aid]])->orderBy('date', 'asc')->paginate(20);
         //return response()->json($employees, 200);

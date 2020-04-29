@@ -115,4 +115,26 @@ class AttendanceController extends Controller
         return view('attendance.index',['modules'=> $modules]);
 
     }
+
+    public function getReportIndex($mid,$aid){
+        $message = $warning = null;
+        $attendances = Attendance::select('student_id', DB::raw('count(attendances.id) as total'), DB::raw('sum(attendances.is_present) as present'))
+            ->leftjoin('attendance_sessions', 'attendance_sessions.id','=', 'attendances.attendance_session_id')
+            ->groupBy('attendances.student_id')
+            ->orderBy('attendances.student_id', 'asc')
+            ->where([['attendance_sessions.module_id',$mid],['attendance_sessions.academic_year_id',$aid]])
+            ->get();
+
+        $employees = Employee::leftjoin('employee_module', 'employee_module.employee_id', '=', 'employees.id')
+            ->where([['module_id', $mid], ['academic_year_id', $aid]])
+            ->get();
+        $module = Module::where('id', $mid)->first();
+        $academic = AcademicYear::where('id', $aid)->first();
+        if (!$module || !$academic ||  !$employees) {
+            $warning = "Please check you data!";
+            return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
+        }
+        //return response()->json(['attendances' => $attendances], 200);
+        return view('attendance.report', ['attendances' => $attendances, 'module' => $module, 'academic' => $academic, 'employees' => $employees]);
+    }
 }
