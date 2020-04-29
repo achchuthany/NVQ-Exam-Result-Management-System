@@ -221,3 +221,17 @@ $('#batch_couese_id').change(function(event) {
 });
 
 $('.toast').toast('show');
+//Select all check box in table to detete
+$("#selectAll").click(function() {
+    $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+
+});
+//select all attendance radio button
+$("#allPresent").click(function() {
+    var value = 1;
+    $("input[value=" + value + "]").prop('checked', true);
+});
+$("#allAbsent").click(function() {
+    var value = 0;
+    $("input[value=" + value + "]").prop('checked', true);
+});

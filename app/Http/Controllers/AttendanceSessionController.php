@@ -6,6 +6,7 @@ use App\AcademicYear;
 use App\AttendanceSession;
 use App\Employee;
 use App\Module;
+use App\Student;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -24,8 +25,9 @@ class AttendanceSessionController extends Controller
             $warning = "Please check you data!";
             return redirect()->route('departments')->with(['message' => $message, 'warning' => $warning]);
         }
+        $sessions = AttendanceSession::where([['module_id',$mid],['academic_year_id',$aid]])->orderBy('date', 'asc')->paginate(20);
         //return response()->json($employees, 200);
-        return view('attendance.manage',['module'=> $module, 'academic' => $academic, 'employees' => $employees]);
+        return view('attendance.manage',['sessions'=> $sessions,'module'=> $module, 'academic' => $academic, 'employees' => $employees]);
     }
 
       public function getSessionIndex($mid,$aid){
@@ -61,19 +63,23 @@ class AttendanceSessionController extends Controller
             return redirect()->back()->with(['warning' => $warning]);
         }
         $dates =array();
+        $i=0;
         if($repeat_date && $repeats && $repeat_date->greaterThan($date)){
             while($date->lessThanOrEqualTo($repeat_date)){
                 foreach($repeats as $repeat){
                     if($repeat == $date->isoFormat('dddd'))
-                        $dates[] = $date;
+                        $dates[] =$date->format('Y-m-d');
                 }   
                 $date->addDay();
             }        
+        }else{
+            $da = new Carbon(new DateTime($request['date']));
+            $dates[] = $da->format('Y-m-d');
         }
         $message = 'Attendance Session on ';
-        foreach ($dates as $dates) {
+        foreach ($dates as $date) {
             $as = new AttendanceSession();
-            $as->date = $dates->format('Y-m-d');
+            $as->date = $date;
             $as->time_from = $time_from->format('H:i');
             $as->time_to = $time_to->format('H:i');
             $as->module_id = $module_id;
@@ -86,8 +92,24 @@ class AttendanceSessionController extends Controller
             }
         }
             $message .= 'created successfully';
+       // return response()->json(['date'=> $date , 'repeat_date'=> $repeat_date,'dates'=>$dates], 200);
         return redirect()->route('attendance.manage',['mid'=> $module_id,'aid'=> $academic_year_id])->with(['message' => $message, 'warning' => $warning]);
       }
-
-
+    public function postSessionsDelete(Request $request){
+        $message = $warning = null;
+        $this->validate($request, [
+            'selected' => 'required'
+        ]);
+        
+        foreach ($request['selected'] as $id) {
+            $session = AttendanceSession::where('id',$id)->first();
+            if($session->delete()){
+                $message = "Attendance Sessions Successfully Deleted!";
+            }else{
+                $warning = "Attendance Sessions was not Deleted, Try Again!";
+            }
+        }
+        //return response()->json(['request'=>$request['selected']], 200);
+        return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
+    }
 }

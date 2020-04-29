@@ -324,7 +324,19 @@ Route::group(['middleware' => ['auth']], function () {
     ]);
     Route::post('/attendance/session', [
         'uses' => 'AttendanceSessionController@postSessionCreate',
-        'as' => 'attendance.session'
+        'as' => 'attendance.session.create'
+    ]);
+    Route::post('/attendance/sessions/detete', [
+        'uses' => 'AttendanceSessionController@postSessionsDelete',
+        'as' => 'attendance.sessions.detete'
     ]);
 
+    Route::get('/attendance/take/{id}', [
+        'uses' => 'AttendanceController@getTakeIndex',
+        'as' => 'attendance.take'
+    ]);
+    Route::post('/attendance/take', [
+        'uses' => 'AttendanceController@getTakeCreate',
+        'as' => 'attendance.take.create'
+    ]);
 });

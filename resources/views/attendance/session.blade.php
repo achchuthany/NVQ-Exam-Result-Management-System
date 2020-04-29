@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="card-body pt-0">
-      <form method="post" action="{{route('attendance.session')}}">
+      <form method="post" action="{{route('attendance.session.create')}}">
       <div class="row">
           <div class="col-md-6">
             <h6 class="pb-3" > Add a session</h6>
@@ -51,8 +51,8 @@
                     </div>
                     <div class="col-md-4">
                         <input id="date" class="form-control" type="date" name="date">
-                         <input id="module_id" class="form-control" type="text" name="module_id" value="{{$module->id}}">
-                          <input id="academic_year_id" class="form-control" type="text" name="academic_year_id" value="{{$academic->id}}">
+                        <input id="module_id" class="form-control" type="hidden" name="module_id" value="{{$module->id}}">
+                        <input id="academic_year_id" class="form-control" type="hidden" name="academic_year_id" value="{{$academic->id}}">
                     </div>
                 </div>
                 <div class="row form-group">

@@ -14,4 +14,8 @@ class AttendanceSession extends Model
     {
         return $this->belongsTo('App\Module');
     }
+    public function attendances()
+    {
+        return $this->hasMany('App\Attendance');
+    }
 }
