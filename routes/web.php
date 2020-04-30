@@ -330,6 +330,10 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'AttendanceSessionController@postSessionsDelete',
         'as' => 'attendance.sessions.detete'
     ]);
+    Route::post('/attendance/session/detete/{id}', [
+        'uses' => 'AttendanceSessionController@postSessionDelete',
+        'as' => 'attendance.session.detete'
+    ]);
 
     Route::get('/attendance/take/{id}', [
         'uses' => 'AttendanceController@getTakeIndex',
@@ -350,5 +354,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/attendance/report/{mid}/{aid}', [
         'uses' => 'AttendanceController@getReportIndex',
         'as' => 'attendance.report'
+    ]);
+    Route::get('/attendance/view/{sid}/{mid}/{aid}', [
+        'uses' => 'AttendanceController@getViewIndex',
+        'as' => 'attendance.view'
     ]);
 });

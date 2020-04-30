@@ -67,10 +67,9 @@
                                       <i class="fas fa-ellipsis-h"></i>
                                   </button>
                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                      <a class="dropdown-item" href="{{ route('attendance.manage',['mid'=>$module->module_id,'aid'=>$module->academic_year_id]) }}">Attendance Sessions</a>
+                                      <a class="dropdown-item" href="{{ route('attendance.manage',['mid'=>$module->module_id,'aid'=>$module->academic_year_id]) }}"><i class="fas fa-calendar-alt"></i> Sessions</a>
                                       <div class="dropdown-divider"></div>
                                       <a class="dropdown-item " href=""><i class="far fa-edit"></i> Edit</a>
-                                      <a class="dropdown-item text-danger" href=""><i class="far fa-trash-alt"></i> Delete</a>
                                   </div>
                               </div>                                                
                               </td>
@@ -94,7 +93,7 @@
         </div>
     </div>
 </div> 
-    <script>
+  <script>
     var token = '{{ Session::token() }}';
     var urlBatchesByCourse = '{{ route('ajax.batches') }}';
     

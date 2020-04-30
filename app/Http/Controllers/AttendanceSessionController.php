@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AcademicYear;
+use App\Attendance;
 use App\AttendanceSession;
 use App\Employee;
 use App\Module;
@@ -103,13 +104,18 @@ class AttendanceSessionController extends Controller
         
         foreach ($request['selected'] as $id) {
             $session = AttendanceSession::where('id',$id)->first();
+            $attendance = Attendance::where('attendance_session_id',$id)->delete();         
             if($session->delete()){
                 $message = "Attendance Sessions Successfully Deleted!";
             }else{
                 $warning = "Attendance Sessions was not Deleted, Try Again!";
             }
         }
-        //return response()->json(['request'=>$request['selected']], 200);
+        //return response()->json(['attendance'=> $attendance], 200);
         return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
     }
+    public function postSessionDelete($id){
+
+    }
+
 }

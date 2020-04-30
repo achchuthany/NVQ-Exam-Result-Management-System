@@ -101,7 +101,7 @@
                                       <a class="dropdown-item" href="{{ route('attendance.take',['id'=>$session->id]) }}">Take Attendance</a>
                                       <div class="dropdown-divider"></div>
                                       <a class="dropdown-item " href=""><i class="far fa-edit"></i> Edit</a>
-                                      <a class="dropdown-item text-danger" href=""><i class="far fa-trash-alt"></i> Delete</a>
+                                      <a class="dropdown-item text-danger"data-record-url="{{route('attendance.session.detete',['id'=>$session->id])}}" data-record-title="{{date_format(date_create($session->date),"D d/M/Y") }} Sessions " data-toggle="modal" data-target="#delete-modal"><i class="far fa-trash-alt"></i> Delete</a>
                                   </div>
                               </div>                                                
                               </td>
@@ -127,17 +127,60 @@
             </div>
              <div class="ml-3 col-auto">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-danger" >Delete</button>
+                    <input type="submit" id="delete" name="delete" value="Delete" class="confirm-delete-modal btn btn-danger" />              
                     <input type="hidden" name="_token" value="{{Session::token()}}">
                 </div>
             </div>
         </div>
     </div>
 </div> 
-  </form>
-  <script>
-    var token = '{{ Session::token() }}';
-    var urlBatchesByCourse = '{{ route('ajax.batches') }}';  
+</form>
 
-  </script>
+@include('includes.deletemodal')
+<script>
+    var token = '{{ Session::token() }}';   
+</script>
+@endsection
+
+@section('script')
+        <script>
+        $('.confirm-delete-modal').on('click', function(e){
+            if($(this).closest('form').attr('data-submit') == "true")
+            {
+                $(this).closest('form').removeAttr('data-submit');
+                $('.modal-delete').closest('.modal').removeClass('modal-show');
+                return true;
+            } else {
+                $('#confirm-delete').modal('show');
+                return false;
+            }
+        });
+
+        $('.btn-ok').on('click', function(){
+            $(this).closest('.modal').prev('form').attr('data-submit', 'true');
+            $('.confirm-delete-modal').trigger('click');
+        });
+
+        $('#delete-modal').on('click', '.btn-delete', function(e) {
+            var $modalDiv = $(e.delegateTarget);
+            var url = $(this).data('recordUrl');
+            
+            $.ajax({
+            method: 'POST',
+            url: url,
+            data: {  _token: token }
+            }).done(function(msg) {
+             $modalDiv.modal('hide');
+        });
+    
+            setTimeout(function() {
+                $modalDiv.modal('hide');
+            }, 1000)
+        });
+        $('#delete-modal').on('show.bs.modal', function(e) {
+            var data = $(e.relatedTarget).data();
+            $('.modaltitle', this).text(data.recordTitle);
+            $('.btn-delete', this).data('recordUrl', data.recordUrl);
+        });
+    </script>
 @endsection

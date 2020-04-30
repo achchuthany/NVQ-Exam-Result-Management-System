@@ -173,4 +173,39 @@ class AttendanceController extends Controller
         //return response()->json(['attendances' => $attendances], 200);
         return view('attendance.report', ['attendances' => $attendances, 'module' => $module, 'academic' => $academic, 'employees' => $employees]);
     }
+
+    public function getViewIndex($sid,$mid,$aid){
+        $message = $warning = null;
+        $employees = Employee::leftjoin('employee_module', 'employee_module.employee_id', '=', 'employees.id')
+            ->where([['module_id', $mid], ['academic_year_id', $aid]])
+            ->get();
+        $module = Module::where('id', $mid)->first();
+        $academic = AcademicYear::where('id', $aid)->first();
+        $student = Student::where('id',$sid)->first();
+        if (!$module || !$academic ||  !$employees || !$student) {
+            $warning = "Please check you data!";
+            return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
+        }
+
+        $attendance = Attendance::select('student_id', DB::raw('count(attendances.id) as total'), DB::raw('sum(attendances.is_present) as present'))
+            ->leftjoin('attendance_sessions', 'attendance_sessions.id', '=', 'attendances.attendance_session_id')
+            ->groupBy('attendances.student_id')
+            ->where([
+            ['attendances.student_id', $sid],
+            ['attendance_sessions.module_id', $mid],
+            ['attendance_sessions.academic_year_id', $aid]
+        ])
+            ->first();
+
+        $logs = Attendance::
+                            leftjoin('attendance_sessions', 'attendance_sessions.id', '=', 'attendances.attendance_session_id')
+                            ->where([
+                                ['attendances.student_id',$sid],
+                                ['attendance_sessions.module_id', $mid],
+                                ['attendance_sessions.academic_year_id',$aid]])
+                            ->paginate(20);
+        //return response()->json(['logs' => $attendance], 200);
+        return view('attendance.view', ['attendance'=> $attendance,'logs'=> $logs,'student'=> $student,'module' => $module, 'academic' => $academic, 'employees' => $employees]);
+
+    }
 }

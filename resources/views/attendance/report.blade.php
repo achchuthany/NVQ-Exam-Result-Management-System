@@ -13,7 +13,7 @@
                
             </div>
             <div class="text-right col-auto">
-                <a   class="btn btn-sm btn-outline-primary shadow-sm" href=" ">Back</a>
+                <a   class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('attendance.manage',['mid'=>$module->id,'aid'=>$academic->id])}}">Back</a>
             </div>
         </div>
     </div>
@@ -63,6 +63,7 @@
                       <th scope="col">Present</th>
                       <th scope="col">Absent</th>
                       <th scope="col">Percentage</th>
+                      <th scope="col">All Logs</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,6 +82,7 @@
                                     <div class="progress-bar {{($per>=60 && $per<80)? 'bg-warning':(($per<60)?'bg-danger':'')}} " role="progressbar" style="width: {{$per}}%" aria-valuenow="{{$per}}" aria-valuemin="0" aria-valuemax="100">{{$per}}%</div>
                                 </div>                           
                               </td>
+                               <td><a href="{{ route('attendance.view',['sid'=>$attendance->student->id,'mid'=>$module->id,'aid'=>$academic->id]) }}">All Logs</a></td> 
                           </tr>
                           @endforeach             
                 </tbody>
