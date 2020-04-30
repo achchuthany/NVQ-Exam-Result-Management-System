@@ -8,6 +8,8 @@ use App\AttendanceSession;
 use App\Module;
 use App\Student;
 use App\Attendance;
+use App\Batch;
+use App\Course;
 use App\Employee;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -103,7 +105,7 @@ class AttendanceController extends Controller
         //     ->orderBy('academic_years.name', 'desc')
         //     ->orderBy('module_code', 'asc')
         //     ->paginate(20);
-
+        $courses = Course::orderBy('code', 'asc')->get();
         $modules = AttendanceSession::
                 select('module_id','academic_year_id', DB::raw('count(id) as total'),DB::raw('sum(present) as present'), DB::raw('sum(absent) as absent'))
                 ->groupBy('module_id')
@@ -112,8 +114,42 @@ class AttendanceController extends Controller
                 ->orderBy('module_id', 'asc')
             ->paginate(20);
         //return response()->json(['emp' => $user_info, 'present'=> $user_info], 200);
-        return view('attendance.index',['modules'=> $modules]);
+        return view('attendance.index',['modules'=> $modules, 'courses'=> $courses]);
 
+    }
+    public function postAttendancesbyBatch(Request $request)
+    {
+        $message = $warning = null;
+        $this->validate($request, [
+            'batch_id' => 'required',
+        ]);
+        // $modules = DB::table('employee_module')
+        //     ->select('employees.id as employee_id', 'employees.fullname as employee_fullname','employee_module.id', 'courses.name as course_name', 'modules.id as module_id', 'modules.course_id', 'modules.code as module_code', 'modules.name as module_name', 'academic_years.id as academic_year_id', 'academic_years.name as academic_year_name', 'academic_years.status as academic_year_status')
+        //     ->leftJoin('academic_years', 'academic_years.id', '=', 'employee_module.academic_year_id')
+        //     ->leftJoin('modules', 'modules.id', '=', 'employee_module.module_id')
+        //     ->leftJoin('courses', 'courses.id', '=', 'modules.course_id')
+        //     ->leftJoin('employees', 'employees.id', '=', 'employee_module.employee_id')
+        //     ->orderBy('academic_years.name', 'desc')
+        //     ->orderBy('module_code', 'asc')
+        //     ->paginate(20);
+        $batch = Batch::where('id',$request['batch_id'])->first();
+        if(!$batch){
+            $warning = "Batch not exits!";
+            return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
+        }
+
+        $courses = Course::orderBy('code', 'asc')->get();
+        $modules = AttendanceSession::select('attendance_sessions.module_id', 'attendance_sessions.academic_year_id', DB::raw('count(attendance_sessions.id) as total'), DB::raw('sum(attendance_sessions.present) as present'), DB::raw('sum(attendance_sessions.absent) as absent'))
+            ->leftJoin('modules', 'modules.id', '=', 'attendance_sessions.module_id')
+            ->groupBy('module_id')
+            ->groupBy('academic_year_id')
+            ->orderBy('academic_year_id', 'desc')
+            ->orderBy('module_id', 'asc')
+            ->where([['modules.course_id', $batch->course_id], ['attendance_sessions.academic_year_id', $batch->academic_year_id]])
+            ->paginate(20);
+        //return response()->json(['emp' => $user_info, 'present'=> $user_info], 200);
+        //return redirect()->back()->with(['modules' => $modules, 'courses' => $courses]);
+        return view('attendance.index', ['modules' => $modules, 'courses' => $courses]);
     }
 
     public function getReportIndex($mid,$aid){

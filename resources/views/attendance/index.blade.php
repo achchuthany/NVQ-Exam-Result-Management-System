@@ -3,7 +3,6 @@
     Attendances
 @endsection
 @section('content')
-<form method="post" action="{{route('attendance.sessions.detete')}}">
 <div class="card mb-3">
     <div class="card-header bg-white">
         <div class="align-items-center row">
@@ -13,7 +12,20 @@
             <div class="col">
                
             </div>
-            <div class="text-right col-auto">
+            <div class="col-auto">
+            <form class="form-inline my-2 my-lg-0" action="{{route('attendances.batch')}}" method="POST">
+                  <select class="custom-select custom-select-sm  col-8" name="batch_couese_id" id="batch_couese_id" required>
+                    <option value="" selected>Select Course</option>
+                      @foreach ($courses as $course)
+                        <option value="{{$course->id}}" >{{$course->name}}</option>
+                      @endforeach
+                  </select>
+                  <select class="custom-select custom-select-sm col-3" name="batch_id" id="batch_id" required>
+                    <option value="" selected>Select Batch</option>
+                  </select>
+                  <button type="submit" class="btn btn-sm btn-outline-primary"><i class="fas fa-search"></i></button>
+                  <input type="hidden" name="_token" value="{{Session::token()}}">
+              </form>
             </div>
         </div>
     </div>
@@ -82,5 +94,9 @@
         </div>
     </div>
 </div> 
-  </form>
+    <script>
+    var token = '{{ Session::token() }}';
+    var urlBatchesByCourse = '{{ route('ajax.batches') }}';
+    
+  </script>
 @endsection

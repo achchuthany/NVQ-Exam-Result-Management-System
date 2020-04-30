@@ -343,6 +343,10 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'AttendanceController@getAttendancesIndex',
         'as' => 'attendances'
     ]);
+    Route::post('/attendances', [
+        'uses' => 'AttendanceController@postAttendancesbyBatch',
+        'as' => 'attendances.batch'
+    ]);
     Route::get('/attendance/report/{mid}/{aid}', [
         'uses' => 'AttendanceController@getReportIndex',
         'as' => 'attendance.report'
