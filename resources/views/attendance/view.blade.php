@@ -13,7 +13,11 @@
                
             </div>
             <div class="text-right col-auto">
-                <a   class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('attendance.report',['mid'=>$module->id,'aid'=>$academic->id])}}">Back</a>
+            @if(Auth::user()->hasRole('Student'))
+                <a  class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('student.attendances')}}">Back</a>
+            @else
+                <a  class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('attendance.report',['mid'=>$module->id,'aid'=>$academic->id])}}">Back</a>
+            @endif
             </div>
         </div>
     </div>
@@ -56,7 +60,7 @@
                  <h6 class="font-weight-lighter">{{$module->course->code}} - {{$module->course->name}}</h6>
             </div>
              <div class="col-2 py-1">
-                <h6 class="font-weight-bolder"> Percentage </h6>
+                <h6 class="font-weight-bolder"> Taken Sessions </h6>
             </div>
             <div class="col-1 py-1">
                  <h6 class="font-weight-lighter">{{$attendance->present}}/{{$attendance->total}}</h6>
@@ -90,7 +94,7 @@
                                <td>{{date_format(date_create($log->date),"D d/M/Y") }}</td>
                                 <td>{{date_format(date_create($log->time_from),"H:iA") }} {{date_format(date_create($log->time_to),"H:iA") }} </td> 
                                 <td>{{$log->description}} </td>
-                                <td><span class="{{($log->is_present)? 'text-primary' :  'text-danger'}}"><i class="fas fa-check"></i></span> {{($log->is_present)?'Present':'Absent'}} </td>
+                                <td><span> <i class="fas {{($log->is_present)? 'fa-check text-primary' :  'fa-times-circle text-danger'}}"></i></span> {{($log->is_present)?'Present':'Absent'}} </td>
                                 <td>{{$log->remark}} </td>          
                           </tr>
                           @endforeach             

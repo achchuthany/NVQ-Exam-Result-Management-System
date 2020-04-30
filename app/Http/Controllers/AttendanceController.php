@@ -208,4 +208,18 @@ class AttendanceController extends Controller
         return view('attendance.view', ['attendance'=> $attendance,'logs'=> $logs,'student'=> $student,'module' => $module, 'academic' => $academic, 'employees' => $employees]);
 
     }
+
+    public function getStudentAttendancesIndex(){
+        $logs = AttendanceSession::select('attendance_sessions.module_id', 'attendance_sessions.academic_year_id', DB::raw('count(attendances.id) as total'), DB::raw('sum(attendances.is_present) as present'))
+            ->leftJoin('attendances', 'attendances.attendance_session_id', '=', 'attendance_sessions.id')
+            ->groupBy('module_id')
+            ->groupBy('academic_year_id')
+            ->where('student_id',6)
+            ->paginate(20);
+       // return response()->json(['logs' => $logs], 200);
+        return view('attendance.index_student', ['logs' => $logs]);
+    }
+    public function getStudentViewIndex($sid, $mid, $aid){
+        return $this->getViewIndex($sid, $mid, $aid);
+    }
 }

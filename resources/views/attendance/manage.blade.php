@@ -89,7 +89,7 @@
                              <td>{{$session->present}}/{{($session->present+$session->absent)}}</td>
                               <td>
                                 <div class="progress">
-                                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{($session->present == 0)? 0 : ($session->present/($session->present+$session->absent))*100}}%" aria-valuenow="{{($session->present == 0)? 0 : ($session->present/($session->present+$session->absent))*100}}" aria-valuemin="0" aria-valuemax="100">{{round(($session->present == 0)? 0 : ($session->present/($session->present+$session->absent))*100)}}%</div>
+                                  <div class="progress-bar " role="progressbar" style="width: {{($session->present == 0)? 0 : ($session->present/($session->present+$session->absent))*100}}%" aria-valuenow="{{($session->present == 0)? 0 : ($session->present/($session->present+$session->absent))*100}}" aria-valuemin="0" aria-valuemax="100">{{round(($session->present == 0)? 0 : ($session->present/($session->present+$session->absent))*100)}}%</div>
                                 </div>                
                               </td>
                               <td >

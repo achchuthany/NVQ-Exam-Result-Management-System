@@ -58,7 +58,7 @@
                               <td>{{$module->present}}/{{($module->absent+$module->present)}}</td>
                               <td>
                                 <div class="progress">
-                                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{($module->present == 0)? 0 : ($module->present/($module->present+$module->absent))*100}}%" aria-valuenow="{{($module->present == 0)? 0 : ($module->present/($module->present+$module->absent))*100}}" aria-valuemin="0" aria-valuemax="100">{{round(($module->present == 0)? 0 : ($module->present/($module->present+$module->absent))*100)}}%</div>
+                                  <div class="progress-bar" role="progressbar" style="width: {{($module->present == 0)? 0 : ($module->present/($module->present+$module->absent))*100}}%" aria-valuenow="{{($module->present == 0)? 0 : ($module->present/($module->present+$module->absent))*100}}" aria-valuemin="0" aria-valuemax="100">{{round(($module->present == 0)? 0 : ($module->present/($module->present+$module->absent))*100)}}%</div>
                                 </div>                
                               </td>
                               <td >

@@ -359,4 +359,16 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'AttendanceController@getViewIndex',
         'as' => 'attendance.view'
     ]);
+    Route::get('/student/attendances', [
+        'uses' => 'AttendanceController@getStudentAttendancesIndex',
+        'as' => 'student.attendances',
+        'middleware' => 'roles',
+        'roles' => 'Student'
+    ]);
+    Route::get('/student/attendance/view/{sid}/{mid}/{aid}', [
+        'uses' => 'AttendanceController@getStudentViewIndex',
+        'as' => 'student.attendance.view',
+        'middleware' => 'roles',
+        'roles' => 'Student'
+    ]);
 });

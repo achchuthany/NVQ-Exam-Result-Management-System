@@ -7,7 +7,14 @@
         <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
     </head>
     <body class="d-flex flex-column h-100">
-    @include('includes.menu')
+     @if (Auth::user()->hasRole('Admin'))
+         @include('includes.menu')
+     @elseif(Auth::user()->hasRole('Student'))
+      @include('includes.menu')
+         @include('includes.menu_student')
+     @endif
+   
+
     <div class="container mb-5">
        @include('includes.message')
        @include('includes.errors')
