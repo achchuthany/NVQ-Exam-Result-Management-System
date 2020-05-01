@@ -289,10 +289,31 @@ Route::group(['middleware' => ['auth']], function () {
         'as' => 'ajax.batches'
     ]);
 
-    Route::get('/users',[
+    Route::get('/admin/users',[
         'uses' => 'UserController@getAllUsers',
-        'as' => 'users'
+        'as' => 'users',
+        'middleware' => 'roles',
+        'roles' => 'Admin'
     ]);
+    Route::post('/admin/roles', [
+        'uses' => 'UserController@postAssignRoles',
+        'as' => 'user.roles',
+        'middleware' => 'roles',
+        'roles' => 'Admin'
+    ]);
+    Route::get('/admin/user', [
+        'uses' => 'UserController@getUserIndex',
+        'as' => 'user.index',
+        'middleware' => 'roles',
+        'roles' => 'Admin'
+    ]);
+    Route::post('/admin/user', [
+        'uses' => 'UserController@postCreateUser',
+        'as' => 'user.create',
+        'middleware' => 'roles',
+        'roles' => 'Admin'
+    ]);
+
     Route::get('/employees/enroll',[
         'uses' => 'EmployeeModuleController@getEnrollIndex',
         'as' => 'employees.enroll'

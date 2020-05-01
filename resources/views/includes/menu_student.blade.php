@@ -33,7 +33,7 @@
           <ul class="navbar-nav float-right">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{Auth::user()->first_name}}
+                    {{Auth::user()->firstname}}
                     @foreach(Auth::user()->roles as $role)
                   <span class="badge badge-light">{{$role->name}}</span>
                   @endforeach

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Department;
 use App\Employee;
+use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -65,7 +67,19 @@ class EmployeeController extends Controller
         $employee->phone = $request['phone'];
         $message = 'There was an error';
         if($employee->save()){
-           $message = 'Staffs  successfully created';
+           $message = 'Staffs successfully created';
+        }
+        $un = explode('@', $employee->email);
+        $admin = new User();
+        $admin->profile_id = $employee->id;
+        $admin->firstname = $employee->fullname;
+        $admin->lastname = $employee->shortname;
+        $admin->username = $un[0] ;
+        $admin->email = $employee->email;
+        $admin->password = bcrypt($employee->nic);
+        
+        if ($admin->save()) {
+            $message .= 'User successfully created';
         }
         return redirect()->route('employees')->with(['message'=>$message]);
     }

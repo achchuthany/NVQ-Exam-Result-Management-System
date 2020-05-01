@@ -20,11 +20,11 @@ class UserController extends Controller
     }
     public function postSignIn(Request $request)
     {
-        $this->validate($request,['email'=>'required','password'=>'required']);
-        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
+        $this->validate($request,['username'=>'required','password'=>'required']);
+        if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']])) {
             return redirect()->route('home');
         }
-        return redirect()->back()->with(['message'=>'Incorrect username or password.']);
+        return redirect()->back()->with(['warning'=>'Incorrect username or password.']);
     }
 
     public function getLogout()
@@ -33,4 +33,32 @@ class UserController extends Controller
         return redirect()->route('login');
     }
 
+    public function  postAssignRoles(Request $request){
+        $user = User::where('email',$request['email'])->first();
+        $user->roles()->detach();
+        
+        // if($request['Student']){
+        //     $user->roles()->attach(Role::where('name','Student')->first());
+        // }
+        if ($request['MA']) {
+            $user->roles()->attach(Role::where('name', 'MA')->first());
+        }
+        if ($request['Lecturer']) {
+            $user->roles()->attach(Role::where('name', 'Lecturer')->first());
+        }
+        if ($request['Head']) {
+            $user->roles()->attach(Role::where('name', 'Head')->first());
+        }
+        if ($request['Admin']) {
+            $user->roles()->attach(Role::where('name', 'Admin')->first());
+        }
+        //return response()->json(['attendance' => Auth::user()->roles], 200);
+        return redirect()->back();
+    }
+    public function getUserIndex(){
+        return view('administration.user');
+    }
+    public function postCreateUser(Request $request){
+        return response()->json(['logs' => $request], 200);
+    }
 }
