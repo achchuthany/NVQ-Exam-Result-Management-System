@@ -400,6 +400,12 @@ Route::group(['middleware' => ['auth']], function () {
         'middleware' => 'roles',
         'roles' => 'Student'
     ]);
-
+    Route::get('/student/tvecexams', [
+        'uses' => 'TvecExamResultController@getStudentExamsIndex',
+        'as' => 'student.tvecexams',
+        'middleware' => 'roles',
+        'roles' => 'Student'
+    ]);
+    //end student route
 
 });

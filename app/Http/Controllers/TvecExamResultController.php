@@ -11,6 +11,8 @@ use App\TvecExam;
 use App\TvecExamResult;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use PDF;
 class TvecExamResultController extends Controller
 {
@@ -24,7 +26,7 @@ class TvecExamResultController extends Controller
         $number_of_students_pass = 0;
 
         foreach($request['results'] as $key => $value){
-            
+
             $isUpdate = false;
             $exams = TvecExamResult::where([['student_id',$key],['attempt',$request['attempts'][$key]],['tvec_exam_id',$request['tvec_exam_id']]])->count();
             if($exams == 1){
@@ -48,8 +50,8 @@ class TvecExamResultController extends Controller
             if($request['results'][$key] == 'P' && $result->result != 'P')
                     $student_enroll->tvec_exam_pass +=1;
             $student_enroll->update();
-            
-           
+
+
 
             $result->student_id = $key;
             $result->attempt = $request['attempts'][$key];
@@ -143,7 +145,7 @@ class TvecExamResultController extends Controller
         $pdf = PDF::loadView('examination.tvec_batch_results_pdf',['students'=>$students,'exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass])->setPaper('a4', 'landscape');
         return $pdf->download($batch->name.'.pdf');
        //return view('examination.tvec_batch_results_pdf',['students'=>$students,'exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass]);
-      
+
     }
     public function getTvecExamsResultsbyStudentId($bid,$id){
         $batch = Batch::where('id',$bid)->first();
@@ -177,5 +179,31 @@ class TvecExamResultController extends Controller
         $id = $request['batch_id'];
         return redirect()->route('tvec.exams.results.batch',['id'=>$id]);
     }
-    
+    public function getStudentExamsIndex(){
+        $student_id = Auth::user()->profile_id;
+
+        if(!$student_id){
+            return redirect()->back()->with(['warning'=>'Student ID is invalid. Try again!']);
+        }
+
+        $results = TvecExamResult::select('module_id','academic_year_id','tvec_exams.exam_type',
+            DB::raw('max(tvec_exam_results.attempt) as attempt'),
+            DB::raw('max(tvec_exam_results.result) as result'),
+            DB::raw('max(modules.name) as module_name'),
+            DB::raw('max(modules.code) as module_code'))
+            ->leftJoin('tvec_exams','tvec_exams.id','=','tvec_exam_results.tvec_exam_id')
+            ->leftJoin('modules','modules.id','=','tvec_exams.module_id')
+            ->leftJoin('academic_years','academic_years.id','=','tvec_exams.academic_year_id')
+            ->groupBy('module_id')
+            ->groupBy('academic_year_id')
+            ->groupBy('exam_type')
+            ->orderBy('module_id','asc')
+            ->orderBy('exam_type','desc')
+            ->where([['student_id',$student_id]])
+            ->get();
+        //return response()->json(['results'=>$results],200);
+        return view('examination.student_tvec_results',['results'=>$results,'exam_types'=>$this->exam_types,'exam_results'=>$this->exam_pass]);
+
+    }
+
 }
