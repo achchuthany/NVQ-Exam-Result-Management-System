@@ -6,6 +6,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -20,7 +21,10 @@ class UserController extends Controller
     }
     public function postSignIn(Request $request)
     {
-        $this->validate($request,['username'=>'required','password'=>'required']);
+        try {
+            $this->validate($request, ['username' => 'required', 'password' => 'required']);
+        } catch (ValidationException $e) {
+        }
         if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']])) {
             return redirect()->route('home');
         }
@@ -36,7 +40,7 @@ class UserController extends Controller
     public function  postAssignRoles(Request $request){
         $user = User::where('email',$request['email'])->first();
         $user->roles()->detach();
-        
+
         // if($request['Student']){
         //     $user->roles()->attach(Role::where('name','Student')->first());
         // }

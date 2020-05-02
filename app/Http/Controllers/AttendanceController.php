@@ -37,7 +37,7 @@ class AttendanceController extends Controller
             ->get();
 
         return view('attendance.take', ['session' => $session, 'students' => $students, 'module' => $module, 'academic' => $academic]);
-    } 
+    }
 
     public function getTakeCreate(Request $request)
     {
@@ -210,16 +210,24 @@ class AttendanceController extends Controller
     }
 
     public function getStudentAttendancesIndex(){
+        $student = Auth::user();
+        if(!$student){
+            return null;
+        }
         $logs = AttendanceSession::select('attendance_sessions.module_id', 'attendance_sessions.academic_year_id', DB::raw('count(attendances.id) as total'), DB::raw('sum(attendances.is_present) as present'))
             ->leftJoin('attendances', 'attendances.attendance_session_id', '=', 'attendance_sessions.id')
             ->groupBy('module_id')
             ->groupBy('academic_year_id')
-            ->where('student_id',6)
+            ->where('student_id',$student->profile_id)
             ->paginate(20);
        // return response()->json(['logs' => $logs], 200);
         return view('attendance.index_student', ['logs' => $logs]);
     }
     public function getStudentViewIndex($sid, $mid, $aid){
-        return $this->getViewIndex($sid, $mid, $aid);
+        $student = Auth::user();
+        if(!$student){
+            return null;
+        }
+        return $this->getViewIndex($student->profile_id, $mid, $aid);
     }
 }

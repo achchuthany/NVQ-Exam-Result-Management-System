@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\AcademicYear;
 use App\Batch;
 use App\Course;
+use App\Role;
 use App\Student;
 use App\StudentEnroll;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 
@@ -69,12 +71,16 @@ class StudentController extends Controller
             'enroll_date' => 'required',
             'status' => 'required'
         ]);
- 
         $student = Student::where('id', $request['student_id'])->first();
         if($student){
             $isUpdate = true;
         }else{
             $student = new Student();
+            $this->validate($request,[
+                'email'=>'unique:students|unique:users',
+                'reg_no'=>'unique:students',
+                'nic'=>'unique:students'
+            ]);
         }
         $Course = Course::find($request['course_id']);
         if(!$Course){
@@ -107,13 +113,42 @@ class StudentController extends Controller
         $student->emergency_phone = $request['emergency_phone'];
         $student->emergency_relationship = $request['emergency_relationship'];
 
+        //User data
+        $role_admin = Role::where('name', 'Student')->first();
+        $uns = explode('/', $student->reg_no);
+        $un = null;
+        foreach ($uns as $key){
+            $un .= $key;
+        }
+        //end
+
+
         if($isUpdate){
             $message = $student->fullname . " Successfully Updated!";
-            $student->update();       
+            $student->update();
+            //update user table
+            $admin = User::where('profile_id',$student->id)->first();
+            $admin->firstname = $student->reg_no;
+            $admin->lastname = $student->shortname;
+            $admin->username = strtolower($un);
+            $admin->email = $student->email;
+            $admin->update();
+
         }else{
             $message = $student->fullname . " Successfully Created!";
             $student->save();
-            
+
+            //create a user account for login
+            $admin = new User();
+            $admin->profile_id = $student->id;
+            $admin->firstname = $student->reg_no;
+            $admin->lastname = $student->shortname;
+            $admin->username = strtolower($un);
+            $admin->email = $student->email;
+            $admin->password = bcrypt($student->nic);
+            $admin->save();
+            $admin->roles()->attach($role_admin);
+
         }
 
         foreach ($request['course_id'] as $index=>$course_id) {
@@ -136,7 +171,7 @@ class StudentController extends Controller
                 $enroll->update();
             }else if($batch && !$isUpdate){
                 $enroll->save();
-            }        
+            }
         }
         return redirect()->route('students')->with(['message' => $message, 'warning' => $warning]);
     }

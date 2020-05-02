@@ -10,10 +10,9 @@
      @if (Auth::user()->hasRole('Admin'))
          @include('includes.menu')
      @elseif(Auth::user()->hasRole('Student'))
-      @include('includes.menu')
          @include('includes.menu_student')
      @endif
-   
+
 
     <div class="container mb-5">
        @include('includes.message')

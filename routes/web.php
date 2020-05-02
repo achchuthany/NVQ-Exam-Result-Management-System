@@ -380,6 +380,8 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'AttendanceController@getViewIndex',
         'as' => 'attendance.view'
     ]);
+
+    //Student Route
     Route::get('/student/attendances', [
         'uses' => 'AttendanceController@getStudentAttendancesIndex',
         'as' => 'student.attendances',
@@ -392,4 +394,12 @@ Route::group(['middleware' => ['auth']], function () {
         'middleware' => 'roles',
         'roles' => 'Student'
     ]);
+    Route::get('/student/courses', [
+        'uses' => 'StudentEnrollController@getStudentCoursesIndex',
+        'as' => 'student.courses',
+        'middleware' => 'roles',
+        'roles' => 'Student'
+    ]);
+
+
 });

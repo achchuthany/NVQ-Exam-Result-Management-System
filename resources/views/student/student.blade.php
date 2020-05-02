@@ -21,7 +21,7 @@
                 <label for="title">Title: </label>
                 <select name="title" id="title" class="custom-select" value="">
                     <option disabled="">Select Title</option>
-                    <option value="Mr" {{(isset($student)&&!Request::old('title'))? (($student->title == 'Mr')? 'selected':'') : ( (Request::old('title') == 'Mr')? 'selected':'')}}>Mr</option> 
+                    <option value="Mr" {{(isset($student)&&!Request::old('title'))? (($student->title == 'Mr')? 'selected':'') : ( (Request::old('title') == 'Mr')? 'selected':'')}}>Mr</option>
                     <option value="Miss" {{(isset($student)&&!Request::old('title'))? (($student->title == 'Miss')? 'selected':'') : ( (Request::old('title') == 'Miss')? 'selected':'')}}>Miss</option>
                     <option value="Mrs" {{(isset($student)&&!Request::old('title'))? (($student->title == 'Mrs')? 'selected':'') : ( (Request::old('title') == 'Mrs')? 'selected':'')}}>Mrs</option>
                 </select>
@@ -48,7 +48,7 @@
                 <label for="civil"> Civil Status: </label>
                 <select name="civil" id="civil" class="custom-select" >
                     <option  disabled="">Select Status</option>
-                    <option value="Single" {{(isset($student)&&!Request::old('civil'))? (($student->civil == "Single")? 'selected':'') : ( (Request::old('civil') =="Single")? 'selected':'')}}>Single</option> 
+                    <option value="Single" {{(isset($student)&&!Request::old('civil'))? (($student->civil == "Single")? 'selected':'') : ( (Request::old('civil') =="Single")? 'selected':'')}}>Single</option>
                     <option value="Married" {{(isset($student)&&!Request::old('civil'))? (($student->civil == "Married")? 'selected':'') : ( (Request::old('civil') =="Married")? 'selected':'')}}>Married</option>
                 </select>
             </div>
@@ -90,7 +90,7 @@
                     @foreach($districts as $district)
                     <option value="{{$district}}" {{(isset($student)&&!Request::old('district'))? (($student->district == $district)? 'selected':'') : ( (Request::old('district') ==$district)? 'selected':'')}}>{{$district}}</option>
                     @endforeach
-        
+
                 </select>
             </div>
 
@@ -120,11 +120,11 @@
                     <option value="O+" {{(isset($student)&&!Request::old('blood'))? (($student->blood == "O+")? 'selected':'') : ( (Request::old('blood') =="O+")? 'selected':'')}}>O positive (O+) </option>
                     <option value="O-" {{(isset($student)&&!Request::old('blood'))? (($student->blood == "O-")? 'selected':'') : ( (Request::old('blood') =="O-")? 'selected':'')}}>O negative (O-) </option>
                     <option value="AB+" {{(isset($student)&&!Request::old('blood'))? (($student->blood == "AB+")? 'selected':'') : ( (Request::old('blood') =="AB+")? 'selected':'')}}>AB positive (AB+) </option>
-                    <option value="AB-" {{(isset($student)&&!Request::old('blood'))? (($student->blood == "AB-")? 'selected':'') : ( (Request::old('blood') =="AB-")? 'selected':'')}}>AB negative (AB-) </option> 
+                    <option value="AB-" {{(isset($student)&&!Request::old('blood'))? (($student->blood == "AB-")? 'selected':'') : ( (Request::old('blood') =="AB-")? 'selected':'')}}>AB negative (AB-) </option>
                 </select>
-            </div>               
+            </div>
         </div>
-    </div>      
+    </div>
 </div>
 
 
@@ -151,20 +151,20 @@
                             <option value="null" disabled>Select Course</option>
                             @foreach ($courses as $course)
                                 <option value="{{$course->id}}" {{(isset($enroll)&&!Request::old('course_id'))? (($enroll->course_id == $course->id)? 'selected':'') : ( (Request::old('course_id') ==$course->id)? 'selected':'')}}>{{$course->name}}</option>
-                            @endforeach    
+                            @endforeach
                         </select>
                     </div>
-                
+
                     <div class="col-md-3 form-group">
                         <label for="academic_year_id"><span class="text-danger">*</span> Academic Year: </label>
                         <select name="academic_year_id[]" id="academic_year_id" class="custom-select" required>
                             <option value="null" disabled selected>Select Course</option>
                             @foreach ($academicyears as $academicyear)
                                 <option value="{{$academicyear->id}}" {{(isset($enroll)&&!Request::old('academic_year_id'))? (($enroll->academic_year_id == $academicyear->id)? 'selected':'') : ( (Request::old('academic_year_id') ==$academicyear->id)? 'selected':'')}}>{{$academicyear->name}} ({{$academicyear->status}})</option>
-                            @endforeach    
+                            @endforeach
                         </select>
                     </div>
-                
+
                     <div class="col-md-3 form-group">
                         <label for="course_mode"><span class="text-danger">*</span> Course Mode: </label>
                         <select name="course_mode[]" id="course_mode" class="custom-select" required>
@@ -176,7 +176,7 @@
                     </div>
                     <div class="col-md-3 form-group">
                         <label for="reg_no"><span class="text-danger">*</span> Registration No.:</label>
-                        <input type="text" class="form-control" name="reg_no" value="{{(isset($student)&&!Request::old('reg_no'))? $student->reg_no : Request::old('reg_no')}}" id="reg_no" required>
+                        <input type="text" pattern="[0-9]{4}[/][a-zA-Z]{3}[/][0-9a-zA-Z]{3}[0-9]{2}"  class="form-control" name="reg_no" value="{{(isset($student)&&!Request::old('reg_no'))? $student->reg_no : Request::old('reg_no')}}" id="reg_no" required>
                     </div>
                     <div class="col-md-3 form-group">
                         <label for="status"><span class="text-danger">*</span> Status:</label>
@@ -184,7 +184,7 @@
                             @foreach($statuses as $status)
                             <option value="{{$status}}" {{(isset($enroll)&&!Request::old('status'))? (($enroll->status == $status)? 'selected':'') : ( (Request::old('status') ==$status)? 'selected':'')}}>{{$status}}</option>
                             @endforeach
-                        </select> 
+                        </select>
                     </div>
                     <div class="col-md-3 form-group">
                         <label for="enroll_date"><span class="text-danger">*</span>Enroll Date:</label>
@@ -217,20 +217,20 @@
                 <select name="course_id[]" id="course_id" class="custom-select" value="" required>
                     <option value="null" disabled selected>Select Course</option>
                     @foreach ($courses as $course)
-                        <option value="{{$course->id}}">{{$course->name}}</option>
-                    @endforeach    
+                        <option value="{{$course->id}}" {{ (Request::old('course_id') ==$course->id)? 'selected':''}}>{{$course->name}}</option>
+                    @endforeach
                 </select>
             </div>
-        
+
             <div class="col-md-3 form-group">
                 <label for="academic_year_id"><span class="text-danger">*</span> Academic Year: </label>
                 <select name="academic_year_id[]" id="academic_year_id" class="custom-select" required>
                 <option value="null" disabled selected>Select Course</option>
                 @foreach ($academicyears as $academicyear)
-                    <option value="{{$academicyear->id}}">{{$academicyear->name}} ({{$academicyear->status}})</option>
+                    <option value="{{$academicyear->id}}" {{ (Request::old('academic_year_id') ==$academicyear->id)? 'selected':''}}>{{$academicyear->name}} ({{$academicyear->status}})</option>
                 @endforeach    </select>
             </div>
-        
+
             <div class="col-md-3 form-group">
                 <label for="course_mode"><span class="text-danger">*</span> Course Mode: </label>
                 <select name="course_mode[]" id="course_mode" class="custom-select" required>
@@ -242,7 +242,7 @@
             </div>
             <div class="col-md-3 form-group">
                 <label for="reg_no"><span class="text-danger">*</span> Registration No.:</label>
-                <input type="text" class="form-control" name="reg_no" value="" id="reg_no" required="">
+                <input type="text" pattern="[0-9]{4}[/][a-zA-Z]{3}[/][0-9a-zA-Z]{3}[0-9]{2}" class="form-control" name="reg_no" value="" id="reg_no" required="">
             </div>
             <div class="col-md-3 form-group">
                 <label for="status"><span class="text-danger">*</span> Status:</label>
@@ -250,7 +250,7 @@
                     @foreach($statuses as $status)
                     <option value="{{$status}}">{{$status}}</option>
                     @endforeach
-                </select> 
+                </select>
             </div>
             <div class="col-md-3 form-group">
                 <label for="enroll_date"><span class="text-danger">*</span>Enroll Date:</label>
