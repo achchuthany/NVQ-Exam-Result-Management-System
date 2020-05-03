@@ -406,6 +406,12 @@ Route::group(['middleware' => ['auth']], function () {
         'middleware' => 'roles',
         'roles' => 'Student'
     ]);
+    Route::get('/student', [
+        'uses' => 'StudentDashboardController@getIndex',
+        'as' => 'student',
+        'middleware' => 'roles',
+        'roles' => 'Student'
+    ]);
     //end student route
 
 });

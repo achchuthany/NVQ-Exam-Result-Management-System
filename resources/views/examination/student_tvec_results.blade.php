@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Enrolled Courses
+    TVEC Examination Results
 @endsection
 @section('content')
     <div class="card mb-3">
@@ -49,11 +49,8 @@
 
                 </div>
                 <div class="col-auto">
-                    {{--                         <p>This {{$enroll->course_mode}} course has been enrolled in {{$enroll->enroll_date}} <small class="text-muted">{{Carbon\Carbon::parse($enroll->enroll_date)->diffForHumans()}}</small> </p>--}}
                 </div>
             </div>
         </div>
     </div>
-
-
 @endsection

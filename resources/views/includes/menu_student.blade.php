@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{route('home')}}"><i class="fas fa-home"></i> Dashboard</a>
+              <a class="nav-link" href="{{route('student')}}"><i class="fas fa-home"></i> Dashboard</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('student.courses')}}"><i class="fas fa-university"></i> Courses</a>

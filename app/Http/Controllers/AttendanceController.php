@@ -220,8 +220,24 @@ class AttendanceController extends Controller
             ->groupBy('academic_year_id')
             ->where('student_id',$student->profile_id)
             ->paginate(20);
+
+        $logs_new = AttendanceSession::select('attendance_sessions.module_id', 'attendance_sessions.academic_year_id', DB::raw('count(attendances.id) as total'), DB::raw('sum(attendances.is_present) as present'))
+            ->leftJoin('attendances', 'attendances.attendance_session_id', '=', 'attendance_sessions.id')
+            ->groupBy('module_id')
+            ->groupBy('academic_year_id')
+            ->where('student_id',$student->profile_id)
+            ->get();
+        $datas = array();
+        $labels = array();
+
+        foreach ($logs_new as $log){
+            $datas[] = round(($log->present/$log->total)*100);
+            $labels[]=$log->module->name;
+        }
+
        // return response()->json(['logs' => $logs], 200);
-        return view('attendance.index_student', ['logs' => $logs]);
+        return view('attendance.index_student', ['logs' => $logs,'datas'=>json_encode($datas),
+            'labels'=>json_encode($labels)]);
     }
     public function getStudentViewIndex($sid, $mid, $aid){
         $student = Auth::user();
