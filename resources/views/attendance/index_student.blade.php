@@ -10,16 +10,16 @@
                     <h5 class="mb-0 font-weight-bolder"> Attendances </h5>
                 </div>
                 <div class="col-auto">
-                    <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                    <div class="nav nav-pills text-light border-0  p-0" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active m-0" id="nav-home-tab" data-toggle="tab" href="#nav-home"
                            role="tab"
-                           aria-controls="nav-home" aria-selected="true">Grid</a>
-                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                           aria-controls="nav-home" aria-selected="true"><i class="fas fa-th"></i> Grid</a>
+                        <a class="nav-item nav-link m-0" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
                            role="tab"
-                           aria-controls="nav-profile" aria-selected="false">Table</a>
-                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
+                           aria-controls="nav-profile" aria-selected="false"><i class="fas fa-table"></i> Table</a>
+                        <a class="nav-item nav-link m-0" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
                            role="tab"
-                           aria-controls="nav-contact" aria-selected="false">Graph</a>
+                           aria-controls="nav-contact" aria-selected="false"><i class="fas fa-chart-bar"></i> Graph</a>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                                         <span
                                             hidden> {{$per = round(($log->present == 0)? 0 : ($log->present/($log->total))*100)}}</span>
                                                 <div
-                                                    class="display-3 font-weight-lighter {{($per>=60 && $per<80)? 'text-warning':(($per<60)?'text-danger':'text-primary')}} ">{{$per}}
+                                                    class="display-4 font-weight-lighter {{($per>=60 && $per<80)? 'text-warning':(($per<60)?'text-danger':'text-primary')}} ">{{$per}}
                                                     <span class="text-muted h4">%</span></div>
                                             </div>
                                             <div class="text-right col-auto">

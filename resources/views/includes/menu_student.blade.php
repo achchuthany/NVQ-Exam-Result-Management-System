@@ -43,7 +43,7 @@
                           <span class="text-muted">{{$role->name}}</span>
                       @endforeach
                   </a>
-                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="{{route('student.profile')}}">Profile</a>
                   <a class="dropdown-item" href="{{ route('logout') }}" >Signout</a>
                 </div>
             </li>
