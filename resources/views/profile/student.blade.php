@@ -15,8 +15,8 @@
             <div class="card mb-3">
                 <div class="card-body">
 
-                    <div class="row">
-                        <div class="col-3 border-right">
+                    <div class="row my-3">
+                        <div class="col-md-3 border-right">
                             <div class="nav flex-column nav-pills bg-white" id="v-pills-tab" role="tablist"
                                  aria-orientation="vertical">
                                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
@@ -31,166 +31,187 @@
                                    aria-selected="false">Emergencyy Contact</a>
                             </div>
                         </div>
-                        <div class="col-9">
+                        <div class="col-md-9">
                             <div class="tab-content" id="v-pills-tabContent">
                                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                                      aria-labelledby="v-pills-home-tab">
                                     <div class="row mb-4">
                                         <div class="col-1 text-right p-0 text-secondary">
-                                            <h2><i class="far fa-envelope-open"></i></h2>
+                                            <h3><i class="far fa-envelope-open"></i></h3>
                                         </div>
                                         <div class="col-11">
-                                            <h5 class="mb-0">{{$student->email}} </h5>
+                                            <h6 class="mb-0">{{$student->email}} </h6>
                                             <h6 class="text-muted p-0 m-0"><small>E-mail</small></h6>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-1 text-right p-0 text-secondary">
-                                            <h2><i class="fas fa-sign-in-alt"></i></h2>
+                                            <h3><i class="fas fa-sign-in-alt"></i></h3>
                                         </div>
                                         <div class="col-11">
-                                            <h5 class="mb-0">{{Auth::user()->username}}</h5>
+                                            <h6 class="mb-0">{{Auth::user()->username}}</h6>
                                             <h6 class="text-muted p-0 m-0"><small>Username</small></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                                      aria-labelledby="v-pills-profile-tab">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Name</label>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-user-graduate"></i></h3>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->title}}. {{$student->shortname}} </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Birth</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->date_birth}} </label>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->title}}. {{$student->shortname}} </h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Name</small></h6>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Gender</label>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-gift"></i></h3>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->gender}} </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Student ID</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->reg_no}} </label>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{Carbon\Carbon::parse($student->date_birth)->toFormattedDateString()}}  </h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Date of Birth</small></h6>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>NIC No.</label>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-user"></i></h3>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->nic}} </label>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->gender}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Gender</small></h6>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Civil Status</label>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-id-card"></i></h3>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->civil_status}} </label>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->reg_no}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Student ID</small></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-id-badge"></i></h3>
+                                        </div>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->nic}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>NIC No.</small></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-ring"></i></h3>
+                                        </div>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->civil_status}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Civil Status</small></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
                                      aria-labelledby="v-pills-messages-tab">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Address</label>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-location-arrow"></i></h3>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->address}} </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Phone</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->phone}} </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Divisional</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->divisional}} </label>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->address}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Address</small></h6>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>District</label>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-phone"></i></h3>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->district}} </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Province</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->province}} </label>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->phone}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Phone</small></h6>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Zip</label>
+
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-road"></i></h3>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->zip}} </label>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->divisional}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Divisional</small></h6>
                                         </div>
                                     </div>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-map"></i></h3>
+                                        </div>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->district}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>District</small></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-globe-asia"></i></h3>
+                                        </div>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->province}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Province</small></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-atlas"></i></h3>
+                                        </div>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->zip}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Zip</small></h6>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
                                      aria-labelledby="v-pills-settings-tab">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Name</label>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-person-booth"></i></h3>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->emergency_name }} </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Address</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->emergency_address }} </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Phone</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->emergency_phone }} </label>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->emergency_name}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Name</small></h6>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Relationship</label>
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-location-arrow"></i></h3>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label>{{$student->emergency_relationship}} </label>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->emergency_address}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Address</small></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-phone"></i></h3>
+                                        </div>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->emergency_phone}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Phone</small></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <div class="col-1 text-right p-0 text-secondary">
+                                            <h3><i class="fas fa-heart"></i></h3>
+                                        </div>
+                                        <div class="col-11">
+                                            <h6 class="mb-0">{{$student->emergency_relationship}}</h6>
+                                            <h6 class="text-muted p-0 m-0"><small>Relationship</small></h6>
                                         </div>
                                     </div>
                                 </div>
