@@ -192,4 +192,46 @@ class StudentController extends Controller
         return view('student.student', ['enrolls'=> $enrolls,'student'=> $student,'provinces' => $this->provinces, 'statuses' => $this->statuses, 'modes' => $this->modes, 'districts' => $this->districts, 'courses' => $courses, 'academicyears' => $academicyears]);
 
     }
+    public function getEnrollIndex($id){
+        $student = Student::where('id',$id)->first();
+        if(!$student){
+            return redirect()->back()->with('warning','Invalid Student Data !');
+        }
+        $courses = Course::orderBy('name','asc')->get();
+        $academicyears = AcademicYear::orderBy('name','desc')->get();
+
+        return view('student.enroll',['student'=>$student,'statuses'=>$this->statuses,'modes'=>$this->modes,'courses'=>$courses,'academicyears'=>$academicyears]);
+    }
+    public function postStudentEnroll(Request $request){
+        $message = $warning = null;
+        $this->validate($request, [
+            'reg_no' => 'required',
+            'academic_year_id' => 'required',
+            'course_id' => 'required',
+            'course_mode' => 'required',
+            'enroll_date' => 'required',
+            'status' => 'required'
+        ]);
+        $student = Student::where('id', $request['student_id'])->first();
+        $enroll = new StudentEnroll();
+        $batch = Batch::where([['academic_year_id', $request['academic_year_id']],['course_id', $request['course_id']]])->first();
+        $enroll->academic_year_id = $request['academic_year_id'];
+        $enroll->course_id = $request['course_id'];
+        $enroll->course_mode = $request['course_mode'];
+        $enroll->enroll_date = $request['enroll_date'];
+        $enroll->status = $request['status'];
+
+        $enroll->student_id = $student->id;
+        $isEnrolled = StudentEnroll::where([['student_id',$student->id],['course_id',$request['course_id']]])->first();
+        if($isEnrolled){
+            return redirect()->back()->with('warning','Student Already Enrolled to the Course');
+        }
+        if(!$batch){
+            return redirect()->back()->with('warning','Enrolled Course doesn\'t have Batch Name');
+        }
+        if($enroll->save()){
+            $message = $student->fullname . " Successfully Enrolled ";
+        }
+        return redirect()->route('students')->with(['message' => $message, 'warning' => $warning]);
+    }
 }

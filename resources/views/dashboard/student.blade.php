@@ -137,7 +137,7 @@
                                     </div>
                                 </div>
                                 @foreach($enrolls as $enroll)
-                                    <div class="card-body text-center ">
+                                    <div class="card-body text-center">
                                         <div class="align-items-center row">
                                             <div class="col-12">
                                                 <div class="h1 font-weight-lighter">{{$enroll->status}} </div>
@@ -174,7 +174,7 @@
                                     <div class="align-items-center row">
                                         <div class="col">
                                             <span
-                                                hidden>{{$per = round(($enroll->tvec_exam_pass/$enroll->tvec_exam_modules)*100)}}</span>
+                                                hidden>{{$per = round(($enroll->tvec_exam_pass/(($enroll->tvec_exam_modules==0)?1:$enroll->tvec_exam_modules))*100)}}</span>
                                             <div class="h1 font-weight-lighter"><span class="{{($per>=60 && $per<80)? 'text-warning':(($per<60)?'text-danger':'text-primary')}}">{{$per}}</span> <span class="text-muted h6">% Pass Rate</span>
                                             </div>
                                         </div>

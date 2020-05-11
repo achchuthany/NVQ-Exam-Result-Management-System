@@ -58,19 +58,19 @@
                 <td>{{App\Batch:: where([['academic_year_id','=' ,$student->student_enroll->academic_year_id],['course_id','=' ,$student->student_enroll->course_id]])->first()->name}}</td>
                 <td>{{$student->phone}}</td>
                 <td><span class="{{($student->student_enroll->status=='Following')? 'text-primary': (($student->student_enroll->status=='Droupout')? 'text-danger': (($student->student_enroll->status=='Completed')?'text-secondary':'text-warning'))}}"><i class="fas fa-check-circle"></i></span> {{$student->student_enroll->status}}</td>
-                <td> 
+                <td>
                 <div class="dropdown dropleft">
                     <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-h"></i>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{{ route('students.edit',['id'=>$student->id]) }}"><i class="fas fa-user-plus"></i> Enroll</a>
+                    <a class="dropdown-item" href="{{ route('students.enroll',['id'=>$student->id]) }}"><i class="fas fa-user-plus"></i> Enroll</a>
                     <a class="dropdown-item" href="{{ route('tvec.results.student',['bid'=>App\Batch:: where([['academic_year_id','=' ,$student->student_enroll->academic_year_id],['course_id','=' ,$student->student_enroll->course_id]])->first()->id,'id'=>$student->id]) }}"><i class="fas fa-graduation-cap"></i> TVEC Transcript</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('students.edit',['id'=>$student->id]) }}"><i class="far fa-edit"></i> Edit</a>
                     <a class="dropdown-item text-danger" href="{{ route('students.delete',['id'=>$student->id]) }}"><i class="far fa-trash-alt"></i> Delete</a>
                     </div>
-                  </div>                              
+                  </div>
                 </td>
               </tr>
               @endforeach
@@ -125,10 +125,10 @@
   </div>
 
 @include('includes.deletemodal')
-  
+
   <script>
     var token = '{{ Session::token() }}';
     var urlEdit = '{{ route('departments.edit') }}';
-    
+
   </script>
 @endsection

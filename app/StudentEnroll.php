@@ -11,8 +11,8 @@ class StudentEnroll extends Model
     }
     public function academic_year(){
         return $this->belongsTo('App\AcademicYear');
-    } 
+    }
     public function course(){
         return $this->belongsTo('App\Course');
-    } 
+    }
 }
