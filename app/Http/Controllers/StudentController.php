@@ -18,6 +18,8 @@ class StudentController extends Controller
     private $statuses = array('Following', 'Completed','Droupout','Long Absent');
     private $modes = array('Full Time', 'Part Time','Short Time');
     private $provinces = array('Central','Eastern','North Central','North Western','Northern','Sabaragamuwa','Southern','Uva','Western');
+    private $semesters = array('1'=>'Semester 1','2'=>'Semester 2');
+    private $exams = array('T'=>'Theory','P'=>'Practical','B'=>'Theory and Practical');
     public function getStudents(){
         $students = Student::orderBy('reg_no','asc')->paginate(30);
         return view('student.students',['students'=>$students]);
@@ -233,5 +235,10 @@ class StudentController extends Controller
             $message = $student->fullname . " Successfully Enrolled ";
         }
         return redirect()->route('students')->with(['message' => $message, 'warning' => $warning]);
+    }
+    public function getCoursesIndex($id){
+        $enrolls = StudentEnroll::where('student_id',$id)->get();
+        return view('student.courses',['enrolls'=>$enrolls,'semesters'=>$this->semesters,'exams'=>$this->exams]);
+
     }
 }

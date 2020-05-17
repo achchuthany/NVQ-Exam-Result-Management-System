@@ -166,6 +166,14 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'StudentController@getEnrollIndex',
         'as' => 'students.enroll'
     ]);
+    Route::get('/student/{id}/courses', [
+        'uses' => 'StudentController@getCoursesIndex',
+        'as' => 'students.courses'
+    ]);
+    Route::get('/student/{id}/attendance', [
+        'uses' => 'StudentController@getCoursesIndex',
+        'as' => 'students.attendance'
+    ]);
     Route::post('/student/enroll/create', [
         'uses' => 'StudentController@postStudentEnroll',
         'as' => 'students.enroll.create'
