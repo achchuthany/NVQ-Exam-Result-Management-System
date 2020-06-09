@@ -8,7 +8,9 @@ Employees Enrolled Modules
     <div class="card-header bg-white">
         <div class="align-items-center row">
             <div class="col">
+                @if($academic_year)
                 <h5 class="mb-0 font-weight-bolder"> Enrolled Modules in {{$academic_year->name}} <span class="{{($academic_year->status=='Active')? 'text-primary' : (($academic_year->status=='Planning')? 'text-dark':'text-secondary') }}"><i class="fas fa-check-circle"></i></span></h5>
+                @endif
             </div>
             <div class="text-right col-auto">
                 <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('employees.enroll.create')}}">Enroll</a>
@@ -38,7 +40,7 @@ Employees Enrolled Modules
                               <button class="btn btn-sm btn-light">{{$module->name}}</button>
                             @endforeach
                         </td>
-                        <td> 
+                        <td>
                           <div class="dropdown dropleft">
                               <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   <i class="fas fa-ellipsis-h"></i>
