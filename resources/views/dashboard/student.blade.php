@@ -49,7 +49,7 @@
                                 <div class="col-md-12">
                                     <div class="h1 font-weight-lighter">{{$count_exam->count}}
                                         <span
-                                            hidden>{{$per = round(($count_exams_pass->count/$count_exam->count)*100)}}</span>
+                                            hidden>{{$per = ($count_exam->count!=0)? round(($count_exams_pass->count/$count_exam->count)*100) : 0}}</span>
                                         <span
                                             class="font-weight-bold {{($per>=60 && $per<80)? 'text-warning':(($per<60)?'text-danger':'text-primary')}} h6"> {{$per}}% </span><span class="h6"> Pass Rate</span>
 
@@ -93,7 +93,7 @@
                                 <div class="col-md-12">
                                     <div class="h1 font-weight-lighter">{{$count_attendance->count}}
                                         <span
-                                            hidden>{{$per = round(($count_attendance->present/$count_attendance->count)*100)}}</span>
+                                            hidden>{{$per =($count_attendance->count!=0)? round(($count_attendance->present/$count_attendance->count)*100) : 0}}</span>
                                         <span
                                             class="font-weight-bold {{($per>=60 && $per<80)? 'text-warning':(($per<60)?'text-danger':'text-primary')}} h6"> {{$per}}% </span><span class="h6"> Present Rate</span>
                                     </div>
