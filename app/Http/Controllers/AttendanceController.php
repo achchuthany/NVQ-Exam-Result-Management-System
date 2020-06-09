@@ -24,6 +24,20 @@ class AttendanceController extends Controller
             $warning = "Please check you data!";
             return redirect()->route('attendance.manage')->with(['message' => $message, 'warning' => $warning]);
         }
+
+        $user = Auth::user();
+        $employees = Employee::leftjoin('employee_module', 'employee_module.employee_id','=', 'employees.id')
+            ->where([['module_id', $session->module_id], ['academic_year_id', $session->academic_year_id]])
+            ->get();
+
+        //check to login teacher to edit
+        if($user->hasRole('Lecturer')){
+            foreach( $employees as $employee){
+                if($employee->employee_id != $user->profile_id){
+                    return redirect()->back()->with(['warning'=>'You are not enrolled to this module!']);
+                }
+            }
+        }
         $module = Module::where('id', $session->module_id)->first();
         $academic = AcademicYear::where('id', $session->academic_year_id)->first();
         if (!$module || !$academic) {
@@ -164,6 +178,17 @@ class AttendanceController extends Controller
         $employees = Employee::leftjoin('employee_module', 'employee_module.employee_id', '=', 'employees.id')
             ->where([['module_id', $mid], ['academic_year_id', $aid]])
             ->get();
+
+        $user = Auth::user();
+        //check to login teacher to edit
+        if($user->hasRole('Lecturer')){
+            foreach( $employees as $employee){
+                if($employee->employee_id != $user->profile_id){
+                    return redirect()->back()->with(['warning'=>'You are not enrolled to this module!']);
+                }
+            }
+        }
+
         $module = Module::where('id', $mid)->first();
         $academic = AcademicYear::where('id', $aid)->first();
         if (!$module || !$academic ||  !$employees) {
@@ -245,5 +270,30 @@ class AttendanceController extends Controller
             return null;
         }
         return $this->getViewIndex($student->profile_id, $mid, $aid);
+    }
+    public function getLecturerAttendancesIndex(){
+        $courses = Course::orderBy('code', 'asc')->get();
+        $lecturer = Auth::user();
+        if(!$lecturer){
+            return redirect()->back()->with(['warning'=>'Lecturer data is not available!']);
+        }
+        $lecturer_id = $lecturer->profile_id;
+        $employee = Employee::where('id',$lecturer_id)->first();
+        $teachModules = $employee->teachModules($employee->id);
+
+        $modules =array();
+        foreach ($teachModules as $teach){
+            $modules []= AttendanceSession::
+            select('module_id','academic_year_id', DB::raw('count(id) as total'),DB::raw('sum(present) as present'), DB::raw('sum(absent) as absent'))
+                ->where([['module_id',$teach->modules_id],['academic_year_id',$teach->academic_year_id]])
+                ->groupBy('module_id')
+                ->groupBy('academic_year_id')
+                ->orderBy('academic_year_id', 'desc')
+                ->orderBy('module_id', 'asc')
+                ->first();
+        }
+        //return response()->json(['teach'=>$teachModules,'modules'=> $modules], 200);
+        return view('attendance.index_lecturer',['modules'=> $modules, 'courses'=> $courses,'teachModules'=>$teachModules]);
+        // return response()->json(['logs' => $logs], 200);
     }
 }

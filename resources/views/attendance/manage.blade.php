@@ -11,10 +11,14 @@
                 <h5 class="mb-0 font-weight-bolder"> Attendance Sessions</h5>
             </div>
             <div class="col">
-               
+
             </div>
             <div class="text-right col-auto">
+                @if(Auth::user()->hasRole('Lecturer'))
+                <a type="button" class="btn btn-sm btn-outline-secondary shadow-sm" href="{{route('lecturer.attendances')}}">Back</a>
+                @else
                 <a type="button" class="btn btn-sm btn-outline-secondary shadow-sm" href="{{route('attendances')}}">Back</a>
+                @endif
                 <a type="button" class="btn btn-sm btn-outline-secondary shadow-sm" href="{{route('attendance.report',['mid'=>$module->id,'aid'=>$academic->id])}}">Report</a>
                 <a type="button" class="btn btn-sm btn-outline-secondary shadow-sm" href="{{route('attendances')}}">Export</a>
                 <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('attendance.session',['mid'=>$module->id,'aid'=>$academic->id])}}">New</a>
@@ -69,7 +73,7 @@
                       <th scope="col">
                           Actions
                       </th>
-                      <th scope="col"> 
+                      <th scope="col">
                         <div class="custom-control custom-checkbox" data-toggle="tooltip" data-placement="top" title="Select All">
                             <input type="checkbox" class="custom-control-input" id="selectAll">
                             <label class="custom-control-label" for="selectAll"></label>
@@ -90,7 +94,7 @@
                               <td>
                                 <div class="progress">
                                   <div class="progress-bar " role="progressbar" style="width: {{($session->present == 0)? 0 : ($session->present/($session->present+$session->absent))*100}}%" aria-valuenow="{{($session->present == 0)? 0 : ($session->present/($session->present+$session->absent))*100}}" aria-valuemin="0" aria-valuemax="100">{{round(($session->present == 0)? 0 : ($session->present/($session->present+$session->absent))*100)}}%</div>
-                                </div>                
+                                </div>
                               </td>
                               <td >
                                <div class="dropdown dropleft">
@@ -103,7 +107,7 @@
                                       <a class="dropdown-item " href=""><i class="far fa-edit"></i> Edit</a>
                                       <a class="dropdown-item text-danger"data-record-url="{{route('attendance.session.detete',['id'=>$session->id])}}" data-record-title="{{date_format(date_create($session->date),"D d/M/Y") }} Sessions " data-toggle="modal" data-target="#delete-modal"><i class="far fa-trash-alt"></i> Delete</a>
                                   </div>
-                              </div>                                                
+                              </div>
                               </td>
                               <td>
                                 <div class="custom-control custom-checkbox">
@@ -112,7 +116,7 @@
                                 </div>
                               </td>
                           </tr>
-                          @endforeach             
+                          @endforeach
                 </tbody>
             </table>
         </div>
@@ -127,18 +131,18 @@
             </div>
              <div class="ml-3 col-auto">
                 <div class="form-group">
-                    <input type="submit" id="delete" name="delete" value="Delete" class="confirm-delete-modal btn btn-danger" />              
+                    <input type="submit" id="delete" name="delete" value="Delete" class="confirm-delete-modal btn btn-danger" />
                     <input type="hidden" name="_token" value="{{Session::token()}}">
                 </div>
             </div>
         </div>
     </div>
-</div> 
+</div>
 </form>
 
 @include('includes.deletemodal')
 <script>
-    var token = '{{ Session::token() }}';   
+    var token = '{{ Session::token() }}';
 </script>
 @endsection
 
@@ -164,7 +168,7 @@
         $('#delete-modal').on('click', '.btn-delete', function(e) {
             var $modalDiv = $(e.delegateTarget);
             var url = $(this).data('recordUrl');
-            
+
             $.ajax({
             method: 'POST',
             url: url,
@@ -172,7 +176,7 @@
             }).done(function(msg) {
              $modalDiv.modal('hide');
         });
-    
+
             setTimeout(function() {
                 $modalDiv.modal('hide');
             }, 1000)

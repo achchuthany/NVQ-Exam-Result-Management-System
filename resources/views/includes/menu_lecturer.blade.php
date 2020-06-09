@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"href="{{route('student.attendances')}}">
+                <a class="nav-link"href="{{route('lecturer.attendances')}}">
                   <i class="fas fa-calendar-alt"></i>   Attendances
                 </a>
             </li>

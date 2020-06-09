@@ -353,48 +353,70 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/attendance/manage/{mid}/{aid}', [
         'uses' => 'AttendanceSessionController@getManageIndex',
-        'as' => 'attendance.manage'
+        'as' => 'attendance.manage',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD','Lecturer']
     ]);
     Route::get('/attendance/session/{mid}/{aid}', [
         'uses' => 'AttendanceSessionController@getSessionIndex',
-        'as' => 'attendance.session'
+        'as' => 'attendance.session',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD','Lecturer']
     ]);
     Route::post('/attendance/session', [
         'uses' => 'AttendanceSessionController@postSessionCreate',
-        'as' => 'attendance.session.create'
+        'as' => 'attendance.session.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD','Lecturer']
     ]);
     Route::post('/attendance/sessions/detete', [
         'uses' => 'AttendanceSessionController@postSessionsDelete',
-        'as' => 'attendance.sessions.detete'
+        'as' => 'attendance.sessions.detete',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD','Lecturer']
     ]);
     Route::post('/attendance/session/detete/{id}', [
         'uses' => 'AttendanceSessionController@postSessionDelete',
-        'as' => 'attendance.session.detete'
+        'as' => 'attendance.session.detete',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD','Lecturer']
     ]);
 
     Route::get('/attendance/take/{id}', [
         'uses' => 'AttendanceController@getTakeIndex',
-        'as' => 'attendance.take'
+        'as' => 'attendance.take',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD','Lecturer']
     ]);
     Route::post('/attendance/take', [
         'uses' => 'AttendanceController@getTakeCreate',
-        'as' => 'attendance.take.create'
+        'as' => 'attendance.take.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD','Lecturer']
     ]);
     Route::get('/attendances', [
         'uses' => 'AttendanceController@getAttendancesIndex',
-        'as' => 'attendances'
+        'as' => 'attendances',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD']
     ]);
     Route::post('/attendances', [
         'uses' => 'AttendanceController@postAttendancesbyBatch',
-        'as' => 'attendances.batch'
+        'as' => 'attendances.batch',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD']
     ]);
     Route::get('/attendance/report/{mid}/{aid}', [
         'uses' => 'AttendanceController@getReportIndex',
-        'as' => 'attendance.report'
+        'as' => 'attendance.report',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD','Lecturer']
     ]);
     Route::get('/attendance/view/{sid}/{mid}/{aid}', [
         'uses' => 'AttendanceController@getViewIndex',
-        'as' => 'attendance.view'
+        'as' => 'attendance.view',
+        'middleware' => 'roles',
+        'roles' => ['Admin','HOD','Lecturer']
     ]);
 
     //Student Route
@@ -447,6 +469,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/lecturer/modules', [
         'uses' => 'EmployeeModuleController@getEnrolledModules',
         'as' => 'lecturer.modules',
+        'middleware' => 'roles',
+        'roles' => 'Lecturer'
+    ]);
+    Route::get('/lecturer/attendances', [
+        'uses' => 'AttendanceController@getLecturerAttendancesIndex',
+        'as' => 'lecturer.attendances',
         'middleware' => 'roles',
         'roles' => 'Lecturer'
     ]);

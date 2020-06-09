@@ -11,15 +11,27 @@ use App\Student;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AttendanceSessionController extends Controller
 {
     public function getManageIndex($mid,$aid){
+        $user = Auth::user();
         $message = $warning = null;
         $employees = Employee::leftjoin('employee_module', 'employee_module.employee_id','=', 'employees.id')
                                 ->where([['module_id', $mid], ['academic_year_id', $aid]])
                                 ->get();
+
+        //check to login teacher to edit
+        if($user->hasRole('Lecturer')){
+            foreach( $employees as $employee){
+                if($employee->employee_id != $user->profile_id){
+                    return redirect()->back()->with(['warning'=>'You are not enrolled to this module!']);
+                }
+            }
+        }
+
         $module = Module::where('id',$mid)->first();
         $academic = AcademicYear::where('id',$aid)->first();
         if (!$module || !$academic ||  !$employees){
@@ -27,12 +39,25 @@ class AttendanceSessionController extends Controller
             return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
         }
         $sessions = AttendanceSession::where([['module_id',$mid],['academic_year_id',$aid]])->orderBy('date', 'asc')->paginate(20);
-        //return response()->json($employees, 200);
-        return view('attendance.manage',['sessions'=> $sessions,'module'=> $module, 'academic' => $academic, 'employees' => $employees]);
+        //return response()->json($role, 200);
+       return view('attendance.manage',['sessions'=> $sessions,'module'=> $module, 'academic' => $academic, 'employees' => $employees]);
     }
 
       public function getSessionIndex($mid,$aid){
+        $user = Auth::user();
         $message = $warning = null;
+          $employees = Employee::leftjoin('employee_module', 'employee_module.employee_id','=', 'employees.id')
+              ->where([['module_id', $mid], ['academic_year_id', $aid]])
+              ->get();
+
+          //check to login teacher to edit
+          if($user->hasRole('Lecturer')){
+              foreach( $employees as $employee){
+                  if($employee->employee_id != $user->profile_id){
+                      return redirect()->back()->with(['warning'=>'You are not enrolled to this module!']);
+                  }
+              }
+          }
         $module = Module::where('id', $mid)->first();
         $academic = AcademicYear::where('id', $aid)->first();
         if (!$module || !$academic) {
@@ -40,7 +65,7 @@ class AttendanceSessionController extends Controller
             return redirect()->route('departments')->with(['message' => $message, 'warning' => $warning]);
         }
         return view('attendance.session', ['module' => $module, 'academic' => $academic]);
-      } 
+      }
 
       public function postSessionCreate(Request $request){
         $message = $warning = null;
@@ -70,9 +95,9 @@ class AttendanceSessionController extends Controller
                 foreach($repeats as $repeat){
                     if($repeat == $date->isoFormat('dddd'))
                         $dates[] =$date->format('Y-m-d');
-                }   
+                }
                 $date->addDay();
-            }        
+            }
         }else{
             $da = new Carbon(new DateTime($request['date']));
             $dates[] = $da->format('Y-m-d');
@@ -101,10 +126,10 @@ class AttendanceSessionController extends Controller
         $this->validate($request, [
             'selected' => 'required'
         ]);
-        
+
         foreach ($request['selected'] as $id) {
             $session = AttendanceSession::where('id',$id)->first();
-            $attendance = Attendance::where('attendance_session_id',$id)->delete();         
+            $attendance = Attendance::where('attendance_session_id',$id)->delete();
             if($session->delete()){
                 $message = "Attendance Sessions Successfully Deleted!";
             }else{
@@ -117,5 +142,4 @@ class AttendanceSessionController extends Controller
     public function postSessionDelete($id){
 
     }
-
 }
