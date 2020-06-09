@@ -26,7 +26,10 @@ class UserController extends Controller
         } catch (ValidationException $e) {
         }
         if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']])) {
-            if(Auth::user()->hasRole('Student')){
+            if(Auth::user()->hasRole('Lecturer')){
+                return redirect()->route('lecturer');
+            }
+            else if(Auth::user()->hasRole('Student')){
                 return redirect()->route('student');
             }
             return redirect()->route('home');

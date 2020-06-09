@@ -9,6 +9,7 @@ use App\Employee;
 use App\Module;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class EmployeeModuleController extends Controller
 {
@@ -55,7 +56,7 @@ class EmployeeModuleController extends Controller
 
     public function getDeleteEnroll($id){
         $message = $warning = null;
-        
+
         try{
             $enroll = DB::table('employee_module')->where('id', $id)->delete();
             $message = 'Successfully deleted';
@@ -64,5 +65,14 @@ class EmployeeModuleController extends Controller
         }
         return redirect()->back()->with(['message' => $message, 'warning' => $warning]);
 
+    }
+    public function getEnrolledModules(){
+        $lecturer = Auth::user();
+        if(!$lecturer){
+            return redirect()->back()->with(['warning'=>'Lecturer data is not available!']);
+        }
+        $lecturer_id = $lecturer->profile_id;
+        $employee = Employee::where('id',$lecturer_id)->first();
+        return view('employee.enrolledModules',['employee'=>$employee]);
     }
 }

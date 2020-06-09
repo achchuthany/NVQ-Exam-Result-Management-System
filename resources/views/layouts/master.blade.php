@@ -9,6 +9,8 @@
     <body class="d-flex flex-column h-100">
      @if (Auth::user()->hasRole('Admin'))
          @include('includes.menu')
+     @elseif(Auth::user()->hasRole('Lecturer'))
+         @include('includes.menu_lecturer')
      @elseif(Auth::user()->hasRole('Student'))
          @include('includes.menu_student')
      @endif

@@ -436,4 +436,20 @@ Route::group(['middleware' => ['auth']], function () {
     ]);
     //end student route
 
+
+    //start lecturer route
+    Route::get('/lecturer', [
+        'uses' => 'LecturerDashboardController@getIndex',
+        'as' => 'lecturer',
+        'middleware' => 'roles',
+        'roles' => 'Lecturer'
+    ]);
+    Route::get('/lecturer/modules', [
+        'uses' => 'EmployeeModuleController@getEnrolledModules',
+        'as' => 'lecturer.modules',
+        'middleware' => 'roles',
+        'roles' => 'Lecturer'
+    ]);
+    //end lecturer route
+
 });
