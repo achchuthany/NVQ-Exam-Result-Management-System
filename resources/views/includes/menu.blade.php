@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-gradient-light shadow-sm  mb-2">
-    <div class="container">
+    <div class="container-fluid">
         <a class="navbar-brand" href="#">ERMS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

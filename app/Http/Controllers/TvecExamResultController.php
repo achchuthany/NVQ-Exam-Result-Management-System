@@ -144,7 +144,7 @@ class TvecExamResultController extends Controller
         $data = ['title' => 'Academic Transcript'.$batch->name];
         $pdf = PDF::loadView('examination.tvec_batch_results_pdf',['students'=>$students,'exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass])->setPaper('a4', 'landscape');
         return $pdf->download($batch->name.'.pdf');
-       //return view('examination.tvec_batch_results_pdf',['students'=>$students,'exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass]);
+       return view('examination.tvec_batch_results_pdf',['students'=>$students,'exams'=>$exams,'results'=>$results,'exam_types'=>$this->exam_types,'batch'=>$batch,'exam_pass'=>$this->exam_pass]);
 
     }
     public function getTvecExamsResultsbyStudentId($bid,$id){

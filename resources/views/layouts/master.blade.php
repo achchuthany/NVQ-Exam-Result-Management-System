@@ -16,7 +16,7 @@
      @endif
 
 
-    <div class="container mb-5">
+    <div class="container-md mb-5">
        @include('includes.message')
        @include('includes.errors')
        @yield('content')
