@@ -17,6 +17,18 @@ Route::get('/login',[
     'uses' => 'UserController@getLoginIndex',
     'as' => 'login'
 ]);
+Route::get('/changePassword',[
+    'uses' => 'UserController@showChangePasswordForm',
+    'as' => 'ChangePassword',
+    'middleware' => 'roles',
+    'roles' => ['Admin','Head','Lecturer','MA','Student']
+]);
+Route::post('/changePassword',[
+    'uses' => 'UserController@changePassword',
+    'as' => 'changePassword',
+    'middleware' => 'roles',
+    'roles' => ['Admin','Head','Lecturer','MA','Student']
+]);
 Route::post('/signin', [
     'uses' => 'UserController@postSignIn',
     'as' => 'signin'
