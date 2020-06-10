@@ -26,7 +26,9 @@ class UserController extends Controller
             $this->validate($request, ['username' => 'required', 'password' => 'required']);
         } catch (ValidationException $e) {
         }
-        if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']])) {
+        $remember_me = $request->has('remember_me');
+
+        if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']],$remember_me )) {
             if(Auth::user()->hasRole('Lecturer')){
                 return redirect()->route('lecturer');
             }

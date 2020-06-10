@@ -56,8 +56,8 @@ form:before {
                               <input type="password" class="form-control rounded-pill shadow-sm " id="password" name="password" required>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="rememberme" checked>
-                                <label class="custom-control-label" for="rememberme">Remember Me</label>
+                                <input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me" checked>
+                                <label class="custom-control-label" for="remember_me">Remember Me</label>
                               </div>
                             <div class="form-group align-items-center">
                             <a href="#" class="btn btn-link text-dark">Forgot Password?</a>
