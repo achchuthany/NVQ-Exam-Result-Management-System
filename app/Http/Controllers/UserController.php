@@ -17,7 +17,7 @@ class UserController extends Controller
     public function getAllUsers()
     {
         $roles = Role::get();
-        $users = User::paginate(30);;
+        $users = User::orderBy('username','asc')->paginate(20);;
         return view('administration.users', ['users' => $users,'roles'=>$roles]);
     }
     public function postSignIn(Request $request)

@@ -8,14 +8,14 @@ List of Users
     <h4 class="pt-2"> List of Users </div>
     <div class="col-md-8 col-xs-12">
       <div class="btn-group float-right" role="group" aria-label="Basic example">
-        <a type="button" class="btn btn-sm btn-secondary" href="{{route('users')}}">All</a>
-        <a type="button" class="btn btn-sm btn-primary" href="{{route('user.index')}}">New</a>     
+        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('users')}}">All</a>
+        <a type="button" class="btn btn-sm btn-primary" href="{{route('user.index')}}">New</a>
       </div>
       <form method="post" action="{{route('employees.search')}}">
-        <div class="btn-group float-right mr-2" role="group">      
-          <input type="text" name="fullname" class="form-control form-control-sm" placeholder="Full name">
-          <button type="submit" class="btn btn-sm btn-secondary">Search</button>
-          <input type="hidden" name="_token" value="{{Session::token()}}">      
+        <div class="btn-group float-right mr-2" role="group">
+          <input type="text" name="fullname" class="form-control form-control-sm" placeholder="Username">
+          <button type="submit" class="btn btn-sm btn-outline-primary">Search</button>
+          <input type="hidden" name="_token" value="{{Session::token()}}">
         </div>
       </form>
     </div>
@@ -30,9 +30,9 @@ List of Users
                 <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
                 @foreach($roles as $role)
-                   
+
                     <th scope="col">{{$role->name}}</th>
-                   
+
                 @endforeach
                 <th scope="col">
                     Actions
@@ -40,7 +40,7 @@ List of Users
               </tr>
             </thead>
             <tbody>
-              {{Auth::user()}}
+
               @foreach( $users as $user)
             <form method="post" action="{{route('user.roles')}}">
             <tr data-id="{{$user->id}}">
@@ -48,15 +48,15 @@ List of Users
                  <td>{{$user->firstname}} </td>
                 <td>{{$user->lastname}}</td>
                 <td>{{$user->email}}</td>
-                @foreach($roles as $role)             
+                @foreach($roles as $role)
                   <td>
                     <input type="checkbox" class="form-check-input" name="{{$role->name}}" {{$role->name == 'Student' && !$user->hasRole("Student") ? 'disabled' : '' }} {{$user->hasRole("Student") ? 'disabled' : '' }} {{ $user->hasRole($role->name) ? 'checked' : '' }} {{($user->username=='admin')?'disabled':''}}>
-                    <label class="form-control-label">{{$role->name}}</label>       
+                    <label class="form-control-label">{{$role->name}}</label>
                 </td>
-                  
+
                 @endforeach
 
-                <td>                    
+                <td>
                     <div class="btn-group" role="group">
                         <button type="submit" class="btn btn-sm btn-primary" {{($user->username=='admin' || $user->hasRole("Student"))?'disabled':''}}>Assign Role(s)</button>
                         <input type="hidden" name="_token" value="{{Session::token()}}">
@@ -66,7 +66,7 @@ List of Users
               </tr>
               </form>
               @endforeach
-              
+
             </tbody>
           </table>
           <nav>
