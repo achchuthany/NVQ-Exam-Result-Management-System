@@ -45,7 +45,7 @@
                   </a>
                     <a class="dropdown-item" href="{{ route('ChangePassword') }}">Change Password</a>
                   <a class="dropdown-item" href="{{route('student.profile')}}">Profile</a>
-                  <a class="dropdown-item" href="{{ route('logout') }}" >Signout</a>
+                  <a class="dropdown-item" href="{{ route('logout') }}" >Sign out</a>
                 </div>
             </li>
           </ul>
