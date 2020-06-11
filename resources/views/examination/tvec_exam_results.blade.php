@@ -47,22 +47,22 @@ TVEC Exam Results Module
                     <p class="font-weight-bold"> Batch </p>
                 </div>
                 <div class="col-md-10">
-                    <p class="font-weight-light"> {{$tvecexam->academic_year->batches[0]->name}} ({{$tvecexam->academic_year->name}})</p>
+                    <p class="font-weight-light"> {{$batch->name}} ({{$batch->academic_year->name}})</p>
                 </div>
                 <div class="col-md-12 mb-2">
-                    <div class="form-inline">        
+                    <div class="form-inline">
                         <div class="col-md-3 offset-md-6">
                             @if(!count($students)>0)
-                            <button type="button" class="btn btn-sm btn-primary"  id="tvec_exam_results_add_batch" data-batch="{{$tvecexam->academic_year->batches[0]->id}}"><i class="fas fa-plus-circle"></i> Add {{$tvecexam->academic_year->batches[0]->name}} Students</button>
+                            <button type="button" class="btn btn-sm btn-primary"  id="tvec_exam_results_add_batch" data-batch="{{$batch->id}}"><i class="fas fa-plus-circle"></i> Add {{$batch->name}} Students</button>
                             @endif
-                        </div>         
+                        </div>
                         <div class="col-md-3 btn-group">
                             <input type="text" placeholder="2020/ICT/5IT01" class="form-control form-control-sm"  id="tvec_exam_results_name_repeat">
-                            <button type="button" class="btn btn-sm btn-primary"  id="tvec_exam_results_add_repeat"><i class="fas fa-plus-circle"></i> Add</button>        
+                            <button type="button" class="btn btn-sm btn-primary"  id="tvec_exam_results_add_repeat"><i class="fas fa-plus-circle"></i> Add</button>
                         </div>
                     </div>
                 </div>
-            
+
             <div class="col-12 table-responsive">
                     <table class="table table-hover table-borderless">
                         <thead>
@@ -73,12 +73,12 @@ TVEC Exam Results Module
                             <th scope="col">Attempt</th>
                         </tr>
                         </thead>
-                        <tbody id="tvec_exam_results">      
+                        <tbody id="tvec_exam_results">
                             @if(count($students)>0)
-                            <span hidden> {{$student_id = 0}}}</span>         
-                            @foreach($students as $student)    
+                            <span hidden> {{$student_id = 0}}}</span>
+                            @foreach($students as $student)
                             @if($student_id != $student->id)
-                            <span hidden>{{$student_id = $student->id}}</span>         
+                            <span hidden>{{$student_id = $student->id}}</span>
                             <tr>
                             <td>{{$student->reg_no}}</td>
                                 <td>{{$student->shortname}}</td>
@@ -90,7 +90,7 @@ TVEC Exam Results Module
                                         <option value="AB" {{ ($student->result == "AB" ? 'selected' : '')}}>Absent</option>
                                     </select>
                                 </td>
-                                <td> 
+                                <td>
                                     <select class="custom-select custom-select-sm" name="attempts[{{$student->id}}]" required>
                                         <option value="1" {{ ($student->attempt == 1 ? 'selected' : '')}}>Attempt 1</option>
                                         <option value="2" {{ ($student->attempt == 2 ? 'selected' : '')}}>Attempt 2</option>
@@ -117,6 +117,6 @@ TVEC Exam Results Module
 <script>
     var token = '{{ Session::token() }}';
     var urlStudentsByBatch = '{{ route('ajax.students.batch') }}';
-    var urlStudentByReg = '{{ route('ajax.students.reg') }}';  
+    var urlStudentByReg = '{{ route('ajax.students.reg') }}';
   </script>
 @endsection

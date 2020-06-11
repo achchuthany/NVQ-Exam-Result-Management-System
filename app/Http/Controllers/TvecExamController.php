@@ -17,7 +17,7 @@ class TvecExamController extends Controller
 {
     private $semesters = array('1'=>'Semester 1','2'=>'Semester 2');
     private $exams = array('T'=>'Theory','P'=>'Practical');
-  
+
     public function getTvecExams(){
         $courses = Course::orderBy('code','asc')->get();
         $tvecexams = TvecExam::orderBy('academic_year_id','desc')
@@ -36,15 +36,17 @@ class TvecExamController extends Controller
         'tvec_exams.exam_type as exam_type','tvec_exams.exam_date as exam_date','modules.course_id as course_id')
         ->where([['course_id',$request['batch_couese_id']],['academic_year_id',$batch->academic_year_id]])
         ->leftJoin('modules','modules.id','=','tvec_exams.module_id')
-                               
+
                                 ->orderBy('module_id','asc')
                                 ->paginate(20);
         return view('examination.tvec_exams',['courses'=>$courses,'tvecexams' =>$tvecexams,'semesters'=>$this->semesters,'exams'=>$this->exams]);
     }
 
     public function getTvecExamsResults($id){
-        $tvecexam = TvecExam::where('id',$id)->first();
-        $batch = Batch::where('id',$tvecexam->academic_year->batches[0]->id)->first();
+        $tvecexam = TvecExam::select('tvec_exams.id as id','tvec_exams.module_id as module_id','tvec_exams.academic_year_id as academic_year_id',
+            'tvec_exams.number_pass as number_pass','tvec_exams.number_students as number_students',
+            'tvec_exams.exam_type as exam_type','tvec_exams.exam_date as exam_date','tvec_exams.exam_time as exam_time','modules.course_id as course_id')->where('tvec_exams.id',$id)->leftjoin('modules','modules.id','=','tvec_exams.module_id')->first();
+        $batch = Batch::where([['academic_year_id',$tvecexam->academic_year_id],['course_id',$tvecexam->course_id]])->first();
         $students = TvecExamResult::leftJoin('students', 'students.id', '=', 'tvec_exam_results.student_id')
                     ->select('student_id as id',"reg_no","shortname","attempt","result")
                     ->distinct(['student_id','attempt'])
@@ -52,7 +54,8 @@ class TvecExamController extends Controller
                     ->orderBy('student_id','asc')
                     ->orderBy('attempt','desc')
                     ->get();
-        return view('examination.tvec_exam_results',['students'=>$students,'tvecexam' =>$tvecexam,'semesters'=>$this->semesters,'exams'=>$this->exams]);
+        //return response()->json(['tvecexam'=>$tvecexam,'student'=>$batch],200);
+        return view('examination.tvec_exam_results',['students'=>$students,'tvecexam' =>$tvecexam,'semesters'=>$this->semesters,'exams'=>$this->exams,'batch'=>$batch ]);
     }
     public function getTvecExamCreate(){
         $courses = Course::orderBy('name','asc')->get();
@@ -92,7 +95,7 @@ class TvecExamController extends Controller
         try {
             $result = $post->delete();
             $message = "Module Successfully Deleted!";
-        } catch (QueryException  $e) {       
+        } catch (QueryException  $e) {
             $message = "Module was not Deleted, Try Again!";
         }
         return redirect()->route('tvec.exams')->with(['message'=>$message]);
