@@ -41,7 +41,7 @@ TVEC Exam Results Module
                     <p class="font-weight-bold"> Examination Date </p>
                 </div>
                 <div class="col-md-10">
-                    <p class="font-weight-light"> {{$tvecexam->exam_date}} - {{$tvecexam->exam_time}}</p>
+                    <p class="font-weight-light"> {{Carbon\Carbon::parse($tvecexam->exam_date)->toFormattedDateString()}}  {{Carbon\Carbon::parse($tvecexam->exam_time)->format('g:i A')}}</p>
                 </div>
                 <div class="col-md-2">
                     <p class="font-weight-bold"> Batch </p>

@@ -81,7 +81,7 @@
                                                         <i class="{{($result->result == 'P')? 'fa fa-check text-primary' : 'fa fa-times text-danger'}}"></i> {{$exam_pass[$result->result]}}
                                                     </td>
                                                     <td>Attempt {{$result->attempt}} </td>
-                                                    <td>{{$result->exam_date}}</td>
+                                                    <td>{{Carbon\Carbon::parse($result->exam_date)->toFormattedDateString()}}</td>
                                                 </tr>
                                             @endforeach
                                             </tbody>

@@ -82,7 +82,7 @@
                     <div class="col">
                     </div>
                     <div class="col-auto">
-                        <p>This {{$enroll->course_mode}} course has been enrolled in {{$enroll->enroll_date}} <small class="text-muted">{{Carbon\Carbon::parse($enroll->enroll_date)->diffForHumans()}}</small> </p>
+                        <p>This {{$enroll->course_mode}} course has been enrolled in {{Carbon\Carbon::parse($enroll->enroll_date)->toFormattedDateString()}} <small class="text-muted">{{Carbon\Carbon::parse($enroll->enroll_date)->diffForHumans()}}</small> </p>
                     </div>
                 </div>
             </div>
