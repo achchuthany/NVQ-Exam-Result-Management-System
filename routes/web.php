@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/',[
+    'uses' => 'IndexController@getIndex',
+    'as' => 'index'
+]);
+Route::post('/result',[
+    'uses' => 'IndexController@getIndexData',
+    'as' => 'indexResult'
+]);
 
 Route::get('/login',[
     'uses' => 'UserController@getLoginIndex',
@@ -34,7 +42,7 @@ Route::post('/signin', [
     'as' => 'signin'
 ]);
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/', function () {
+    Route::get('/home', function () {
         return view('welcome');
     })->name('home');
 

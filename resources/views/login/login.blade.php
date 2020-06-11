@@ -65,6 +65,7 @@ form:before {
                             <button type="submit" class="btn btn-primary rounded-pill shadow-sm  float-right">Sign In</button>
                             </div>
                           </form>
+                        <a href="{{ route('index') }}">Back to Home</a>
                     </div>
                 </div>
             </div>
