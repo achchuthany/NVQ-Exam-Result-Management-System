@@ -96,7 +96,7 @@ class TvecExamResultController extends Controller
         if (!$batch) {
             return redirect()->route('batches');
         }
-        $students = Student::leftjoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
+        $students = Student::select('students.id as id','students.shortname','students.reg_no')->leftjoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
             ->where([['academic_year_id', $batch->academic_year_id], ['course_id', $batch->course_id]])
             ->orderBy('student_id', 'asc')
             ->get();
@@ -128,7 +128,7 @@ class TvecExamResultController extends Controller
                 ->get();
             $results[] = $result;
         }
-        // return response()->json(['students' => $students, 'results' => $results, 'exams' => $exams,], 200);
+        //return response()->json(['students' => $students, 'results' => $results, 'exams' => $exams,], 200);
         return view('examination.tvec_batch_results', ['students' => $students, 'exams' => $exams, 'results' => $results, 'exam_types' => $this->exam_types, 'batch' => $batch, 'exam_pass' => $this->exam_pass]);
 
 
