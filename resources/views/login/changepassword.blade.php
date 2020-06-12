@@ -27,6 +27,14 @@
                     @endif
                     <form class="form-horizontal" method="POST" action="{{ route('changePassword') }}">
 
+                        <div class="form-group row">
+                            <label for="new-password" class="col-md-4 control-label">Username</label>
+
+                            <div class="col-md-6">
+                                <input id="uname" type="text" class="form-control"  name="uname" value="{{Auth::user()->username}}"  disabled>
+                            </div>
+                        </div>
+
                         <div class="form-group row {{ $errors->has('current-password') ? ' has-error' : '' }}">
                             <label for="new-password" class="col-md-4 control-label">Current Password</label>
 
@@ -70,7 +78,7 @@
 
                         <div class="form-group row">
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary float-right">
                                     Change Password
                                 </button>
                                 <input type="hidden" name="_token" value="{{Session::token()}}">

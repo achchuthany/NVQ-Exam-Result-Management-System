@@ -46,7 +46,7 @@
                       @endforeach
                   </a>
                     <a class="dropdown-item" href="{{ route('ChangePassword') }}">Change Password</a>
-                  <a class="dropdown-item" href="{{route('student.profile')}}">Profile</a>
+                  <a class="dropdown-item" href="{{route('lecturer.profile')}}">Profile</a>
                   <a class="dropdown-item" href="{{ route('logout') }}" >Signout</a>
                 </div>
             </li>

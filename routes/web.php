@@ -498,6 +498,12 @@ Route::group(['middleware' => ['auth']], function () {
         'middleware' => 'roles',
         'roles' => 'Lecturer'
     ]);
+    Route::get('/lecturer/profile', [
+        'uses' => 'ProfileController@getLecturerIndex',
+        'as' => 'lecturer.profile',
+        'middleware' => 'roles',
+        'roles' => 'Lecturer'
+    ]);
     //end lecturer route
 
 });

@@ -8,19 +8,17 @@
         <div class="card mb-3">
             <div class="card-body">
             <div class="row align-items-center">
-                <div class="col-md-2 col-sm-4">
-                    <img class="rounded-circle img-thumbnail shadow-sm" src="" style=" height:6rem; width:6rem">
+                <div class="col-md-6 col-sm-12">
+                    <h4 >{{$employee->fullname}}</h4>
+                    <p >{{$employee->position}}</p>
+
                 </div>
-                <div class="col-md-8 col-sm-4">
-                    <h4 class="mb-1">{{$employee->fullname}}</h4>
-                    <h5 class="fs-0 font-weight-normal">{{$employee->position}}</h5>
-                    <p class="text-500">{{$employee->department->name}}</p>
-                </div>    
-                 <div class="col-auto ">
-                    <a type="button" class="btn btn-sm btn-light" href="{{route('employees.create')}}">Edit Profile</a>
-                </div>                 
+                 <div class="col-md-6 col-sm-12">
+                     <h6>{{$employee->department->name}}</h6>
+                    <p>Joint {{Carbon\Carbon::parse($employee->date_join)->diffForHumans()}} </p>
+                </div>
             </div>
-                
+
             </div>
         </div>
     </div>
@@ -35,7 +33,9 @@
                         <h5 class="mb-0 font-weight-bolder">Enrolled Modules</h5>
                     </div>
                     <div class="col-auto">
-                        <a data-toggle="tooltip" data-placement="top" title="All Enrolled Modules"  class="text-primary" href="#">All Modules</a>
+                        @if(Auth::user()->hasRole('lecturer'))
+                        <a data-toggle="tooltip" data-placement="top" title="All Enrolled Modules"  class="text-primary" href="{{route('lecturer.modules')}}">All Modules</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -44,12 +44,12 @@
                 {{-- {{$module}} --}}
                 <div class="row py-2 align-items-center">
                     <div class="col" data-toggle="tooltip" data-placement="top" title="{{$module->course->name}}">
-                        <b>{{$module->code}}</b> {{$module->name}} 
+                        <b>{{$module->code}}</b> {{$module->name}}
                     </div>
                     <div class="col-auto">
                         <span data-toggle="tooltip" data-placement="top" title="{{$module->academic_year_status}}" class="{{($module->academic_year_status=='Active')? 'text-primary' : (($module->academic_year_status=='Planning')? 'text-dark':'text-secondary') }}"><i class="fas fa-check-circle"></i></span>
                         {{$module->academic_year_name}}
-                    </div>            
+                    </div>
                     <div class="col-auto">
                         <a data-toggle="tooltip" data-placement="top" title="Attendance Sessions"  class="btn btn-sm" href="{{ route('attendance.manage',['mid'=>$module->id,'aid'=>$module->academic_year_id]) }}"><i class="fas fa-book""></i></i> Assessments</a>
                         <a data-toggle="tooltip" data-placement="top" title="Attendance Sessions"  class="btn btn-sm" href="{{ route('attendance.manage',['mid'=>$module->id,'aid'=>$module->academic_year_id]) }}"><i class="far fa-calendar-check"></i></i> Attendance</a>
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="card-body">
-                
+
             </div>
         </div>
     </div>
@@ -85,20 +85,13 @@
                     <h5 class="mb-0 font-weight-bolder">About</h5>
                 </div>
                 <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Username</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>##Kshiti123</p>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Date of Birth</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{$employee->date_birth}}</p>
+                                <p>{{Carbon\Carbon::parse($employee->date_birth)->toFormattedDateString()}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -138,10 +131,10 @@
                                 <label>Appointment Date</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{$employee->date_join}}</p>
+                                <p>{{Carbon\Carbon::parse($employee->date_join)->toFormattedDateString()}}</p>
                             </div>
                         </div>
-                        
+
                 </div>
             </div>
 
