@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AttendanceSession;
 use App\Batch;
 use App\Student;
 use App\StudentEnroll;
@@ -61,9 +62,28 @@ class IndexController extends Controller
 
         }
 
-
-        //return response()->json(['results'=>$results,'batches'=>$batches],200);
-        return view('result', ['results' => $results, 'exam_types' => $this->exam_types, 'student' => $student, 'batches' => $batches, 'exam_pass' => $this->exam_pass]);
+//        Attendance Summary Data
+        $attendances = [];
+        foreach ($enrolls as $enroll) {
+            $attendance = AttendanceSession::select(
+                'attendance_sessions.module_id',
+                'attendance_sessions.academic_year_id',
+                DB::raw('count(attendances.id) as total'),
+                DB::raw('sum(attendances.is_present) as present'),
+                DB::raw('max(modules.name) as module_name'),
+                DB::raw('max(modules.code) as module_code'))
+                ->leftJoin('attendances', 'attendances.attendance_session_id', '=', 'attendance_sessions.id')
+                ->leftJoin('modules', 'attendance_sessions.module_id', '=', 'modules.id')
+                ->groupBy('module_id')
+                ->groupBy('academic_year_id')
+                ->groupBy('modules.name')
+                ->groupBy('modules.code')
+                ->where([['student_id', $student_id],['modules.course_id',$enroll->course_id]])
+                ->get();
+            $attendances [] = $attendance;
+        }
+        //return response()->json(['Attendances'=>$attendances,'batches'=>$batches],200);
+        return view('result', ['results' => $results, 'exam_types' => $this->exam_types, 'student' => $student, 'batches' => $batches, 'exam_pass' => $this->exam_pass,'attendances'=>$attendances]);
         //return view('result');
     }
 
