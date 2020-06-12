@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body ">
+                        <div class="card-body">
                             <div class="align-items-center row">
                                 <div class="col-md-12">
                                     <div class="h1 font-weight-lighter">{{$count_exam->count}}
@@ -174,13 +174,13 @@
                                     <div class="align-items-center row">
                                         <div class="col">
                                             <span
-                                                hidden>{{$per = round(($enroll->tvec_exam_pass/(($enroll->tvec_exam_modules==0)?1:$enroll->tvec_exam_modules))*100)}}</span>
+                                                hidden>{{$per = round(($enroll_exams->tvec_exam_pass/(($enroll_exams->tvec_exam_modules==0)?1:$enroll_exams->tvec_exam_modules))*100)}}</span>
                                             <div class="h1 font-weight-lighter"><span class="{{($per>=60 && $per<80)? 'text-warning':(($per<60)?'text-danger':'text-primary')}}">{{$per}}</span> <span class="text-muted h6">% Pass Rate</span>
                                             </div>
                                         </div>
                                         <div class="col-auto text-right">
-                                            <div>{{$enroll->tvec_exam_pass}} Pass</div>
-                                            <div>{{$enroll->tvec_exam_modules}} Exams</div>
+                                            <div>{{$enroll_exams->tvec_exam_pass}} Pass</div>
+                                            <div>{{$enroll_exams->tvec_exam_modules}} Exams</div>
                                         </div>
                                     </div>
                                 </div>

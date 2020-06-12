@@ -32,7 +32,7 @@ class StudentDashboardController extends Controller
         }
 
         //GET STUDENT TVEC EXAM DATA
-        $enroll = StudentEnroll::select(DB::raw('sum(tvec_exam_modules) as tvec_exam_modules'),DB::raw('sum(tvec_exam_pass) as tvec_exam_pass'))->groupBy(['student_id'])->where('student_id',$student->profile_id)->first();
+        $enroll_exams = StudentEnroll::select(DB::raw('sum(tvec_exam_modules) as tvec_exam_modules'),DB::raw('sum(tvec_exam_pass) as tvec_exam_pass'))->where('student_id',$student->profile_id)->first();
 
         $count_course = StudentEnroll::select(DB::raw('count(course_id) as count'))->where('student_id',$student->profile_id)->first();
         $count_exams = TvecExamResult::select(DB::raw('count(student_id) as count'))->where('student_id',$student->profile_id)->first();
@@ -40,8 +40,7 @@ class StudentDashboardController extends Controller
         $count_attendance = Attendance::select(DB::raw('sum(is_present) as present'),DB::raw('count(student_id) as count'))->where('student_id',$student->profile_id)->first();
 
         $enrolls = StudentEnroll::where('student_id',$student->profile_id)->get();
-        return view('dashboard.student',['datas'=>json_encode($datas), 'labels'=>json_encode($labels),'enroll'=>$enroll,'enrolls'=>$enrolls,
-            'count_course'=>$count_course,'count_exam'=>$count_exams,'count_exams_pass'=>$count_exams_pass,'count_attendance'=>$count_attendance]);
-        return response()->json(['datas'=>($count_exams),'labels'=>($count_exams_pass)],200);
+        return view('dashboard.student',['datas'=>json_encode($datas), 'labels'=>json_encode($labels),'enroll_exams'=>$enroll_exams,'enrolls'=>$enrolls,'count_course'=>$count_course,'count_exam'=>$count_exams,'count_exams_pass'=>$count_exams_pass,'count_attendance'=>$count_attendance]);
+        return response()->json(['enroll'=>($enroll_exams),'labels'=>($count_exams_pass)],200);
     }
 }
