@@ -128,8 +128,16 @@ class TvecExamController extends Controller
             return redirect()->back()->with(['warning' => 'Lecturer data is not available!']);
         }
 
-        $tvecexams = TvecExam::
-        join("employee_module", function ($join) {
+        $tvecexams = TvecExam::select('tvec_exams.number_students as number_students',
+            'tvec_exams.number_pass as number_pass',
+            'tvec_exams.exam_date as exam_date',
+            'tvec_exams.exam_time as exam_time',
+            'tvec_exams.exam_type as exam_type',
+            'tvec_exams.academic_year_id as academic_year_id',
+            'tvec_exams.module_id as module_id',
+            'tvec_exams.id as id'
+        )
+        ->join("employee_module", function ($join) {
             $join->on("tvec_exams.module_id", "=", "employee_module.module_id")
                 ->on("tvec_exams.academic_year_id", "=", "employee_module.academic_year_id");
         })
@@ -138,7 +146,7 @@ class TvecExamController extends Controller
             ->orderBy('tvec_exams.module_id', 'asc')
             ->paginate(20);
 
-        //return response()->json(['tvecexam' => $employee_modules, 'student' => $employee], 200);
+        //return response()->json(['tvecexam' => $tvecexams, 'student' => $employee], 200);
         return view('examination.lecturer_tvec_exams', ['tvecexams' => $tvecexams, 'semesters' => $this->semesters, 'exams' => $this->exams]);
 
     }
