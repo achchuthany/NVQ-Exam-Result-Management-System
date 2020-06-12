@@ -19,7 +19,8 @@ class TvecExamResultController extends Controller
 {
     private $exam_types = array('T' => 'Theory', 'P' => 'Practical', 'B' => 'Theory and Practical');
     private $exam_pass = array('P' => 'Pass', 'F' => 'Fail', 'AB' => 'Absent');
-
+    private $semesters = array('1' => 'Semester 1', '2' => 'Semester 2');
+    private $exams = array('T' => 'Theory', 'P' => 'Practical');
     public function postTvecExamsResultsCreate(Request $request)
     {
         $data = array();
@@ -252,5 +253,20 @@ class TvecExamResultController extends Controller
         return view('examination.student_tvec_results', ['results' => $results, 'exam_types' => $this->exam_types, 'exam_results' => $this->exam_pass,'batches'=>$batches]);
 
     }
+    public function getLecturerTvecExamsResult($id){
+        $tvecexam = TvecExam::select('tvec_exams.id as id', 'tvec_exams.module_id as module_id', 'tvec_exams.academic_year_id as academic_year_id',
+            'tvec_exams.number_pass as number_pass', 'tvec_exams.number_students as number_students',
+            'tvec_exams.exam_type as exam_type', 'tvec_exams.exam_date as exam_date', 'tvec_exams.exam_time as exam_time', 'modules.course_id as course_id')->where('tvec_exams.id', $id)->leftjoin('modules', 'modules.id', '=', 'tvec_exams.module_id')->first();
+        $batch = Batch::where([['academic_year_id', $tvecexam->academic_year_id], ['course_id', $tvecexam->course_id]])->first();
+        $students = TvecExamResult::leftJoin('students', 'students.id', '=', 'tvec_exam_results.student_id')
+            ->select('student_id as id', "reg_no", "shortname", "attempt", "result")
+            ->distinct(['student_id', 'attempt'])
+            ->where([['tvec_exam_id', $id]])
+            ->orderBy('student_id', 'asc')
+            ->orderBy('attempt', 'desc')
+            ->get();
+        //return response()->json(['tvecexam'=>$tvecexam,'student'=>$batch],200);
+        return view('examination.tvec_exam_results_view', ['students' => $students, 'tvecexam' => $tvecexam, 'exam_pass' => $this->exam_pass, 'semesters' => $this->semesters,'exams' => $this->exams, 'batch' => $batch]);
 
+    }
 }

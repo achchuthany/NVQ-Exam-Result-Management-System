@@ -44,7 +44,7 @@
                                 </div>                </td>
                               <td>{{$tvecexam->exam_date}}</td>
                               <td>
-                                  <a  class="btn btn-sm btn-light" href="{{ route('tvec.exams.results',['id'=>$tvecexam->id]) }}"><i class="fas fa-eye"></i> Results</a>
+                                  <a  class="btn btn-sm btn-light" href="{{ route('lecturer.tvec.exams.result',['id'=>$tvecexam->id]) }}"><i class="fas fa-eye"></i> Results</a>
                               </td>
                           </tr>
                           @endforeach
