@@ -10,7 +10,7 @@ TVEC Exam Results Module
                 <h5 class="mb-0 font-weight-bolder">TVEC Examination Results by Module</h5>
             </div>
             <div class="text-right col-auto">
-                <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('tvec.exams')}}">Back</a>
+                <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{ url()->previous() }}">Back</a>
             </div>
         </div>
     </div>

@@ -504,6 +504,12 @@ Route::group(['middleware' => ['auth']], function () {
         'middleware' => 'roles',
         'roles' => 'Lecturer'
     ]);
+    Route::get('/lecturer/tvec/exams', [
+        'uses' => 'TvecExamController@getLecturerTvecExams',
+        'as' => 'lecturer.tvec.exams',
+        'middleware' => 'roles',
+        'roles' => 'Lecturer'
+    ]);
     //end lecturer route
 
 });

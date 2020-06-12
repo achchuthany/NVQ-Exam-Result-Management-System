@@ -50,14 +50,7 @@
                                 </div>
                             </td>
                             <td >
-                                <div class="dropdown dropleft">
-                                    <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{ route('attendance.manage',['mid'=>$module->module_id,'aid'=>$module->academic_year_id]) }}"><i class="fas fa-calendar-alt"></i> Sessions</a>
-                                    </div>
-                                </div>
+                                <a class="btn btn-sm btn-light" href="{{ route('attendance.manage',['mid'=>$module->module_id,'aid'=>$module->academic_year_id]) }}"><i class="fas fa-calendar-alt"></i> Sessions</a>
                             </td>
                         </tr>
                     @endforeach

@@ -17,7 +17,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route('student.tvecexams')}}">
+                <a class="nav-link" href="{{route('lecturer.tvec.exams')}}">
                   <i class="fas fa-graduation-cap"></i> Examinations
                 </a>
             </li>
