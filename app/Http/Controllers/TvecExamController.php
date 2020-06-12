@@ -78,6 +78,10 @@ class TvecExamController extends Controller
         if(!$ay){
             return null;
         }
+        $tvec_exam = TvecExam::where([['module_id',$request['modules']],['academic_year_id',$request['academic_year_id']],['exam_type',$request['exam_type']]])->first();
+        if($tvec_exam){
+            return redirect()->back()->with(['warning'=>'Exam was already created. Please check your data!']);
+        }
         $te = new TvecExam();
         $te->module_id = $request['modules'];
         $te->academic_year_id = $request['academic_year_id'];

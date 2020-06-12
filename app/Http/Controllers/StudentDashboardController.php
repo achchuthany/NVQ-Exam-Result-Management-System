@@ -40,9 +40,8 @@ class StudentDashboardController extends Controller
         $count_attendance = Attendance::select(DB::raw('sum(is_present) as present'),DB::raw('count(student_id) as count'))->where('student_id',$student->profile_id)->first();
 
         $enrolls = StudentEnroll::where('student_id',$student->profile_id)->get();
-        return view('dashboard.student',['datas'=>json_encode($datas),
-            'labels'=>json_encode($labels),'enroll'=>$enroll,'enrolls'=>$enrolls,
+        return view('dashboard.student',['datas'=>json_encode($datas), 'labels'=>json_encode($labels),'enroll'=>$enroll,'enrolls'=>$enrolls,
             'count_course'=>$count_course,'count_exam'=>$count_exams,'count_exams_pass'=>$count_exams_pass,'count_attendance'=>$count_attendance]);
-       // return response()->json(['datas'=>json_encode($datas),'labels'=>($count_attendance)],200);
+        return response()->json(['datas'=>($count_exams),'labels'=>($count_exams_pass)],200);
     }
 }

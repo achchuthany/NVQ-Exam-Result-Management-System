@@ -48,10 +48,10 @@
                     <tr>
                         @foreach( $tvecexams as $tvecexam)
                           <tr data-did="{{$tvecexam->id}}">
-                      
+
                               <td class="pl-4" data-toggle="tooltip" data-placement="top" title="{{$tvecexam->module->course->name}}" ><b>{{$tvecexam->module->code}}</b> {{$tvecexam->module->name}} <small class="text-primary">{{$exams[$tvecexam->exam_type]}}</small> </td>
                               <td><span data-toggle="tooltip" data-placement="top" title="{{$tvecexam->academic_year->status}}" class="{{($tvecexam->academic_year->status=='Active')? 'text-primary' : (($tvecexam->academic_year->status=='Planning')? 'text-dark':'text-secondary') }}"><i class="fas fa-check-circle"></i></span> {{$tvecexam->academic_year->name}}</td>
-                              <td>{{$tvecexam->number_pass}} Pass  of {{$tvecexam->number_students}} 
+                              <td>{{$tvecexam->number_pass}} Pass  of {{$tvecexam->number_students}}
                               </td>
                               <td>
                                 <div class="progress">
@@ -69,10 +69,12 @@
                                       <a class="dropdown-item " href="{{ route('tvec.exams.results',['id'=>$tvecexam->id]) }}"><i class="far fa-edit"></i> Edit</a>
                                       <a class="dropdown-item text-danger" href="{{ route('tvec.exams.delete',['id'=>$tvecexam->id]) }}"><i class="far fa-trash-alt"></i> Delete</a>
                                   </div>
-                              </div>                                                     
+                                   <i class="fa  {{($tvecexam->number_students)?'fa-lock text-secondary':'fa-lock-open text-primary' }}"></i>
+                              </div>
+
                               </td>
                           </tr>
-                          @endforeach             
+                          @endforeach
                 </tbody>
             </table>
         </div>
@@ -87,10 +89,10 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
   <script>
     var token = '{{ Session::token() }}';
     var urlBatchesByCourse = '{{ route('ajax.batches') }}';
-    
+
   </script>
 @endsection

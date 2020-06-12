@@ -16,17 +16,17 @@ Add a  TVEC Examination
         </div>
     </div>
     <div class="card-body">
-       
+
         <form method="post" action="{{route('tvec.exams.create')}}">
             <div class="row align-items-center mt-2">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="code">Course</label>
                         <select class="custom-select" id="course_id" name="course_id" required>
-                            <option disabled selected >Select Course Name...</option>  
+                            <option disabled selected >Select Course Name...</option>
                             @foreach ($courses as $course)
-                            <option value ="{{$course->id}}" >{{$course->name}}</option> 
-                            @endforeach                 
+                            <option value ="{{$course->id}}"  {{(Request::old('course_id'))?((Request::old('course_id') == $course->id)? 'selected':''):''}}>{{$course->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -34,7 +34,7 @@ Add a  TVEC Examination
                     <div class="form-group">
                         <label for="modules">Module</label>
                         <select class="custom-select" id="modules" name="modules" required>
-                            <option disabled selected >Select Course Name</option>  
+                            <option disabled selected >Select Course Name</option>
                         </select>
                     </div>
                 </div>
@@ -42,10 +42,10 @@ Add a  TVEC Examination
                     <div class="form-group">
                         <label for="academic_year_id">Academic Year</label>
                         <select class="custom-select" id="academic_year_id" name="academic_year_id" required>
-                            <option disabled selected >Select Academic Year</option>  
+                            <option disabled selected >Select Academic Year</option>
                             @foreach ($academicyears as $academicyear)
-                        <option value ="{{$academicyear->id}}" >{{$academicyear->name}} {{$academicyear->status}}</option> 
-                            @endforeach                 
+                        <option value ="{{$academicyear->id}}" >{{$academicyear->name}} {{$academicyear->status}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -54,8 +54,8 @@ Add a  TVEC Examination
                         <label for="exam_type">Exam Type</label>
                         <select class="custom-select" id="exam_type" name="exam_type" required>
                             <option disabled selected >Select Examination Type</option>
-                            @foreach($exams as $id => $name) 
-                            <option value ="{{$id}}" >{{$name}}</option> 
+                            @foreach($exams as $id => $name)
+                            <option value ="{{$id}}" >{{$name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -88,6 +88,6 @@ Add a  TVEC Examination
 <script>
     var token = '{{ Session::token() }}';
     var urlModuleByCourse = '{{ route('ajax.modules') }}';
-    
+
   </script>
 @endsection
