@@ -56,7 +56,7 @@ class TvecExamResultController extends Controller
             }
             //Update Student Enroll Results
             $student_enroll = StudentEnroll::where([['student_id', $key], ['academic_year_id', $academic_year_id]])->first();
-            $count = TvecExamResult::where([['student_id', $key], ['tvec_exam_id',$tvec_exam_id]])->count();
+            $count = TvecExamResult::where([['student_id', $key], ['tvec_exam_id', $tvec_exam_id]])->count();
             if ($count == 0) {
                 $student_enroll->tvec_exam_modules += 1;
             }
@@ -96,7 +96,7 @@ class TvecExamResultController extends Controller
         if (!$batch) {
             return redirect()->route('batches');
         }
-        $students = Student::select('students.id as id','students.shortname','students.reg_no','student_enrolls.tvec_exam_pass','student_enrolls.tvec_exam_modules')->leftjoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
+        $students = Student::select('students.id as id', 'students.shortname', 'students.reg_no', 'student_enrolls.tvec_exam_pass', 'student_enrolls.tvec_exam_modules')->leftjoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
             ->where([['academic_year_id', $batch->academic_year_id], ['course_id', $batch->course_id]])
             ->orderBy('student_id', 'asc')
             ->get();
@@ -221,23 +221,35 @@ class TvecExamResultController extends Controller
             return redirect()->back()->with(['warning' => 'Student ID is invalid. Try again!']);
         }
 
-        $results = TvecExamResult::select('module_id', 'academic_year_id', 'tvec_exams.exam_type',
-            DB::raw('max(tvec_exam_results.attempt) as attempt'),
-            DB::raw('max(tvec_exam_results.result) as result'),
-            DB::raw('max(modules.name) as module_name'),
-            DB::raw('max(modules.code) as module_code'))
-            ->leftJoin('tvec_exams', 'tvec_exams.id', '=', 'tvec_exam_results.tvec_exam_id')
-            ->leftJoin('modules', 'modules.id', '=', 'tvec_exams.module_id')
-            ->leftJoin('academic_years', 'academic_years.id', '=', 'tvec_exams.academic_year_id')
-            ->groupBy('module_id')
-            ->groupBy('academic_year_id')
-            ->groupBy('exam_type')
-            ->orderBy('module_id', 'asc')
-            ->orderBy('exam_type', 'desc')
-            ->where([['student_id', $student_id]])
-            ->get();
+        $enrolls = StudentEnroll::where('student_id', $student_id)->get();
+
+        $results = [];
+        $batches = [];
+        foreach ($enrolls as $enroll) {
+            $batch = Batch::where([['course_id', $enroll->course_id], ['academic_year_id', $enroll->academic_year_id]])->first();
+            if (!$batch) {
+                return redirect()->back()->with(['warning' => 'Invalid Batch Name. Try again.']);
+            }
+            $batches[] = $batch;
+            $result = TvecExamResult::select('module_id', 'tvec_exams.exam_type',
+                DB::raw('max(tvec_exam_results.attempt) as attempt'),
+                DB::raw('max(tvec_exam_results.result) as result'),
+                DB::raw('max(modules.name) as module_name'),
+                DB::raw('max(modules.code) as module_code'),
+                DB::raw('max(academic_years.id) as academic_year_id'))
+                ->leftJoin('tvec_exams', 'tvec_exams.id', '=', 'tvec_exam_results.tvec_exam_id')
+                ->leftJoin('modules', 'modules.id', '=', 'tvec_exams.module_id')
+                ->leftJoin('academic_years', 'academic_years.id', '=', 'tvec_exams.academic_year_id')
+                ->groupBy('module_id')
+                ->groupBy('exam_type')
+                ->orderBy('module_id', 'asc')
+                ->orderBy('exam_type', 'desc')
+                ->where([['student_id', $student_id],['course_id', $batch->course_id]])
+                ->get();
+            $results[] = $result;
+        }
         //return response()->json(['results'=>$results],200);
-        return view('examination.student_tvec_results', ['results' => $results, 'exam_types' => $this->exam_types, 'exam_results' => $this->exam_pass]);
+        return view('examination.student_tvec_results', ['results' => $results, 'exam_types' => $this->exam_types, 'exam_results' => $this->exam_pass,'batches'=>$batches]);
 
     }
 
