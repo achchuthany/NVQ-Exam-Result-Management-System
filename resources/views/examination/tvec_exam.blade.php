@@ -25,7 +25,7 @@ Add a  TVEC Examination
                         <select class="custom-select" id="course_id" name="course_id" required>
                             <option disabled selected >Select Course Name...</option>
                             @foreach ($courses as $course)
-                            <option value ="{{$course->id}}"  {{(Request::old('course_id'))?((Request::old('course_id') == $course->id)? 'selected':''):''}}>{{$course->name}}</option>
+                            <option value ="{{$course->id}}" {{(Request::old('course_id'))?((Request::old('course_id') == $course->id)? 'selected':''):''}}>{{$course->name}}</option>
                             @endforeach
                         </select>
                     </div>
