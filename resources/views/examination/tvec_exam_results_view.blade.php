@@ -1,20 +1,21 @@
 @extends('layouts.master')
 @section('title')
-TVEC Exam Results Module
+    TVEC Exam Results Module
 @endsection
 @section('content')
-<div class="card mb-3">
-    <div class="card-header bg-white">
-        <div class="align-items-center row">
-            <div class="col">
-                <h5 class="mb-0 font-weight-bolder">Module TVEC Examination Results </h5>
-            </div>
-            <div class="text-right col-auto">
-                <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('lecturer.tvec.exams')}}">Back</a>
+    <div class="card mb-3">
+        <div class="card-header bg-white">
+            <div class="align-items-center row">
+                <div class="col">
+                    <h5 class="mb-0 font-weight-bolder">Module TVEC Examination Results </h5>
+                </div>
+                <div class="text-right col-auto">
+                    <a type="button" class="btn btn-sm btn-outline-primary shadow-sm"
+                       href="{{route('lecturer.tvec.exams')}}">Back</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="card-body">
+        <div class="card-body">
 
             <input type="hidden" value="{{$tvecexam->id}}" name="tvec_exam_id">
             <div class="row align-items-center mt-2">
@@ -50,7 +51,7 @@ TVEC Exam Results Module
                     <p class="font-weight-light"> {{$batch->name}} ({{$batch->academic_year->name}})</p>
                 </div>
 
-            <div class="col-12 table-responsive">
+                <div class="col-12 table-responsive">
                     <table class="table table-sm table-hover table-borderless">
                         <thead>
                         <tr class="bg-light text-dark">
@@ -61,28 +62,28 @@ TVEC Exam Results Module
                         </tr>
                         </thead>
                         <tbody id="tvec_exam_results">
-                            @if(count($students)>0)
+                        @if(count($students)>0)
                             <span hidden> {{$student_id = 0}}}</span>
                             @foreach($students as $student)
-                            @if($student_id != $student->id)
-                            <span hidden>{{$student_id = $student->id}}</span>
-                            <tr>
-                            <td>{{$student->reg_no}}</td>
-                                <td>{{$student->shortname}}</td>
-                                <td>
-                                    <i class="{{($student->result == 'P')? 'fa fa-check text-success' : 'fa fa-times text-danger'}}"></i> {{$exam_pass[$student->result]}}
-                                </td>
-                                <td>
-                                    Attempt {{$student->attempt}}
-                                </td>
-                                </tr>
+                                @if($student_id != $student->id)
+                                    <span hidden>{{$student_id = $student->id}}</span>
+                                    <tr>
+                                        <td>{{$student->reg_no}}</td>
+                                        <td>{{$student->shortname}}</td>
+                                        <td>
+                                            <i class="{{($student->result == 'P')? 'fa fa-check text-success' : 'fa fa-times text-danger'}}"></i> {{$exam_pass[$student->result]}}
+                                        </td>
+                                        <td>
+                                            Attempt {{$student->attempt}}
+                                        </td>
+                                    </tr>
                                 @endif
                             @endforeach
-                            @endif
+                        @endif
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
     </div>
-</div>
 @endsection
