@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Department;
 use Illuminate\Database\QueryException;
-class DepartmentController extends Controller 
+class DepartmentController extends Controller
 {
+    public function getDerpartmentCreate(){
+        return view('academic.department');
+
+    }
     public function getDerpartments(){
 
         $departments = Department::orderBy('code','asc')->paginate(10);
@@ -21,7 +25,7 @@ class DepartmentController extends Controller
         $message=$warning=null;
         $department = new Department();
         $department->name = $request['d_name'];
-        $department->code = strtoupper($request['code']);      
+        $department->code = strtoupper($request['code']);
         if($department->save()){
            $message = $department->name.' successfully created';
         }else{
@@ -51,7 +55,7 @@ class DepartmentController extends Controller
         try {
             $result = $post->delete();
             $message = $post->name." Successfully Deleted!";
-        } catch (QueryException  $e) {       
+        } catch (QueryException  $e) {
             $warning = $post->name." was not Deleted, Try Again!";
         }
         return redirect()->route('departments')->with(['message'=>$message,'warning'=>$warning]);

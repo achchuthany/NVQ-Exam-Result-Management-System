@@ -10,9 +10,11 @@
       <div class="col">
         <h5 class="mb-0 font-weight-bolder">NVQ Levels</h5>
       </div>
+        @if(Auth::user()->hasAnyRole(['Admin']))
       <div class="text-right col-auto">
       <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('nvqs.create')}}">New</a>
       </div>
+        @endif
     </div>
   </div>
   <div class="card-body p-0">
@@ -22,9 +24,11 @@
               <tr>
                 <th scope="col" hidden>#ID</th>
                 <th scope="col" class="pl-4">NVQ Name</th>
+                  @if(Auth::user()->hasAnyRole(['Admin']))
                 <th scope="col">
                     Actions
                 </th>
+                  @endif
               </tr>
             </thead>
             <tbody>
@@ -32,7 +36,8 @@
               <tr class="btn-reveal-trigger">
               <th scope="row" hidden>{{$nvq->id}}</th>
                 <td class="pl-4">{{$nvq->name}}</td>
-                <td> 
+                  @if(Auth::user()->hasAnyRole(['Admin']))
+                <td>
                   <div class="dropdown dropleft">
                       <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="fas fa-ellipsis-h"></i>
@@ -43,8 +48,9 @@
                       </div>
                   </div>
                 </td>
+                  @endif
               </tr>
-              @endforeach           
+              @endforeach
             </tbody>
           </table>
     </div>
@@ -62,7 +68,7 @@
 </div>
 
 
- 
+
   <!-- Modal -->
   <div class="modal fade" id="nvqEditModal" tabindex="-1" role="dialog" aria-labelledby="nvqEditModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -92,7 +98,7 @@
       </div>
     </div>
   </div>
-  
+
   <script>
     var token = '{{ Session::token() }}';
     var urlEdit = '{{ route('nvqs.edit') }}';

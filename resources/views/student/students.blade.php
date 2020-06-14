@@ -21,6 +21,7 @@
                             <span class="badge badge-pill badge-light"> All </span></h5>
                     @endif
                 </div>
+                @if(Auth::user()->hasAnyRole(['Admin']))
                 <div class="text-right col-auto">
                     <div class="btn-group  mx-2" role="group">
                         <input type="text" class="form-control form-control-sm" placeholder="Registration No.">
@@ -30,6 +31,7 @@
                        href="{{route('students.create')}}">New</a>
 
                 </div>
+                    @endif
             </div>
         </div>
         <div class="card-body p-0">
@@ -69,6 +71,7 @@
                                         <a class="dropdown-item"
                                            href="{{ route('students.courses',['id'=>$student->id]) }}"><i
                                                 class="fas fa-graduation-cap"></i> Courses</a>
+                                        @if(Auth::user()->hasAnyRole(['Admin']))
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item"
                                            href="{{ route('students.enroll',['id'=>$student->id]) }}"><i
@@ -79,6 +82,7 @@
                                         <a class="dropdown-item text-danger"
                                            href="{{ route('students.delete',['id'=>$student->id]) }}"><i
                                                 class="far fa-trash-alt"></i> Delete</a>
+                                            @endif
                                     </div>
                                 </div>
                             </td>

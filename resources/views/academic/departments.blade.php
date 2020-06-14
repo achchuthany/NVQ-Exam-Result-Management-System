@@ -9,9 +9,11 @@
       <div class="col">
         <h5 class="mb-0 font-weight-bolder">Departments</h5>
       </div>
+        @if(Auth::user()->hasAnyRole(['Admin']))
       <div class="text-right col-auto">
       <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('departments.create')}}">New</a>
       </div>
+        @endif
     </div>
   </div>
   <div class="card-body p-0">
@@ -34,7 +36,7 @@
               <th scope="row" class="pl-4">{{$department->code}}</th>
                 <td>{{$department->name}}</td>
                 @if(Auth::user()->hasAnyRole(['Admin']))
-                <td> 
+                <td>
                   <div class="dropdown dropleft">
                     <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-h"></i>
@@ -97,10 +99,10 @@
       </div>
     </div>
   </div>
-  
+
   <script>
     var token = '{{ Session::token() }}';
     var urlEdit = '{{ route('departments.edit') }}';
-    
+
   </script>
 @endsection

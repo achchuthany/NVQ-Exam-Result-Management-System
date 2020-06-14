@@ -10,9 +10,11 @@
             <div class="col">
                 <h5 class="mb-0 font-weight-bolder">Courses</h5>
             </div>
+            @if(Auth::user()->hasAnyRole(['Admin']))
             <div class="text-right col-auto">
                 <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('courses.create')}}">New</a>
             </div>
+                @endif
         </div>
     </div>
     <div class="card-body p-0">
@@ -40,17 +42,20 @@
                       <td>{{$course->nvq->name}}</td>
                       <td data-toggle="tooltip" data-placement="top" title="{{$course->duration}} Months">{{$course->duration}}</td>
                       <td data-toggle="tooltip" data-placement="top" title="{{$course->ojt_duration}} Months">{{$course->ojt_duration}}</td>
-                      <td>                    
+                      <td>
                           <div class="dropdown dropleft">
                             <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-h"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ route('students.course',['id'=>$course->id]) }}">Students</a>
                                 <a class="dropdown-item" href="{{ route('modules.course',['id'=>$course->id]) }}">Modules</a>
+                                <a class="dropdown-item" href="{{ route('students.course',['id'=>$course->id]) }}">Students</a>
+                                @if(Auth::user()->hasAnyRole(['Admin']))
+
                                   <div class="dropdown-divider"></div>
                                 <a  class="dropdown-item course-edit" href="#">Edit</a>
                                 <a class="dropdown-item text-danger" href="{{ route('courses.delete',['id'=>$course->id]) }}">Delete</a>
+                                @endif
                             </div>
                         </div>
                       </td>
@@ -104,7 +109,7 @@
                                 <option value="null" disabled selected>--Select Department--</option>
                                 @foreach ($departments as $department)
                                     <option value="{{$department->id}}">{{$department->name}}</option>
-                                @endforeach     
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -115,7 +120,7 @@
                                 <option value="null" disabled selected>--Select NVQ Level--</option>
                                 @foreach ($nvqs as $nvq)
                                     <option value="{{$nvq->id}}">{{$nvq->name}}</option>
-                                @endforeach      
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -142,6 +147,6 @@
   </div>
   <script>
     var token = '{{ Session::token() }}';
-    var urlEdit = '{{ route('courses.edit') }}'; 
+    var urlEdit = '{{ route('courses.edit') }}';
   </script>
 @endsection

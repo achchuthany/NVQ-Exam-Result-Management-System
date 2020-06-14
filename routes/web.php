@@ -50,16 +50,18 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'UserController@getLogout',
         'as' => 'logout'
     ]);
-
-    Route::get('/departments/create', function () {
-        return view('academic.department');
-    });
-
+    //Department Data
+    Route::get('/departments/create',[
+        'uses' => 'DepartmentController@getDerpartmentCreate',
+        'as' => 'department.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
+    ]);
     Route::get('/departments',[
         'uses' => 'DepartmentController@getDerpartments',
         'as' => 'departments',
         'middleware' => 'roles',
-        'roles' => ['Admin','HOD','Lecturer']
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
 
     Route::post('/departments/create',[
@@ -71,133 +73,202 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/departments/edit',[
         'uses' => 'DepartmentController@postEditDepartment',
-        'as' => 'departments.edit'
+        'as' => 'departments.edit',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
 
     Route::get('/departments/{d_id}/delete',[
         'uses'=>'DepartmentController@getDeleteDepartment',
-        'as'=>'departments.delete'
+        'as'=>'departments.delete',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
+    //End Department Data
 
+    //Start NVQ Data
     Route::get('/nvqs',[
         'uses' => 'NvqController@getNvqs',
-        'as' => 'nvqs'
+        'as' => 'nvqs',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
     Route::get('/nvqs/create',[
         'uses' => 'NvqController@getNvqsCreate',
-        'as' => 'nvqs.create'
+        'as' => 'nvqs.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/nvqs/create',[
         'uses' => 'NvqController@postCreateNvq',
-        'as' => 'nvqs.create'
+        'as' => 'nvqs.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/nvqs/edit',[
         'uses' => 'NvqController@postEditNvq',
-        'as' => 'nvqs.edit'
+        'as' => 'nvqs.edit',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::get('/nvqs/{n_id}/delete',[
         'uses'=>'NvqController@getDeleteNvq',
-        'as'=>'nvqs.delete'
+        'as'=>'nvqs.delete',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
+    //End NVQ Data
 
+
+    //Start Course Data
     Route::get('/courses',[
         'uses' => 'CourseController@getCourses',
-        'as' => 'courses'
+        'as' => 'courses',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
     Route::get('/courses/create',[
         'uses' => 'CourseController@getCourseCreate',
-        'as' => 'courses.create'
+        'as' => 'courses.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/courses/create',[
         'uses' => 'CourseController@postCourseCreate',
-        'as' => 'courses.create'
+        'as' => 'courses.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/courses/edit',[
         'uses' => 'CourseController@postEditCourse',
-        'as' => 'courses.edit'
+        'as' => 'courses.edit',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::get('/courses/{id}/delete',[
         'uses'=>'CourseController@getDeleteCourse',
-        'as'=>'courses.delete'
+        'as'=>'courses.delete',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
+    //End Course Data
 
+    //Start Module Data
     Route::get('/modules',[
         'uses' => 'ModuleController@getModules',
-        'as' => 'modules'
+        'as' => 'modules',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
     Route::get('/modules/course/{id}',[
         'uses' => 'ModuleController@getModulesbyCourse',
-        'as' => 'modules.course'
+        'as' => 'modules.course',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
 
-    Route::get('/module/create',[
+    Route::get('/modules/create',[
         'uses' => 'ModuleController@getModuleCreate',
-        'as' => 'modules.create'
+        'as' => 'modules.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::post('/module/create',[
+    Route::post('/modules/create',[
         'uses' => 'ModuleController@postModuleCreate',
-        'as' => 'modules.create'
+        'as' => 'modules.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
 
-    Route::get('/module/{id}/delete',[
+    Route::get('/modules/{id}/delete',[
         'uses'=>'ModuleController@getDeleteModule',
-        'as'=>'modules.delete'
+        'as'=>'modules.delete',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/module/{id}/edit', [
+    Route::get('/modules/{id}/edit', [
         'uses' => 'ModuleController@getModuleEdit',
-        'as' => 'modules.edit'
+        'as' => 'modules.edit',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
+    //End Module Data
 
-
+    //Students Start Data
     Route::get('/students',[
         'uses' => 'StudentController@getStudents',
-        'as' => 'students'
+        'as' => 'students',
+        'middleware' => 'roles',
+        'roles' =>['Admin']
     ]);
     Route::get('/students/batch/{id}',[
         'uses' => 'StudentController@getStudentsbyBatch',
-        'as' => 'students.batch'
+        'as' => 'students.batch',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::get('/students/course/{id}',[
         'uses' => 'StudentController@getStudentsbyCourse',
-        'as' => 'students.course'
+        'as' => 'students.course',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
     Route::get('/students/academic/{id}',[
         'uses' => 'StudentController@getStudentsbyAcademicYear',
-        'as' => 'students.academic'
+        'as' => 'students.academic',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
 
-    Route::get('/student/create',[
+    Route::get('/students/create',[
         'uses' => 'StudentController@getStudentCreate',
-        'as' => 'students.create'
+        'as' => 'students.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::post('/student/create',[
+    Route::post('/students/create',[
         'uses' => 'StudentController@postCreateStudent',
-        'as' => 'students.create'
+        'as' => 'students.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/student/{id}/delete',[
+    Route::get('/students/{id}/delete',[
         'uses'=>'StudentController@getDeleteStudent',
-        'as'=>'students.delete'
+        'as'=>'students.delete',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/student/{id}/edit', [
+    Route::get('/students/{id}/edit', [
         'uses' => 'StudentController@getEditStudent',
-        'as' => 'students.edit'
+        'as' => 'students.edit',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/student/{id}/enroll', [
+    Route::get('/students/{id}/enroll', [
         'uses' => 'StudentController@getEnrollIndex',
-        'as' => 'students.enroll'
+        'as' => 'students.enroll',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/student/{id}/courses', [
+    Route::get('/students/{id}/courses', [
         'uses' => 'StudentController@getCoursesIndex',
-        'as' => 'students.courses'
+        'as' => 'students.courses',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
-    Route::get('/student/{id}/attendance', [
+    Route::get('/students/{id}/attendance', [
         'uses' => 'StudentController@getCoursesIndex',
-        'as' => 'students.attendance'
+        'as' => 'students.attendance',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::post('/student/enroll/create', [
+    Route::post('/students/enroll/create', [
         'uses' => 'StudentController@postStudentEnroll',
-        'as' => 'students.enroll.create'
+        'as' => 'students.enroll.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
+    //End Student Data
 
     Route::get('/academics',[
         'uses' => 'AcademicYearController@getAcademicYears',

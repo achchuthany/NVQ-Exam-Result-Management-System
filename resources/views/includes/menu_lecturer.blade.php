@@ -10,6 +10,22 @@
             <li class="nav-item">
               <a class="nav-link" href="{{route('lecturer')}}"><i class="fas fa-home"></i> Dashboard</a>
             </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-university"></i> Academics
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{route('nvqs')}}">NVQ Levels</a>
+                      <a class="dropdown-item" href="{{route('departments')}}">Departments</a>
+                      <a class="dropdown-item" href="{{route('courses')}}">Courses</a>
+                      <a class="dropdown-item" href="{{route('modules')}}">Modules</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{{route('academics')}}">Academic Years</a>
+                      <a class="dropdown-item" href="{{route('batches')}}">Batches</a>
+                  </div>
+              </li>
+
             <li class="nav-item">
               <a class="nav-link" href="{{route('lecturer.modules')}}"><i class="fas fa-university"></i>
                   Enrolled Modules
