@@ -9,9 +9,11 @@
       <div class="col">
         <h5 class="mb-0 font-weight-bolder">Academic Years </h5>
       </div>
+        @if(Auth::user()->hasAnyRole(['Admin']))
       <div class="text-right col-auto">
       <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('academics.create')}}">New</a>
       </div>
+        @endif
     </div>
   </div>
   <div class="card-body p-0">
@@ -24,9 +26,11 @@
                 <th scope="col">Start Date</th>
                 <th scope="col">Completion Date</th>
                 <th scope="col">Status</th>
+                  @if(Auth::user()->hasAnyRole(['Admin']))
                 <th scope="col">
                     Actions
                 </th>
+                  @endif
               </tr>
               </tr>
             </thead>
@@ -39,7 +43,8 @@
                 <td>
                 <span class="{{($academicyear->status=='Active')? 'text-primary' : (($academicyear->status=='Planning')? 'text-dark':'text-secondary') }}"><i class="fas fa-check-circle"></i></span> {{$academicyear->status}}
                 </td>
-                <td> 
+                  @if(Auth::user()->hasAnyRole(['Admin']))
+                <td>
                   <div class="dropdown dropleft">
                   <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-ellipsis-h"></i>
@@ -50,10 +55,11 @@
                   <a class="dropdown-item" href="{{ route('academics.edit',['id'=>$academicyear->id]) }}">Edit</a>
                   <a class="dropdown-item text-danger" href="{{ route('academics.delete',['id'=>$academicyear->id]) }}">Delete</a>
                   </div>
-                  </div>                   
+                  </div>
                 </td>
+                  @endif
               </tr>
-              @endforeach          
+              @endforeach
             </tbody>
           </table>
     </div>

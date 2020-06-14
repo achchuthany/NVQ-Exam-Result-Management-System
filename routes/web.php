@@ -205,7 +205,7 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'StudentController@getStudentsbyBatch',
         'as' => 'students.batch',
         'middleware' => 'roles',
-        'roles' => ['Admin']
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
     Route::get('/students/course/{id}',[
         'uses' => 'StudentController@getStudentsbyCourse',
@@ -270,134 +270,204 @@ Route::group(['middleware' => ['auth']], function () {
     ]);
     //End Student Data
 
+    //Start Academic Year Data
     Route::get('/academics',[
         'uses' => 'AcademicYearController@getAcademicYears',
-        'as' => 'academics'
+        'as' => 'academics',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
-    Route::get('/academic/create',[
+    Route::get('/academics/create',[
         'uses' => 'AcademicYearController@getAcademicYearCreate',
-        'as' => 'academics.create'
+        'as' => 'academics.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::post('/academic/create',[
+    Route::post('/academics/create',[
         'uses' => 'AcademicYearController@postCreateAcademicYear',
-        'as' => 'academics.create'
+        'as' => 'academics.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/academic/{id}/edit',[
+    Route::get('/academics/{id}/edit',[
         'uses' => 'AcademicYearController@getEditAcademicYear',
-        'as' => 'academics.edit'
+        'as' => 'academics.edit',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/academic/{id}/delete',[
+    Route::get('/academics/{id}/delete',[
         'uses'=>'AcademicYearController@getDeleteAcademicYear',
-        'as'=>'academics.delete'
+        'as'=>'academics.delete',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
+    //End Academic Year Data
 
+    //Start Batches Data
     Route::get('/batches',[
         'uses' => 'BatchController@getBatches',
-        'as' => 'batches'
+        'as' => 'batches',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
-    Route::get('/batch/create',[
+    Route::get('/batches/create',[
         'uses' => 'BatchController@getBatchCreate',
-        'as' => 'batches.create'
+        'as' => 'batches.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::post('/batch/create',[
+    Route::post('/batches/create',[
         'uses' => 'BatchController@postCreateBatch',
-        'as' => 'batches.create'
+        'as' => 'batches.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/batch/{id}/edit',[
+    Route::get('/batches/{id}/edit',[
         'uses' => 'BatchController@getEditBatch',
-        'as' => 'batches.edit'
+        'as' => 'batches.edit',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/batch/{id}/delete',[
+    Route::get('/batches/{id}/delete',[
         'uses'=>'BatchController@getDeleteBatch',
-        'as'=>'batches.delete'
+        'as'=>'batches.delete',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
+    //End Batches Data
 
+    //Start Employees Data
     Route::get('/employees',[
         'uses' => 'EmployeeController@getEmployees',
-        'as' => 'employees'
+        'as' => 'employees',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
 
     Route::get('/employees/create',[
         'uses' => 'EmployeeController@getEmployeeCreate',
-        'as' => 'employees.create'
+        'as' => 'employees.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/employees/create',[
         'uses' => 'EmployeeController@postCreateEmployee',
-        'as' => 'employees.create'
+        'as' => 'employees.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/employees/search',[
         'uses' => 'EmployeeController@postSearchEmployee',
-        'as' => 'employees.search'
+        'as' => 'employees.search',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
+    //End Employee Data
 
+    //Start TVEC Exam Data
     Route::post('/tvec/exams/batch',[
         'uses' => 'TvecExamController@getTvecExamsByCourseBatch',
-        'as' => 'tvec.exams.batch'
+        'as' => 'tvec.exams.batch',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::get('/tvec/exams',[
         'uses' => 'TvecExamController@getTvecExams',
-        'as' => 'tvec.exams'
+        'as' => 'tvec.exams',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::get('/tvec/exams/create',[
         'uses' => 'TvecExamController@getTvecExamCreate',
-        'as' => 'tvec.exams.create'
+        'as' => 'tvec.exams.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/tvec/exams/create',[
         'uses' => 'TvecExamController@postTvecExamCreate',
-        'as' => 'tvec.exams.create'
+        'as' => 'tvec.exams.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::post('/tvec/exam/{id}/delete',[
+    Route::post('/tvec/exams/{id}/delete',[
         'uses'=>'TvecExamController@getDeleteTvecExam',
-        'as'=>'tvec.exams.delete'
+        'as'=>'tvec.exams.delete',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/tvec/exam/{id}',[
+    Route::get('/tvec/exams/{id}',[
         'uses' => 'TvecExamResultController@getLecturerTvecExamsResult',
-        'as' => 'tvec.exams.results.view'
+        'as' => 'tvec.exams.results.view',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/tvec/exam/{id}/results',[
+    Route::get('/tvec/exams/{id}/results',[
         'uses' => 'TvecExamController@getTvecExamsResults',
-        'as' => 'tvec.exams.results'
+        'as' => 'tvec.exams.results',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::post('/tvec/exam/results/create',[
+    Route::post('/tvec/exams/results/create',[
         'uses' => 'TvecExamResultController@postTvecExamsResultsCreate',
-        'as' => 'tvec.exams.results.create'
+        'as' => 'tvec.exams.results.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::get('/tvec/results',[
         'uses' => 'TvecExamResultController@getTvecResults',
-        'as' => 'tvec.results'
+        'as' => 'tvec.results',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/tvec/result/batch/{id}',[
+    Route::get('/tvec/results/batch/{id}',[
         'uses' => 'TvecExamResultController@getTvecExamsResultsbyBatch',
-        'as' => 'tvec.exams.results.batch'
+        'as' => 'tvec.exams.results.batch',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
-    Route::post('/tvec/result/batch',[
+    Route::post('/tvec/results/batch',[
         'uses' => 'TvecExamResultController@postTvecExamsResultsbyBatch',
-        'as' => 'tvec.results.batch'
+        'as' => 'tvec.results.batch',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
-    Route::get('/tvec/result/batch/{id}/pdf',[
+    Route::get('/tvec/results/batch/{id}/pdf',[
         'uses' => 'TvecExamResultController@getTvecExamsResultsbyBatchPDF',
-        'as' => 'tvec.exams.results.batch.pdf'
+        'as' => 'tvec.exams.results.batch.pdf',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
-    Route::get('/tvec/result/batch/{bid}/student/{id}',[
+    Route::get('/tvec/results/batch/{bid}/student/{id}',[
         'uses' => 'TvecExamResultController@getTvecExamsResultsbyStudentId',
-        'as' => 'tvec.results.student'
+        'as' => 'tvec.results.student',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
     ]);
+    //End TVEC Exam Data
 
     Route::post('/ajax/course/modules',[
         'uses' => 'AjaxRequestController@postGetModulesbyCourse',
-        'as' => 'ajax.modules'
+        'as' => 'ajax.modules',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/ajax/batch/students',[
         'uses' => 'AjaxRequestController@postGetStudentsbyBatch',
-        'as' => 'ajax.students.batch'
+        'as' => 'ajax.students.batch',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/ajax/student/reg',[
         'uses' => 'AjaxRequestController@postGetStudentbyReg',
-        'as' => 'ajax.students.reg'
+        'as' => 'ajax.students.reg',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/ajax/course/batches',[
         'uses' => 'AjaxRequestController@postGetBatchesbyCourse',
-        'as' => 'ajax.batches'
+        'as' => 'ajax.batches',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
 
     Route::get('/admin/users',[
@@ -427,23 +497,33 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/employees/enroll',[
         'uses' => 'EmployeeModuleController@getEnrollIndex',
-        'as' => 'employees.enroll'
+        'as' => 'employees.enroll',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::get('/employees/enroll/create',[
         'uses' => 'EmployeeModuleController@getEnrollCreateIndex',
-        'as' => 'employees.enroll.create'
+        'as' => 'employees.enroll.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::get('/e/{id}',[
         'uses' => 'EmployeeModuleController@getProfileIndex',
-        'as' => 'employee.profile'
+        'as' => 'employee.profile',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::post('/employees/enroll/create',[
         'uses' => 'EmployeeModuleController@postEnrollCreate',
-        'as' => 'employees.enroll.create'
+        'as' => 'employees.enroll.create',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
     Route::get('/employees/enroll/{id}/delete', [
         'uses' => 'EmployeeModuleController@getDeleteEnroll',
-        'as' => 'employees.enroll.delete'
+        'as' => 'employees.enroll.delete',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
     ]);
 
     Route::get('/attendance/manage/{mid}/{aid}', [

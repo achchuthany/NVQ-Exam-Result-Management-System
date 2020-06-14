@@ -70,7 +70,7 @@
 
                                         <a class="dropdown-item"
                                            href="{{ route('students.courses',['id'=>$student->id]) }}"><i
-                                                class="fas fa-graduation-cap"></i> Courses</a>
+                                                class="fas fa-graduation-cap"></i>Enrolled Courses </a>
                                         @if(Auth::user()->hasAnyRole(['Admin']))
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item"

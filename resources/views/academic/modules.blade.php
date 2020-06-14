@@ -10,9 +10,11 @@
             <div class="col">
                 <h5 class="mb-0 font-weight-bolder">Modules</h5>
             </div>
+            @if(Auth::user()->hasAnyRole(['Admin']))
             <div class="text-right col-auto">
                 <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('modules.create')}}">New</a>
             </div>
+            @endif
         </div>
     </div>
     <div class="card-body p-0">
@@ -26,21 +28,24 @@
                         <th scope="col">Hours</th>
                         <th scope="col">Exam Type</th>
                         <th scope="col">Semester</th>
+                        @if(Auth::user()->hasAnyRole(['Admin']))
                         <th scope="col">
                             Actions
                         </th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
                    @foreach( $modules as $module)
                     <tr data-mid="{{$module->id}}">
-                      <th class="pl-4">{{$module->code}}</th>        
-                      <td>{{$module->name}}</td>        
+                      <th class="pl-4">{{$module->code}}</th>
+                      <td>{{$module->name}}</td>
                       <td>{{$module->course->name}}</td>
                       <td data-toggle="tooltip" data-placement="top" title="{{$module->learning_hours}} Notional Hours">{{$module->learning_hours}}</td>
                       <td>{{$exams["$module->exam_type"]}}</td>
                       <td>{{$semesters["$module->semester_id"]}}</td>
-                      <td> 
+                        @if(Auth::user()->hasAnyRole(['Admin']))
+                      <td>
                       <div class="dropdown dropleft">
                             <button class="btn btn-light btn-sm shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-h"></i>
@@ -51,8 +56,9 @@
                             </div>
                         </div>
                       </td>
+                        @endif
                     </tr>
-                    @endforeach                        
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -93,7 +99,7 @@
                             <label for="department_id">Department </label>
                             <select id="department_id" class="custom-select" name="department_id">
                                 <option value="null" disabled selected>--Select Department--</option>
-                                   
+
                             </select>
                         </div>
                     </div>
@@ -102,7 +108,7 @@
                             <label for="nvq_id">NVQ Level</label>
                             <select id="nvq_id" class="custom-select" name="nvq_id">
                                 <option value="null" disabled selected>--Select NVQ Level--</option>
-                                   
+
                             </select>
                         </div>
                     </div>
@@ -130,10 +136,10 @@
   </div>
 
 @include('includes.deletemodal')
-  
+
   <script>
     var token = '{{ Session::token() }}';
     var urlEdit = '{{ route('courses.edit') }}';
-    
+
   </script>
 @endsection

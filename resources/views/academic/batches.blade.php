@@ -9,9 +9,11 @@
             <div class="col">
                 <h5 class="mb-0 font-weight-bolder">Batches</h5>
             </div>
+            @if(Auth::user()->hasAnyRole(['Admin']))
             <div class="text-right col-auto">
                 <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('batches.create')}}">New</a>
             </div>
+            @endif
         </div>
     </div>
     <div class="card-body p-0">
@@ -41,14 +43,16 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                               <a  class="dropdown-item" href="{{ route('tvec.exams.results.batch',['id'=>$batch->id]) }}"><i class="fas fa-graduation-cap"></i> TVEC Results</a>
                               <a  class="dropdown-item" href="{{ route('students.batch',['id'=>$batch->id]) }}"><i class="fas fa-user-graduate"></i> Students</a>
-                              <div class="dropdown-divider"></div>
+                                @if(Auth::user()->hasAnyRole(['Admin']))
+                                <div class="dropdown-divider"></div>
                               <a class="dropdown-item " href="{{ route('batches.edit',['id'=>$batch->id]) }}"><i class="far fa-edit"></i> Edit</a>
                               <a class="dropdown-item text-danger" href="{{ route('batches.delete',['id'=>$batch->id]) }}"><i class="far fa-trash-alt"></i> Delete</a>
+                                @endif
                             </div>
-                          </div>                          
+                          </div>
                       </td>
                     </tr>
-                    @endforeach            
+                    @endforeach
                 </tbody>
             </table>
         </div>
