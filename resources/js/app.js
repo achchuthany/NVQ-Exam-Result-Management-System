@@ -127,7 +127,7 @@ $('#course_id').change(function(event) {
     });
 });
 
-//TVEC EXAM Results 
+//TVEC EXAM Results
 $('#tvec_exam_results_add_batch').on('click', function(event) {
     event.preventDefault();
     var batch_id = event.target.dataset['batch'];

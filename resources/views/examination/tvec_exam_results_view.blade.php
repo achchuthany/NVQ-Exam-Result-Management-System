@@ -10,8 +10,15 @@
                     <h5 class="mb-0 font-weight-bolder">Module TVEC Examination Results </h5>
                 </div>
                 <div class="text-right col-auto">
+                    @if(Auth::user()->hasRole('Lecturer'))
                     <a type="button" class="btn btn-sm btn-outline-primary shadow-sm"
                        href="{{route('lecturer.tvec.exams')}}">Back</a>
+                    @else
+                    <a type="button" class="btn btn-sm btn-outline-primary shadow-sm"
+                       href="{{route('tvec.exams')}}">Back</a>
+                        <a type="button" class="btn btn-sm btn-primary shadow-sm"
+                           href="{{route('tvec.exams.results',['id'=>$tvecexam->id])}}">Edit</a>
+                    @endif
                 </div>
             </div>
         </div>

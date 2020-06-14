@@ -275,9 +275,13 @@ Route::group(['middleware' => ['auth']], function () {
         'uses' => 'TvecExamController@postTvecExamCreate',
         'as' => 'tvec.exams.create'
     ]);
-    Route::get('/tvec/exam/{id}/delete',[
+    Route::post('/tvec/exam/{id}/delete',[
         'uses'=>'TvecExamController@getDeleteTvecExam',
         'as'=>'tvec.exams.delete'
+    ]);
+    Route::get('/tvec/exam/{id}',[
+        'uses' => 'TvecExamResultController@getLecturerTvecExamsResult',
+        'as' => 'tvec.exams.results.view'
     ]);
     Route::get('/tvec/exam/{id}/results',[
         'uses' => 'TvecExamController@getTvecExamsResults',

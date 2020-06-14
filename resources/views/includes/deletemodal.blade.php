@@ -6,11 +6,11 @@
         <div class="display-1 text-weight-light text-danger">
 					<i class="far fa-times-circle"></i>
 				</div>
-				<p class="mx-5">ADo you really want to delete <b class="modaltitle"></b> records? This process cannot be undone.</p>
+				<p class="mx-5">Do you really want to delete <b class="modaltitle"></b> records? This process cannot be undone.</p>
         <div class="row mx-5 pb-3">
         <div class="col">
         <button type="button" class="btn btn-light btn-block " data-dismiss="modal">Cancel</button>
-        </div> 
+        </div>
         <div class="col">
         <button type="button" class="btn btn-danger btn-block btn-ok">Delete</button>
         </div>
@@ -28,11 +28,11 @@
         <div class="display-1 text-weight-light text-danger">
 					<i class="far fa-times-circle"></i>
 				</div>
-				<p class="mx-5">BDo you really want to delete <b class="modaltitle"></b> records? This process cannot be undone.</p>
+				<p class="mx-5">Do you really want to delete <b class="modaltitle"></b> records? This process cannot be undone.</p>
         <div class="row mx-5 pb-3">
         <div class="col">
         <button type="button" class="btn btn-light btn-block " data-dismiss="modal">Cancel</button>
-        </div> 
+        </div>
         <div class="col">
         <button type="button" class="btn btn-danger btn-block btn-delete">Delete</button>
         </div>

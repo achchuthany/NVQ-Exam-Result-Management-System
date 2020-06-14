@@ -105,14 +105,15 @@ class TvecExamController extends Controller
 
     public function getDeleteTvecExam($id)
     {
+        $message = $warning = null;
         $post = TvecExam::where('id', $id)->first();
         try {
             $result = $post->delete();
             $message = "Module Successfully Deleted!";
         } catch (QueryException  $e) {
-            $message = "Module was not Deleted, Try Again!";
+            $warning = "TVEC Exam was not Deleted, Try Again!";
         }
-        return redirect()->route('tvec.exams')->with(['message' => $message]);
+        return response()->json(['message' => $message,'warning' => $warning]);
     }
 
     public function getLecturerTvecExams()
