@@ -21,6 +21,7 @@ class AjaxRequestController extends Controller
         $students = Student::leftJoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
         ->select('student_id as id',"reg_no","title","fullname","shortname","gender","civil_status","email","nic","date_birth","phone","address","zip","district","divisional","province","blood","emergency_name","emergency_address","emergency_phone","emergency_relationship")
         ->where([['course_id',$batch->course_id],['academic_year_id',$batch->academic_year_id]])
+        ->orderBy('reg_no','asc')
         ->get();
         return response()->json(['students' => $students], 200);
 
