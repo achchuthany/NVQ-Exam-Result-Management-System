@@ -16,7 +16,7 @@
      @endif
 
 
-    <div class="container-md mb-5">
+    <div class="container-fluid mb-5 px-5">
        @include('includes.message')
        @include('includes.errors')
        @yield('content')
