@@ -55,6 +55,22 @@
                             </p>
                         </div>
                     </div>
+                    <div class="row mt-0 pt-0">
+                        <div class="col-6 mt-0 pt-0">
+                            <p>Permanent</p>
+                        </div>
+                        <div class="col-6 mt-0 pt-0">
+                            <p> {{$no_staff_permanent}} <span class="text-primary">({{($no_staff>0)? round(($no_staff_permanent/$no_staff)*100):0}}%)</span></p>
+                        </div>
+                    </div>
+                    <div class="row mt-0 pt-0">
+                        <div class="col-6 mt-0 pt-0">
+                            <p>On Contract</p>
+                        </div>
+                        <div class="col-6 mt-0 pt-0">
+                            <p> {{$no_staff-$no_staff_permanent}} <span class="text-info">({{($no_staff>0)? round((($no_staff-$no_staff_permanent)/$no_staff)*100):0}}%)</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card border-bottom border-success">
