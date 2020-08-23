@@ -12,14 +12,34 @@
                     <div class="row">
                         <div class="col-7">
                             <h5 class="card-title text-uppercase">Students</h5>
-                            <p class="card-text h2">1522</p>
+                            <p class="card-text h2">{{$no_students}}</p>
                         </div>
                         <div class="col-5">
                             <p class="display-4 text-primary">
                             <i class="fas fa-user-graduate" ></i>
                             </p>
+
+
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Completed </p>
+                        </div>
+                        <div class="col-6">
+                            <p> {{$no_students_completed}} <span class="text-success">({{($no_students>0)? round(($no_students_completed/$no_students)*100):0}}%)</span></p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-0 pt-0">
+                        <div class="col-6 mt-0 pt-0">
+                            <p>Dropout</p>
+                        </div>
+                        <div class="col-6 mt-0 pt-0">
+                            <p> {{$no_students_dropout}} <span class="text-danger">({{($no_students>0)? round(($no_students_dropout/$no_students)*100):0}}%)</span></p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="card border-bottom border-success">
@@ -27,7 +47,7 @@
                     <div class="row">
                         <div class="col-7">
                             <h5 class="card-title text-uppercase">Staffs</h5>
-                            <p class="card-text h2">1522</p>
+                            <p class="card-text h2">{{$no_staff}}</p>
                         </div>
                         <div class="col-5">
                             <p class="display-4 text-primary">

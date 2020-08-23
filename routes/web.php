@@ -42,9 +42,14 @@ Route::post('/signin', [
     'as' => 'signin'
 ]);
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', function () {
-        return view('welcome');
-    })->name('home');
+
+    //Admin Dashboard Data
+    Route::get('/home',[
+        'uses' => 'AdminDashboardController@getDashboard',
+        'as' => 'home',
+        'middleware' => 'roles',
+        'roles' => ['Admin']
+    ]);
 
     Route::get('/logout', [
         'uses' => 'UserController@getLogout',
