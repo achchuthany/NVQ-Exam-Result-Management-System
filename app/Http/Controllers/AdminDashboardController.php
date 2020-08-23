@@ -19,8 +19,8 @@ class AdminDashboardController extends Controller
         $no_students_completed = StudentEnroll::where(['status'=>'Completed'])->get()->count();
         $no_students_dropout = StudentEnroll::where(['status'=>'Droupout'])->get()->count();
 
-        $no_staff = Employee::get()->count();
-        $no_staff_permanent = Employee::where(['position_type'=>'Permanent'])->get()->count();
+        $no_staff = Employee::where(['status'=>'Working'])->get()->count();
+        $no_staff_permanent = Employee::where([['position_type','Permanent'],['status','Working']])->get()->count();
 
         $no_courses = Course::get()->count();
         $no_course_active = StudentEnroll::leftjoin('courses','courses.id','=','student_enrolls.course_id')
