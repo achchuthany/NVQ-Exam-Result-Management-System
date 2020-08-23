@@ -78,12 +78,28 @@
                     <div class="row">
                         <div class="col-7">
                             <h5 class="card-title text-uppercase">Courses</h5>
-                            <p class="card-text h2">1522</p>
+                            <p class="card-text h2">{{$no_courses}}</p>
                         </div>
                         <div class="col-5">
                             <p class="display-4 text-primary">
                             <i class="fas fa-graduation-cap" ></i>
                             </p>
+                        </div>
+                    </div>
+                    <div class="row mt-0 pt-0">
+                        <div class="col-6 mt-0 pt-0">
+                            <p>Active Courses</p>
+                        </div>
+                        <div class="col-6 mt-0 pt-0">
+                            <p> {{$no_course_active}} <span class="text-success">({{($no_courses>0)? round((($no_course_active)/$no_courses)*100):0}}%)</span></p>
+                        </div>
+                    </div>
+                    <div class="row mt-0 pt-0">
+                        <div class="col-6 mt-0 pt-0">
+                            <p>Inactive Courses</p>
+                        </div>
+                        <div class="col-6 mt-0 pt-0">
+                            <p> {{$no_courses-$no_course_active}} <span class="text-danger">({{($no_courses>0)? round((($no_courses-$no_course_active)/$no_courses)*100):0}}%)</span></p>
                         </div>
                     </div>
                 </div>
@@ -93,7 +109,7 @@
                     <div class="row">
                         <div class="col-7">
                             <h5 class="card-title text-uppercase">TVEC Exams</h5>
-                            <p class="card-text h2">1522</p>
+                            <p class="card-text h2">{{$no_tvec_exam}}</p>
                         </div>
                         <div class="col-5">
                             <p class="display-4 text-primary">
@@ -101,6 +117,24 @@
                             </p>
                         </div>
                     </div>
+                    <div class="row mt-0 pt-0">
+                        <div class="col-6 mt-0 pt-0">
+                            <p>Attempts</p>
+                        </div>
+                        <div class="col-6 mt-0 pt-0">
+                            <p> {{$no_tvec_exam_students->no_tvec_exam_students}} <span class="text-primary">({{($no_staff>0)? round(($no_staff_permanent/$no_staff)*100):0}}%)</span></p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-0 pt-0">
+                        <div class="col-6 mt-0 pt-0">
+                            <p>Pass</p>
+                        </div>
+                        <div class="col-6 mt-0 pt-0">
+                            <p> {{$no_tvec_exam_pass->no_tvec_exam_pass}} <span class="text-success">({{($no_staff>0)? round(($no_staff_permanent/$no_staff)*100):0}}%)</span></p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
