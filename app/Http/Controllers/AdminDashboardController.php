@@ -32,8 +32,23 @@ class AdminDashboardController extends Controller
 
         $no_tvec_exam_students = TvecExam::select(DB::raw('sum(number_students) as no_tvec_exam_students'))->first();
         $no_tvec_exam_pass = TvecExam::select(DB::raw('sum(number_pass) as no_tvec_exam_pass'))->first();
-        return view('dashboard',['no_tvec_exam_pass'=>$no_tvec_exam_pass,'no_tvec_exam_students' => $no_tvec_exam_students,'no_tvec_exam'=>$no_tvec_exam,'no_course_active'=>$no_course_active,'no_courses'=>$no_courses,'no_students'=>$no_students,'no_students_dropout'=>$no_students_dropout,'no_students_completed'=>$no_students_completed,'no_staff'=>$no_staff,'no_staff_permanent'=>$no_staff_permanent]);
-        return response()->json(['no_course_active'=>($no_tvec_exam_students),'no_staff'=>($no_staff)],200);
+
+
+        $no_students_course = StudentEnroll::select('academic_year_id','academic_years.name',
+            DB::raw('count(student_id) as number_students'))
+            ->leftjoin('academic_years','academic_years.id','=','student_enrolls.academic_year_id')
+            ->groupBy('academic_year_id')
+            ->groupBy('academic_years.name')
+            ->paginate(10);
+
+        $courses = array();
+        $academic_yers = array();
+        foreach ($no_students_course as $stu){
+            $courses[] =$stu->number_students;
+            $academic_yers [] = $stu->name;
+        }
+        return view('dashboard',['courses'=>json_encode($courses),'academic_yers'=>json_encode($academic_yers),'no_tvec_exam_pass'=>$no_tvec_exam_pass,'no_tvec_exam_students' => $no_tvec_exam_students,'no_tvec_exam'=>$no_tvec_exam,'no_course_active'=>$no_course_active,'no_courses'=>$no_courses,'no_students'=>$no_students,'no_students_dropout'=>$no_students_dropout,'no_students_completed'=>$no_students_completed,'no_staff'=>$no_staff,'no_staff_permanent'=>$no_staff_permanent]);
+        return response()->json(['$no_students_course'=>$no_students_course,'$courses'=>($courses),'$academic_yers'=>($academic_yers)],200);
 
     }
 }

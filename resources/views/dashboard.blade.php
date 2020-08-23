@@ -195,38 +195,31 @@
 @endsection
 @section('script')
     <script>
+        var JSONObject = JSON.parse('{{$academic_yers}}'.replace(/&quot;/g, '"'));
+        console.log(JSONObject);
+        var dynamicColors = function () {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgba(" + r + "," + g + "," + b + ",0.6)";
+        };
+        var coloR = [];
+        for (var i in JSONObject) {
+            coloR.push(dynamicColors());
+        }
+
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+                labels: JSONObject,
                 datasets: [{
-                    data: [86,114,106,106,107,111,133,221,783,1000],
-                    label: "Africa",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }, {
-                    data: [282,350,411,502,635,809,947,1402,1000,1000],
-                    label: "Asia",
-                    borderColor: "#8e5ea2",
-                    fill: false
-                }, {
-                    data: [168,170,178,190,203,276,408,547,675,734],
-                    label: "Europe",
-                    borderColor: "#3cba9f",
-                    fill: false
-                }, {
-                    data: [40,20,10,16,24,38,74,167,508,784],
-                    label: "Latin America",
-                    borderColor: "#e8c3b9",
-                    fill: false
-                }, {
-                    data: [6,3,2,2,7,26,82,172,312,433],
-                    label: "North America",
-                    borderColor: "#c45850",
-                    fill: false
-                }
-                ]
+                    label: "Number of Students vs Academic Year",
+                    data: {{$courses}},
+                    backgroundColor: coloR,
+                    borderColor: 'rgba(200, 200, 200, 0.75)',
+                    hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                }]
             },
             options: {
                 scales: {
