@@ -55,7 +55,7 @@ class TvecExamController extends Controller
             ->select('student_id as id', "reg_no", "shortname", "attempt", "result")
             ->distinct(['student_id', 'attempt'])
             ->where([['tvec_exam_id', $id]])
-            ->orderBy('student_id', 'asc')
+            ->orderBy('reg_no', 'asc')
             ->orderBy('attempt', 'desc')
             ->get();
         //return response()->json(['tvecexam'=>$tvecexam,'student'=>$batch],200);
