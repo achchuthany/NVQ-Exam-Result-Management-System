@@ -122,7 +122,7 @@
                             <p>Attempts</p>
                         </div>
                         <div class="col-6 mt-0 pt-0">
-                            <p> {{$no_tvec_exam_students->no_tvec_exam_students}} <span class="text-primary">({{($no_staff>0)? round(($no_staff_permanent/$no_staff)*100):0}}%)</span></p>
+                            <p> {{$no_tvec_exam_students->no_tvec_exam_students}} <span class="text-primary">({{($no_tvec_exam_students->no_tvec_exam_students>0)? round(($no_tvec_exam_students->no_tvec_exam_students/$no_tvec_exam_students->no_tvec_exam_students)*100):0}}%)</span></p>
                         </div>
                     </div>
 
@@ -131,7 +131,7 @@
                             <p>Pass</p>
                         </div>
                         <div class="col-6 mt-0 pt-0">
-                            <p> {{$no_tvec_exam_pass->no_tvec_exam_pass}} <span class="text-success">({{($no_staff>0)? round(($no_staff_permanent/$no_staff)*100):0}}%)</span></p>
+                            <p> {{$no_tvec_exam_pass->no_tvec_exam_pass}} <span class="text-success">({{($no_tvec_exam_students->no_tvec_exam_students>0)? round(($no_tvec_exam_pass->no_tvec_exam_pass/$no_tvec_exam_students->no_tvec_exam_students)*100):0}}%)</span></p>
                         </div>
                     </div>
 
