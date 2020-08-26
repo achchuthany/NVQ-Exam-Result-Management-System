@@ -25,7 +25,7 @@
             <th scope="col">Name</th>
             <th scope="col">NVQ Status</th>
             @foreach($exams as $exam)
-                <th scope="col" class="text-center text-primary">{{$exam->module_code}}<span>({{$exam->exam_type}})</span></th>
+                <th scope="col" class="text-center text-primary">{{$exam->module_code}}<span> ({{$exam->exam_type}})</span></th>
             @endforeach
         </tr>
         </thead>
