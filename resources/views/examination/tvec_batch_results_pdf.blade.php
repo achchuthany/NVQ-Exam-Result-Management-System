@@ -15,47 +15,43 @@
     <p class="text-center"><b>TVEC Academic Transcript</b></p>
     <p> <b>Course </b> {{$batch->course->name}} </p>
     <p> <b>Batch </b> {{$batch->name}} ({{$batch->academic_year->name}}) </p>
-    <table class="table">
+    <table class="table-sm">
         <thead class="thead-light">
         <tr>
             <th scope="col">Student ID</th>
             <th scope="col">Name</th>
             <th scope="col">NVQ Status</th>
             @foreach($exams as $exam)
-                <th scope="col">{{$exam->module_code}}({{$exam->exam_type}})</th>
+                <th scope="col">{{$exam->module_code}} <span> ({{$exam->exam_type}}) </span></th>
             @endforeach
         </tr>
         </thead>
-        <span hidden>{{$isPrint=null}} {{$isName=null}} {{$id=0}}</span>
         <tbody>
-        @foreach($results as $result)
-        @if($isName!=$result->student_id)
-        </tr>
-        <tr>
-            <th> {{$result->student->reg_no}} </th>
-            <td> {{$result->student->shortname}} </td>
-            <td>
-                        <span hidden>
-                            {{$pass = $students[$id]->tvec_exam_pass}}
-                            {{$total = $students[$id]->tvec_exam_modules}}
-                            {{$id++}}
-                        </span>
-                @if($pass==$total)
-                    <span class="text-success">{{round(($pass/$total)*100)}}%</span>
-                @endif
-                @if($pass!=$total)
-                    <span class="text-danger"> {{round(($pass/$total)*100)}}%</span>
-                @endif
-            </td>
-            @endif
-            @if(!($isPrint==$result->student_id.$result->module_code.$result->exam_type))
-                <span
-                    hidden>{{$isPrint =$result->student_id.$result->module_code.$result->exam_type }} {{$isName=$result->student_id}}</span>
+        <span hidden>{{$id=1}}</span>
+        @foreach($results as $index => $result_row)
+            <tr>
+                <th> {{$students[$index]->reg_no}} </th>
+                <td> {{$students[$index]->shortname}} </td>
+                <span hidden>
+                                        {{$pass = $students[$index]->tvec_exam_pass}}
+                    {{$total = $students[$index]->tvec_exam_modules}}
+                                </span>
                 <td>
-                    {{$exam_pass[$result->result]}} <sup><span
-                            class="{{ ($result->result == 'P') ? 'text-primary':'text-danger'}}">{{$result->attempt}}</span></sup>
+                    @if($pass==$total)
+                        <b class="text-primary">Pass</b>
+                    @endif
+                    @if($pass!=$total)
+                        <b class="text-danger">Fail</b>
+                    @endif
                 </td>
-        @endif
+                @foreach($result_row as $result)
+                    <td>
+                                        <b
+                                            class="{{ ($result->result == 'P') ? 'text-dark':'text-secondary'}}">{{$exam_pass[$result->result]}}</b>
+                        <sup>{{$result->attempt}}</sup>
+                    </td>
+                @endforeach
+            </tr>
         @endforeach
         </tbody>
     </table>

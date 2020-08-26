@@ -194,6 +194,7 @@
 
 @endsection
 @section('script')
+    @if($academic_yers)
     <script>
         var JSONObject = JSON.parse('{{$academic_yers}}'.replace(/&quot;/g, '"'));
         console.log(JSONObject);
@@ -240,6 +241,8 @@
             }
         });
     </script>
+    @endif
+    @if($departments)
     <script>
         var JSONObject2 = JSON.parse('{{$departments}}'.replace(/&quot;/g, '"'));
         console.log(JSONObject2);
@@ -279,6 +282,7 @@
             }
         });
     </script>
+    @endif
     <script>
         var ctx = document.getElementById('myChart3').getContext('2d');
         var myChart = new Chart(ctx, {
