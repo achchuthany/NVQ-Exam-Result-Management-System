@@ -29,6 +29,7 @@ class StudentController extends Controller
         $students = Student::leftJoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
                     ->select('student_id as id',"reg_no","title","fullname","shortname","gender","civil_status","email","nic","date_birth","phone","address","zip","district","divisional","province","blood","emergency_name","emergency_address","emergency_phone","emergency_relationship")
                     ->where([['course_id',$batch->course_id],['academic_year_id',$batch->academic_year_id]])
+                    ->orderBy('students.reg_no','asc')
                     ->paginate(30);
         return view('student.students',['students'=>$students]);
     }
@@ -36,6 +37,7 @@ class StudentController extends Controller
         $students = Student::leftJoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
                     ->select('student_id as id',"reg_no","title","fullname","shortname","gender","civil_status","email","nic","date_birth","phone","address","zip","district","divisional","province","blood","emergency_name","emergency_address","emergency_phone","emergency_relationship")
                     ->where('course_id',$id)
+                    ->orderBy('students.reg_no','asc')
                     ->paginate(30);
         return view('student.students',['students'=>$students]);
     }
@@ -44,6 +46,7 @@ class StudentController extends Controller
         $students = Student::leftJoin('student_enrolls', 'students.id', '=', 'student_enrolls.student_id')
                     ->select('student_id as id',"reg_no","title","fullname","shortname","gender","civil_status","email","nic","date_birth","phone","address","zip","district","divisional","province","blood","emergency_name","emergency_address","emergency_phone","emergency_relationship")
                     ->where('academic_year_id',$id)
+                    ->orderBy('students.reg_no','asc')
                     ->paginate(30);
         return view('student.students',['students'=>$students]);
     }
