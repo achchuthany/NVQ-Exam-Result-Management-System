@@ -175,18 +175,18 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-bottom border-success">
-                <div class="card-header">
-                    <h5 class="card-title">TVEC Exam Pass Rate</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <canvas id="myChart3" ></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--            <div class="card border-bottom border-success">--}}
+{{--                <div class="card-header">--}}
+{{--                    <h5 class="card-title">TVEC Exam Pass Rate</h5>--}}
+{{--                </div>--}}
+{{--                <div class="card-body">--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-12">--}}
+{{--                            <canvas id="myChart3" ></canvas>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
 </div>

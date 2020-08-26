@@ -57,30 +57,30 @@
             </div>
         </div>
          </form>
-    </div>
-    <div class="col-6">
-                 <form class=" my-2 my-lg-0" action="{{route('tvec.results.batch')}}" method="POST">
-        <div class="card mb-3 tborder-light mb-3">
-            <div class="card-header">
-                <h5 class="mb-0 font-weight-light">View Results by Student</h5>
-            </div>
-            <div class="card-body">
+{{--    </div>--}}
+{{--    <div class="col-6">--}}
+{{--                 <form class=" my-2 my-lg-0" action="{{route('tvec.results.batch')}}" method="POST">--}}
+{{--        <div class="card mb-3 tborder-light mb-3">--}}
+{{--            <div class="card-header">--}}
+{{--                <h5 class="mb-0 font-weight-light">View Results by Student</h5>--}}
+{{--            </div>--}}
+{{--            <div class="card-body">--}}
 
-                    <div class="form-group">
-                        <h6 class="card-title">Student</h6>
-                          <input type="text" class="form-control" placeholder="Search by Student ID E.g. 2020/ICT/5IT01" >
-                        <ul class="list-group list-group-flush mt-2">
-                          <li class="list-group-item d-flex justify-content-between align-items-center">
-                          Cras justo odio
-                          <span class="badge badge-primary badge-pill">14</span>
-                          </li>
-                         
-                        </ul>
-                    </div>
-            </div>
-        </div>
-         </form>
-    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <h6 class="card-title">Student</h6>--}}
+{{--                          <input type="text" class="form-control" placeholder="Search by Student ID E.g. 2020/ICT/5IT01" >--}}
+{{--                        <ul class="list-group list-group-flush mt-2">--}}
+{{--                          <li class="list-group-item d-flex justify-content-between align-items-center">--}}
+{{--                          Cras justo odio--}}
+{{--                          <span class="badge badge-primary badge-pill">14</span>--}}
+{{--                          </li>--}}
+{{--                         --}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--         </form>--}}
+{{--    </div>--}}
     </div>
 </div>
 

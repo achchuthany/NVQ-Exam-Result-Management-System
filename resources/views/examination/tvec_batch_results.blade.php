@@ -10,8 +10,8 @@
                     <h5 class="mb-0 font-weight-bolder">Batch Result of the Final TVEC Examination</h5>
                 </div>
                 <div class="text-right col-auto">
-                    <a type="button" class="btn btn-sm btn-outline-primary shadow-sm"
-                       href="{{route('tvec.exams.results.batch.pdf',['id'=>$batch->id])}}"><i class="fas fa-print"></i></a>
+                    <a type="button" class="btn btn-sm btn-primary shadow-sm"
+                       href="{{route('tvec.exams.results.batch.pdf',['id'=>$batch->id])}}"><i class="fas fa-file-pdf"></i> Download</a>
                     <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('tvec.exams')}}"><i
                             class="fas fa-chevron-circle-left"></i> Back</a>
                 </div>
