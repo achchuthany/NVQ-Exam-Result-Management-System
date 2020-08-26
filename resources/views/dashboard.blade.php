@@ -146,6 +146,18 @@
         <div class="card-deck">
             <div class="card border-bottom border-success">
                 <div class="card-header">
+                    <h5 class="card-title">Number of Staffs vs Departments</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <canvas id="myChart2" ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-bottom border-success">
+                <div class="card-header">
                     <h5 class="card-title">Number of Students vs Academic Years</h5>
                 </div>
                 <div class="card-body">
@@ -163,18 +175,6 @@
 <div class="row mt-3">
     <div class="col-md-12">
         <div class="card-deck">
-                <div class="card border-bottom border-success">
-                <div class="card-header">
-                    <h5 class="card-title">Number of Staffs vs Departments</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <canvas id="myChart2" ></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="card border-bottom border-success">
                 <div class="card-header">
                     <h5 class="card-title">Number of Students vs Districts</h5>
