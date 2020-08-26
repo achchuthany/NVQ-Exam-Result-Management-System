@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Employee;
+use App\Student;
 use App\StudentEnroll;
 use App\TvecExam;
 use Illuminate\Http\Request;
@@ -39,6 +40,7 @@ class AdminDashboardController extends Controller
             ->leftjoin('academic_years','academic_years.id','=','student_enrolls.academic_year_id')
             ->groupBy('academic_year_id')
             ->groupBy('academic_years.name')
+            ->orderBy('academic_years.name','asc')
             ->paginate(10);
 
         $courses = array();
@@ -52,6 +54,7 @@ class AdminDashboardController extends Controller
             ->leftjoin('departments','departments.id','=','employees.department_id')
             ->groupBy('department_id')
             ->groupBy('departments.code')
+            ->orderBy('departments.code','asc')
             ->get();
 
 
@@ -62,9 +65,19 @@ class AdminDashboardController extends Controller
             $departments[] = $stf->code;
             $no_staff_count[] = $stf->no_staff;
         }
+        $students = Student::select(DB::raw('count(students.id) as count'),'students.district')
+            ->groupBy('students.district')
+            ->orderBy('students.district','asc')
+            ->get();
 
-        return view('dashboard',['departments'=>json_encode($departments),'no_staff_count'=>json_encode($no_staff_count),'courses'=>json_encode($courses),'academic_yers'=>json_encode($academic_yers),'no_tvec_exam_pass'=>$no_tvec_exam_pass,'no_tvec_exam_students' => $no_tvec_exam_students,'no_tvec_exam'=>$no_tvec_exam,'no_course_active'=>$no_course_active,'no_courses'=>$no_courses,'no_students'=>$no_students,'no_students_dropout'=>$no_students_dropout,'no_students_completed'=>$no_students_completed,'no_staff'=>$no_staff,'no_staff_permanent'=>$no_staff_permanent]);
-        return response()->json(['$no_staff_dept'=>$departments,'$courses'=>($courses),'$academic_yers'=>($academic_yers)],200);
+        $districts = array();
+        $no_of_students_district = array();
+        foreach($students as $stu){
+            $districts[] = $stu->district;
+            $no_of_students_district[] = $stu->count;
+        }
+        return view('dashboard',['districts'=>json_encode($districts),'no_of_students_district'=>json_encode($no_of_students_district),'departments'=>json_encode($departments),'no_staff_count'=>json_encode($no_staff_count),'courses'=>json_encode($courses),'academic_yers'=>json_encode($academic_yers),'no_tvec_exam_pass'=>$no_tvec_exam_pass,'no_tvec_exam_students' => $no_tvec_exam_students,'no_tvec_exam'=>$no_tvec_exam,'no_course_active'=>$no_course_active,'no_courses'=>$no_courses,'no_students'=>$no_students,'no_students_dropout'=>$no_students_dropout,'no_students_completed'=>$no_students_completed,'no_staff'=>$no_staff,'no_staff_permanent'=>$no_staff_permanent]);
+        return response()->json(['$districts'=>$districts,'$no_of_students_district'=>($no_of_students_district),'$academic_yers'=>($academic_yers)],200);
 
     }
 }
