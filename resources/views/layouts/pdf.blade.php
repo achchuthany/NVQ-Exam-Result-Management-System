@@ -24,7 +24,9 @@
                 top: 0cm;
                 left: 0cm;
                 right: 0cm;
-                height: 1cm;
+                min-height: 10cm;
+                margin-left: 2cm;
+                margin-right: 2cm;
                 /* text-align: center; */
                 /* line-height: 1cm; */
             }
@@ -35,7 +37,7 @@
                 bottom: 0cm;
                 left: 0cm;
                 right: 0cm;
-                height: 3cm;
+                height: 1cm;
                 text-align: center;
                 /* line-height: 1cm; */
             }
