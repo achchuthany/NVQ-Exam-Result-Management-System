@@ -47,8 +47,24 @@ class AdminDashboardController extends Controller
             $courses[] =$stu->number_students;
             $academic_yers [] = $stu->name;
         }
-        return view('dashboard',['courses'=>json_encode($courses),'academic_yers'=>json_encode($academic_yers),'no_tvec_exam_pass'=>$no_tvec_exam_pass,'no_tvec_exam_students' => $no_tvec_exam_students,'no_tvec_exam'=>$no_tvec_exam,'no_course_active'=>$no_course_active,'no_courses'=>$no_courses,'no_students'=>$no_students,'no_students_dropout'=>$no_students_dropout,'no_students_completed'=>$no_students_completed,'no_staff'=>$no_staff,'no_staff_permanent'=>$no_staff_permanent]);
-        return response()->json(['$no_students_course'=>$no_students_course,'$courses'=>($courses),'$academic_yers'=>($academic_yers)],200);
+
+        $no_staff_dept = Employee::select(DB::raw('count(employees.id) as no_staff'),'departments.code')
+            ->leftjoin('departments','departments.id','=','employees.department_id')
+            ->groupBy('department_id')
+            ->groupBy('departments.code')
+            ->get();
+
+
+        $departments = array();
+        $no_staff_count = array();
+
+        foreach ($no_staff_dept as $stf){
+            $departments[] = $stf->code;
+            $no_staff_count[] = $stf->no_staff;
+        }
+
+        return view('dashboard',['departments'=>json_encode($departments),'no_staff_count'=>json_encode($no_staff_count),'courses'=>json_encode($courses),'academic_yers'=>json_encode($academic_yers),'no_tvec_exam_pass'=>$no_tvec_exam_pass,'no_tvec_exam_students' => $no_tvec_exam_students,'no_tvec_exam'=>$no_tvec_exam,'no_course_active'=>$no_course_active,'no_courses'=>$no_courses,'no_students'=>$no_students,'no_students_dropout'=>$no_students_dropout,'no_students_completed'=>$no_students_completed,'no_staff'=>$no_staff,'no_staff_permanent'=>$no_staff_permanent]);
+        return response()->json(['$no_staff_dept'=>$departments,'$courses'=>($courses),'$academic_yers'=>($academic_yers)],200);
 
     }
 }
