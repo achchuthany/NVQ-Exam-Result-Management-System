@@ -15,9 +15,10 @@
 @section('footer')
     <p>
         <small> This is a computer generated report and this will be not considered as an official document of Sri
-            Lanka - German Training Institute </small>
+            Lanka - German Training Institute </small></p>
 @endsection
 @section('content')
+    <br>
     <table class="table">
         <thead class="bg-light">
         <tr>
@@ -30,7 +31,6 @@
         </tr>
         </thead>
         <tbody>
-        <span hidden>{{$id=1}}</span>
         @foreach($results as $index => $result_row)
             <tr>
                 <th> {{$students[$index]->reg_no}} </th>
