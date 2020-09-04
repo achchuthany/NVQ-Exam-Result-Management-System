@@ -11,7 +11,7 @@
                 <h5 class="mb-0 font-weight-bolder">TVEC Examination Results Summary</h5>
             </div>
             <div class="text-right col-auto">
-                <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('tvec.exams.create')}}">New</a>
+{{--                <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('tvec.exams.create')}}">New</a>--}}
             </div>
         </div>
     </div>
