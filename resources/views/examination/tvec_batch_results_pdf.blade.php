@@ -1,7 +1,7 @@
 @extends('layouts.pdf')
 @section('header')
     <p class="text-center"><b>TVEC Academic Transcript</b></p>
-    <table class="table table-borderless">
+    <table class="table table-sm table-borderless">
         <tr>
             <td><b class="text-dark">Course </b></td>
             <td>{{$batch->course->name}} </td>
@@ -19,43 +19,43 @@
 @endsection
 @section('content')
     <br>
-    <table class="table">
-        <thead class="bg-light">
+    <table class="table table-sm table-striped table-borderless">
+        <thead class="bg-primary text-light">
         <tr>
-            <th scope="col">Student ID</th>
-            <th scope="col">Name</th>
-            <th scope="col" class="text-center">NVQ Status</th>
+            <th scope="col"><small>Student ID</small></th>
+            <th scope="col"><small>Name</small></th>
+            <th scope="col" class="text-center"><small>NVQ Status</small></th>
             @foreach($exams as $exam)
-                <th scope="col" class="text-center">{{$exam->module_code}}<span> ({{$exam->exam_type}})</span></th>
+                <th scope="col" class="text-center"><small>{{$exam->module_code}}<span> ({{$exam->exam_type}})</span></small></th>
             @endforeach
         </tr>
         </thead>
         <tbody>
         @foreach($results as $index => $result_row)
-            <tr>
-                <th> {{$students[$index]->reg_no}} </th>
-                <td class="text-left"> {{$students[$index]->shortname}} </td>
+            <tr class="border-bottom border-info">
+                <th><small> {{$students[$index]->reg_no}}</small> </th>
+                <td class="text-left"><small>{{$students[$index]->shortname}}</small></td>
                 <td class="text-center">
                     @if($students[$index]->tvec_exam_pass == $students[$index]->tvec_exam_modules)
-                        <small class="text-success">Pass</small>
+                        <small>Pass</small>
                     @else
                         <small class="text-danger">Fail</small>
                     @endif
                 </td>
                 @foreach($result_row as $result)
                     <td class="text-center">
-                                        <span
-                                            class="{{ ($result->result == 'P') ? 'text-success':'text-danger'}}">{{$result->result}}</span>
-                        <span class="text-light"> / {{$result->attempt}}</span>
+                                        <small
+                                            class="{{ ($result->result == 'P') ? 'text-dark':'text-danger'}}">{{$result->result}}</small>
+                        <small class="text-info"> / {{$result->attempt}}</small>
                     </td>
                 @endforeach
             </tr>
         @endforeach
         </tbody>
     </table>
-    <p class="text-center">
+    <p>
     @foreach ($exams as $exam)
-        <small> <b class="text-dark">{{$exam->module_code}}</b>:{{$exam->module_name}} ({{$exam_types[$exam->exam_type]}})</small>
+        <small><b class="text-dark">{{$exam->module_code}}</b> - {{$exam->module_name}} ({{$exam_types[$exam->exam_type]}})</small>
     @endforeach
     </p>
 @endsection

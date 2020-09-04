@@ -222,7 +222,7 @@ class TvecExamResultController extends Controller
         $pdf = PDF::loadView('examination.tvec_batch_results_pdf', ['students' => $students, 'exams' => $exams, 'results' => $results, 'exam_types' => $this->exam_types, 'batch' => $batch, 'exam_pass' => $this->exam_pass])->setPaper('a4', 'landscape');
         return $pdf->download('TVEC-Transcript-'.$batch->name ."-".$batch->course_id. '.pdf');
         //return response()->json(['students' => $students, 'results' => $results, 'exams' => $exams,], 200);
-        return view('examination.tvec_batch_results_pdf', ['students' => $students, 'exams' => $exams, 'results' => $results, 'exam_types' => $this->exam_types, 'batch' => $batch, 'exam_pass' => $this->exam_pass]);
+        //return view('examination.tvec_batch_results_pdf', ['students' => $students, 'exams' => $exams, 'results' => $results, 'exam_types' => $this->exam_types, 'batch' => $batch, 'exam_pass' => $this->exam_pass]);
 
     }
 
