@@ -11,26 +11,28 @@
                 </div>
                 <div class="text-right col-auto">
                     <a type="button" class="btn btn-sm btn-primary shadow-sm"
-                       href="{{route('tvec.exams.results.batch.pdf',['id'=>$batch->id])}}"><i class="fas fa-file-pdf"></i> Download</a>
-                    <a type="button" class="btn btn-sm btn-outline-primary shadow-sm" href="{{route('tvec.exams')}}"><i
-                            class="fas fa-chevron-circle-left"></i> Back</a>
+                       href="{{route('tvec.exams.results.batch.pass',['id'=>$batch->id])}}"><i class="fas fa-check-circle"></i> Passed Students</a>
+                    <a type="button" class="btn btn-sm btn-outline-primary shadow-sm"
+                       href="{{route('tvec.exams.results.batch.pdf',['id'=>$batch->id])}}"><i class="fas fa-file-pdf"></i> Export PDF</a>
+                    <a type="button" class="btn btn-sm btn-outline-dark shadow-sm" href="{{route('tvec.results')}}"><i
+                            class="fas fa-chevron-circle-left"></i> Back to Results</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-1">
                     <p class="font-weight-bolder">Course</p>
                 </div>
-                <div class="col">
+                <div class="col-11">
                     {{$batch->course->name}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-auto">
+                <div class="col-1">
                     <p class="font-weight-bolder">Batch</p>
                 </div>
-                <div class="col">
+                <div class="col-11">
                     {{$batch->name}} ({{$batch->academic_year->name}})
                 </div>
             </div>
@@ -98,9 +100,9 @@
         <div class="card-footer bg-white">
             <div class="row">
                 @foreach ($exams as $exam)
-                    <div class="col-md-4">
-                        {{$exam->module_code}} : {{$exam->module_name}}<span
-                            class="badge badge-light">{{$exam_types[$exam->exam_type]}}</span>
+                    <div class="col-auto">
+                       <span
+                           class="badge badge-dark"> {{$exam->module_code}} </span> {{$exam->module_name}} ({{$exam_types[$exam->exam_type]}})
                     </div>
                 @endforeach
             </div>

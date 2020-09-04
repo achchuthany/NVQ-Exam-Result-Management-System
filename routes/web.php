@@ -430,6 +430,12 @@ Route::group(['middleware' => ['auth']], function () {
         'middleware' => 'roles',
         'roles' =>['Admin','Head','Lecturer','MA']
     ]);
+    Route::get('/tvec/results/batch/{id}/pass',[
+        'uses' => 'TvecExamResultController@getTvecExamsResultsbyBatchPass',
+        'as' => 'tvec.exams.results.batch.pass',
+        'middleware' => 'roles',
+        'roles' =>['Admin','Head','Lecturer','MA']
+    ]);
     Route::post('/tvec/results/batch',[
         'uses' => 'TvecExamResultController@postTvecExamsResultsbyBatch',
         'as' => 'tvec.results.batch',
