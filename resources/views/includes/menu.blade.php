@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm  mb-2">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm  mb-2 sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">ERMS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
